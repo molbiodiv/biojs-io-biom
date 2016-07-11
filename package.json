@@ -1,0 +1,47 @@
+{
+  "name": "biojs-io-biom",
+  "description": "Parses biom files",
+  "version": "0.1.0",
+  "homepage": "https://github.com/iimog/biojs-io-biom",
+  "author": {
+    "name": "Markus J. Ankenbrand",
+    "email": "markus.ankenbrand@uni-wuerzburg.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iimog/biojs-io-biom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iimog/biojs-io-biom/issues"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+		"test": "gulp test",
+		"build": "gulp build",
+		"build-browser": "gulp build-browser",
+		"build-browser-min": "gulp build-browser-gzip",
+		"install": "gulp build",
+		"watch": "gulp watch",
+		"test-watch": "gulp test-watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+		"mkdirp": "^0.5.0",
+		"browserify": "6.x",
+		"gulp-jshint": "1.x",
+		"chai": "1.x",
+		"mocha": "1.x",
+		"gulp-mocha": "1.x",
+		"del": "^0.1.3",
+		"gulp": "^3.8.8",
+		"gulp-chmod": "^1.1.1",
+		"gulp-gzip": "^0.0.8",
+		"gulp-rename": "^1.2.0",
+		"gulp-streamify": "^0.0.5",
+		"gulp-uglify": "^1.0.1",
+		"gulp-util": "^3.0.1",
+		"vinyl-source-stream": "^1.0.0"
+  }, 
+  "keywords": ["biom","parser","community","expression","biojs"]
+}
