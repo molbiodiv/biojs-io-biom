@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+<body>
+<input type="file" id="input" onchange="handleFiles(this.files)">
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="base64js.js"></script>
+<script type="text/javascript">
+function ab2str(buf) {
+  return new TextDecoder('utf-8').decode(buf);
+}
+
+var fileContent;
+
+function handleFiles(files){
+	var reader = new FileReader();
+	reader.onload = function(c) {
+		fileContent = c.target.result;
+//		console.log(ab2str(toByteArray(fromByteArray(new Uint8Array(c.target.result)))));
+		$.ajax("http://localhost:8080/convert.php", {
+			type: "post",
+			success: function(data){console.log(ab2str(toByteArray(JSON.parse(data).content)))},
+			data: {"to": "json","content": fromByteArray(new Uint8Array(c.target.result))}}
+		);
+
+	};
+	reader.readAsArrayBuffer(files[0]);
+}
+</script>
+</body>
+</html>
