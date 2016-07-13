@@ -94,52 +94,117 @@ export class Biom {
 
     /**
      * Getter for id
-     * @returns {string} - a field that can be used to id a table (or null)
+     * @returns {string} - A field that can be used to id a table (or null)
      */
     get id(){
         return this._id;
     }
 
+    /**
+     * Getter for format
+     * @returns {string} - The name and version of the current biom format
+     */
     get format(){
         return this._format;
     }
 
+    /**
+     * Getter for format_url
+     * @returns {string} - A string with a static URL providing format details
+     */
     get format_url(){
         return this._format_url;
     }
 
+    /**
+     * Getter for type
+     * @returns {string} - Table type (a controlled vocabulary)
+     *                     Acceptable values:
+     *                       "OTU table"
+     *                       "Pathway table"
+     *                       "Function table"
+     *                       "Ortholog table"
+     *                       "Gene table"
+     *                       "Metabolite table"
+     *                       "Taxon table"
+     */
     get type(){
         return this._type;
     }
 
+    /**
+     * Getter for generated_by
+     * @returns {string} - Package and revision that built the table
+     */
     get generated_by(){
         return this._generated_by;
     }
 
+    /**
+     * Getter for date
+     * @returns {Date} - Date the table was built (ISO 8601 format)
+     */
     get date(){
         return this._date;
     }
 
+    /**
+     * Getter for rows
+     * @returns {Array} - An ORDERED list of obj describing the rows
+     */
     get rows(){
         return this._rows;
     }
 
+    /**
+     * Getter for columns
+     * @returns {Array} - An ORDERED list of obj describing the columns
+     */
     get columns(){
         return this._columns;
     }
 
+    /**
+     * Getter for matrix_type
+     * @returns {string} - Type of matrix data representation
+     *                     (a controlled vocabulary) Acceptable values:
+     *                       "sparse" : only non-zero values are specified
+     *                       "dense" : every element must be specified
+     */
     get matrix_type(){
         return this._matrix_type;
     }
 
+    /**
+     * Getter for matrix_element_type
+     * @returns {string} - Value type in matrix (a controlled vocabulary)
+     *                     Acceptable values:
+     *                       "int" : integer
+     *                       "float" : floating point
+     *                       "unicode" : unicode string
+     */
     get matrix_element_type(){
         return this._matrix_element_type;
     }
 
+    /**
+     * Getter for shape
+     * @returns {Array} - the number of rows and number of columns in data
+     */
     get shape(){
         return this._shape;
     }
 
+    /**
+     * Getter for data
+     * @returns {Array} - counts of observations by sample
+     *                   if matrix_type is "sparse", [[row, column, value],
+     *                                                 [row, column, value],
+     *                                                                  ...]
+     *                   if matrix_type is "dense", [[value, value, value, ...],
+     *                                               [value, value, value, ...],
+     *                                                                      ...]
+     */
     get data(){
         return this._data;
     }
