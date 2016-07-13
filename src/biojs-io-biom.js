@@ -7,6 +7,13 @@
  */
 
 export const VERSION = '0.1.0';
+export const DEFAULT_BIOM = {
+    id: null,
+    format: 'Biological Observation Matrix 1.0.0',
+    format_url: 'http://biom-format.org',
+    type: 'OTU table',
+    generated_by: `biojs-io-biom v${VERSION}`
+};
 
 /**
  @class Biom
@@ -14,10 +21,10 @@ export const VERSION = '0.1.0';
 export class Biom {
     constructor({
         id: _id = null,
-        format: _format = 'Biological Observation Matrix 1.0.0',
-        format_url: _format_url = 'http://biom-format.org',
-        type: _type = 'OTU table',
-        generated_by: _generated_by = `biojs-io-biom v${VERSION}`
+        format: _format = DEFAULT_BIOM.format,
+        format_url: _format_url = DEFAULT_BIOM.format_url,
+        type: _type = DEFAULT_BIOM.type,
+        generated_by: _generated_by = DEFAULT_BIOM.generated_by
     } = {}){
         this._id = _id;
         this._format = _format;
