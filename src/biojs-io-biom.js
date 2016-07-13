@@ -14,7 +14,20 @@ export const VERSION = '0.1.0';
 
 /**
  * Default Biom Object for empty initialization
- * @type {{id: null, format: string, format_url: string, type: string, generated_by: string, date: Date, rows: Array, columns: Array, matrix_type: string, matrix_element_type: string, shape: number[], data: Array}}
+ * @type {{
+ * id: null,
+ * format: string,
+ * format_url: string,
+ * type: string,
+ * generated_by: string,
+ * date: Date,
+ * rows: Array,
+ * columns: Array,
+ * matrix_type: string,
+ * matrix_element_type: string,
+ * shape: number[],
+ * data: Array
+ * }}
  */
 export const DEFAULT_BIOM = {
     id: null,
@@ -60,7 +73,8 @@ export class Biom {
         rows: _rows = DEFAULT_BIOM.rows,
         columns: _columns = DEFAULT_BIOM.columns,
         matrix_type: _matrix_type = DEFAULT_BIOM.matrix_type,
-        matrix_element_type: _matrix_element_type = DEFAULT_BIOM.matrix_element_type,
+        matrix_element_type:
+            _matrix_element_type = DEFAULT_BIOM.matrix_element_type,
         shape: _shape = DEFAULT_BIOM.shape,
         data: _data = DEFAULT_BIOM.data
     } = {}){
