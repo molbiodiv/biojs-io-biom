@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-export const VERSION = "0.1.0";
+export const VERSION = '0.1.0';
 
 /**
  @class Biom
@@ -14,12 +14,15 @@ export const VERSION = "0.1.0";
 export class Biom {
     constructor({
         id: _id = null,
-        format: _format = "Biological Observation Matrix 1.0.0",
-        format_url: _format_url = "http://biom-format.org",
-        type: _type = "OTU table",
+        format: _format = 'Biological Observation Matrix 1.0.0',
+        format_url: _format_url = 'http://biom-format.org',
+        type: _type = 'OTU table',
         generated_by: _generated_by = `biojs-io-biom v${VERSION}`
     } = {}){
         this._id = _id;
+        this._format = _format;
+        this._format_url = _format_url;
+        this._type = _type;
         this._generated_by = _generated_by;
     }
 
