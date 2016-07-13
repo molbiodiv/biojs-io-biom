@@ -20,9 +20,9 @@ chai.should();
 // requires your main app (specified in index.js)
 import {Biom} from '../src/biojs-io-biom';
 
-describe('biojs-io-biom module', function(){
-  describe('Biom object', function(){
-    it('should create an object', function(){
+describe('biojs-io-biom module', () => {
+  describe('Biom constructor should create an object', () => {
+    it('should create an object', () => {
       assert.equal(typeof new Biom(), "object");
     });
   });
