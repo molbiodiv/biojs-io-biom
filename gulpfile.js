@@ -14,6 +14,10 @@ var outputFile = "biom";
 // packages
 var gulp   = require('gulp');
 
+// es6 compilation
+var babel = require('gulp-babel');
+require('babel-core/register');
+
 // browser builds
 var browserify = require('browserify');
 var watchify = require('watchify')
@@ -40,9 +44,6 @@ var path = require('path');
 var join = path.join;
 var mkdirp = require('mkdirp');
 var del = require('del');
-
-// es6 compilation
-var babel = require('gulp-babel');
 
 // auto config
 var outputFileMin = join(buildDir,outputFile + ".min.js");
