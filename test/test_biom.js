@@ -21,9 +21,12 @@ chai.should();
 import {Biom} from '../src/biojs-io-biom';
 
 describe('biojs-io-biom module', () => {
-  describe('Biom constructor should create an object', () => {
+  describe('Biom constructor should create a biom object with default values', () => {
     it('should create an object', () => {
       assert.equal(typeof new Biom(), "object");
+    });
+    it('id should be null after empty initialization', () => {
+      assert.equal(new Biom().id, null);
     });
   });
 });

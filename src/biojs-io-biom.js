@@ -10,5 +10,11 @@
  @class Biom
  */
 export class Biom {
+    constructor(){
+        this._id = null;
+    }
 
+    get id(){
+        return this._id;
+    }
 }
