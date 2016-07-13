@@ -41,6 +41,9 @@ var join = path.join;
 var mkdirp = require('mkdirp');
 var del = require('del');
 
+// es6 compilation
+var babel = require('gulp-babel');
+
 // auto config
 var outputFileMin = join(buildDir,outputFile + ".min.js");
 var packageConfig = require('./package.json');
@@ -158,4 +161,10 @@ gulp.task('watch', function() {
       util.log("Refreshed:", message);
   });
   return rebundle();
+});
+
+gulp.task('babel', function () {
+  return gulp.src("src/biojs-io-biom.js")
+    .pipe(babel())
+    .pipe(gulp.dest("lib"));
 });
