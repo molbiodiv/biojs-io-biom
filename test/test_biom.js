@@ -44,4 +44,23 @@ describe('biojs-io-biom module', () => {
       assert.equal(biom.type, DEFAULT_BIOM.type);
     });
   });
+
+  describe('getter and setter for id should work', () => {
+    it('should set and get the id to string', () => {
+      let biom = new Biom();
+      biom.id = "NewID";
+      assert.equal(biom.id, "NewID");
+    });
+    it('should set and get the id to null', () => {
+      let biom = new Biom();
+      biom.id = null;
+      assert.equal(biom.id, null);
+    });
+    it('should throw an type error when trying to set id to something other than string or null', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.id = []}, TypeError);
+      assert.throws(() => {biom.id = 2}, TypeError);
+      assert.throws(() => {biom.id = {}}, TypeError);
+    });
+  });
 });
