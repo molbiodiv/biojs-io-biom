@@ -19,3 +19,5 @@ This paragraph [links to an article by PMID](http://www.ncbi.nlm.nih.gov/pubmed/
 Equations and formula can be included either inline ($$ 2+2=4 $$) or as display blocks:
 
 <div>\[ \sum_{i=0}^{\infty}\pi_i=\sum_{i=0}^{\infty}\rho^i\pi_0=\frac{\pi_0}{1-\rho}=1 \]</div>
+
+The Biological Observation Matrix format [1](https://doi.org/10.1186/2047-217X-1-7 "The Biological Observation Matrix (BIOM) format or: how I learned to stop worrying and love the ome-ome") is widely used for a variety of -omics data.
