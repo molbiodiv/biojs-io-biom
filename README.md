@@ -9,24 +9,24 @@
 Install the module with: `npm install biojs-io-biom`
 
 ```javascript
-var biom = require('biojs-io-biom');
-biom.hello("biojs"); // "hello biojs"
+var Biom = require('biojs-io-biom');
+biom = new Biom(); // "creates biom object"
 ```
 
 ## Documentation
 
-#### .hello(name)
+#### constructor(object)
 
-**Parameter**: `name`
-**Type**: `String`
-**Example**: `biojs`
+**Parameter**: `object`
+**Type**: `Object`
+**Example**: `{}`
 
-The 'hello' method is responsible for showing a name.
+The 'constructor' method is responsible for creating an object call via `new Biom()`.
 
 How to use this method
 
 ```javascript
-biom.hello('biojs'); // "hello biojs"
+biom = new Biom();
 ```
 
 ## Contributing
