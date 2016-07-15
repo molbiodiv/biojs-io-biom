@@ -101,6 +101,17 @@ export class Biom {
     }
 
     /**
+     * Setter for id
+     * @param id {string} - Update id to string or null
+     */
+    set id(id){
+        if(id !== null && typeof id !== "string"){
+            throw new TypeError("id must be string or null");
+        }
+        this._id = id;
+    }
+
+    /**
      * Getter for format
      * @returns {string} - The name and version of the current biom format
      */
