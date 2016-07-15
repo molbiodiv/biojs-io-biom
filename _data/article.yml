@@ -1,7 +1,7 @@
 # Note: to avoid repeating the same data multiple times,
 # identifiers (starting with "&") are referenced later (starting with "*")
 
-title: "Biom, a BioJS component for handling biom data"
+title: "Biom, a BioJS component for handling data in Biological Observation Matrix (BIOM) format"
 date: 2016-07-15T12:00:00Z
 doi: # e.g. 10.1234/example.1
 github: iimog/biojs-io-biom
