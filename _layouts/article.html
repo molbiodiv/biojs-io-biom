@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>{{ site.data.article.title }}</title>
+
+    <!-- web components -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.6.1/webcomponents.min.js"></script>
+    {% for import in site.imports %}<link rel="import" href="{{ import }}">{% endfor %}
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" media="screen" href="{{ site.theme }}screen.css" no-shim>
+    <link rel="stylesheet" media="print" href="{{ site.theme }}print.css" no-shim>
+
+    {% assign article = site.data.article %}
+    {% assign sections = site.sections | sort:"order" %}
+    {% assign figures = site.figures | sort:"order" %}
+
+    {% if article.doi %}<meta name="citation_doi" content="{{ article.doi }}">{% endif %}
+</head>
+
+<body>
+    <!-- article -->
+    <article is="research-article" itemscope itemtype="http://schema.org/ScholarlyArticle">
+        <!-- header -->
+        <header>
+            <!-- title -->
+            <meta itemprop="name" content="{{ article.title }}">
+
+            {% capture title %}# {{ article.title }}{% endcapture %}
+            {{ title | markdownify }}
+
+            <!-- data -->
+            {% if article.date %}
+              <div class="article-date">
+                  <time itemprop="datePublished"
+                      datetime="{{ article.date | date: '%Y-%m-%d' }}">{{ article.date | date: '%B %-d, %Y' }}</time>
+              </div>
+            {% endif %}
+
+            <div id="authors">
+              {% for author in article.authors %}
+                {% include author.html %}
+              {% endfor %}
+            </div>
+
+            <!-- header sections -->
+            {% for section in sections %}
+                {% if section.container == 'header' %}
+                    {% include section.html %}
+                {% endif %}
+            {% endfor %}
+        </header>
+
+        <!-- sections -->
+        {% for section in sections %}
+            {% unless section.container %}
+                {% include section.html %}
+            {% endunless %}
+        {% endfor %}
+
+        <!-- metadata -->
+        <footer>
+            {% if article.doi or article.github %}
+            <div id="links">
+                <h2>Links</h2>
+
+                <dl>
+                    {% if article.doi %}
+                        <dt>DOI</dt>
+                        <dd><a href="https://doi.org/{{ article.doi }}" itemprop="sameAs"
+                            data-doi="{{ article.doi }}">{{ article.doi }}</a></dd>
+                    {% endif %}
+
+                    {% if article.github %}
+                        <dt>Source</dt>
+                        <dd><a href="https://github.com/{{ article.github }}" rel="source"
+                            data-github="{{ article.github }}">{{ article.github }}</a></dd>
+                    {% endif %}
+                </dl>
+            </div>
+            {% endif %}
+
+            <!-- affiliations -->
+            {% if article.affiliations %}
+                <div id="affiliations">
+                    <h2>Affiliations</h2>
+                    {% for affiliation in article.affiliations %}
+                      {% include affiliation.html %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- contributions -->
+            {% if article.contributions %}
+                <div id="contributions">
+                    <h2>Contributions</h2>
+                    {% for contribution in article.contributions %}
+                      {% if contribution.contributors %}
+                        {% include contribution.html %}
+                      {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- corresponding author(s) -->
+            <div id="corresponding-author">
+                <h2>Corresponding Author</h2>
+
+                <div class="inline-list">
+                    {% for author in article.authors %}
+                        {% if author.email %}
+                            <span><a href="mailto:{{ author.email }}">{{ author.name }}</a></span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- funders -->
+            {% if article.funders %}
+                <div id="funding">
+                    <h2>Funding</h2>
+                    {% for funder in article.funders %}
+                        {% for award in funder.awards %}
+                          {% include award.html %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- footer sections -->
+            {% for section in sections %}
+                {% if section.container == 'footer' %}
+                    {% include section.html %}
+                {% endif %}
+            {% endfor %}
+
+            <!-- figures -->
+            {% if site.figures %}
+                <div id="figures">
+                    <h2>Figures</h2>
+                    {% for figure in figures %}
+                        <figure id="{{ figure.label | slugify }}">
+                            <figcaption>
+                                {% capture heading %}<a href="{{ site.baseurl }}{{ figure.url }}" class="figure-link">**{{ figure.label }}**</a>: {{ figure.title }}{% endcapture %}
+                                {{ heading | markdownify }}
+
+                                {{ figure.description | markdownify }}
+                            </figcaption>
+
+                            <div class="figure-wrap">
+                                {% if figure.image %}
+                                    <a href="{{ site.baseurl }}{{ figure.url }}" class="figure-link"><img src="{{ figure.image }}"></a>
+                                {% else %}
+                                    {{ figure.content | markdownify }}
+                                {% endif %}
+                            </div>
+                        </figure>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <!-- references -->
+            {% capture references %}{% include_relative references.md %}{% endcapture %}
+
+            {% if references %}
+                <div id="references">
+                    <h2>References</h2>
+                    {{ references | markdownify }}
+                </div>
+            {% endif %}
+        </footer>
+    </article>
+</body>
+</html>
