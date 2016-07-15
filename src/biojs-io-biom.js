@@ -78,7 +78,7 @@ export class Biom {
         shape: _shape = DEFAULT_BIOM.shape,
         data: _data = DEFAULT_BIOM.data
     } = {}){
-        this._id = _id;
+        this.id = _id;
         this._format = _format;
         this._format_url = _format_url;
         this._type = _type;
