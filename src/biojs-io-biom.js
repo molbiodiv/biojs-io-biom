@@ -48,7 +48,7 @@ export const DEFAULT_BIOM = {
  * Controlled vocabulary for the type field of biom objects
  * @type {string[]}
  */
-export const BIOM_TYPE_CV = [
+export const TYPE_CV = [
     'OTU table',
     'Pathway table',
     'Function table',
@@ -207,7 +207,7 @@ export class Biom {
             throw new TypeError('type must be string' +
                 ' (part of the controlled vocabulary)');
         }
-        if(BIOM_TYPE_CV.indexOf(type) === -1){
+        if(TYPE_CV.indexOf(type) === -1){
             throw new Error('type must be part of the controlled vocabulary');
         }
         this._type = type;
