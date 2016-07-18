@@ -105,8 +105,8 @@ export class Biom {
      * @param id {string} - A field that can be used to id a table (or null)
      */
     set id(id){
-        if(id !== null && typeof id !== "string"){
-            throw new TypeError("id must be string or null");
+        if(id !== null && typeof id !== 'string'){
+            throw new TypeError('id must be string or null');
         }
         this._id = id;
     }
@@ -124,8 +124,8 @@ export class Biom {
      * @param format {string} - The name and version of the current biom format
      */
     set format(format){
-        if(typeof format !== "string"){
-            throw new TypeError("format must be string");
+        if(typeof format !== 'string'){
+            throw new TypeError('format must be string');
         }
         this._format = format;
     }
