@@ -226,18 +226,18 @@ describe('biojs-io-biom module', () => {
     });
     it('should throw a type error when trying to set columns to something other than array', () => {
       let biom = new Biom();
-      assert.throws(() => {biom.columns = 'columns'}, TypeError);
-      assert.throws(() => {biom.columns = 47257}, TypeError);
-      assert.throws(() => {biom.columns = {}}, TypeError);
-      assert.throws(() => {biom.columns = null}, TypeError);
+      assert.throws(() => {biom.shape = 'columns'}, TypeError);
+      assert.throws(() => {biom.shape = 47257}, TypeError);
+      assert.throws(() => {biom.shape = {}}, TypeError);
+      assert.throws(() => {biom.shape = null}, TypeError);
     });
     it('should throw an error when trying to set shape to an array that contains something other than two non-negative integers', () => {
       let biom = new Biom();
-      assert.throws(() => {biom.columns = ['string','string']}, Error, /contain/);
-      assert.throws(() => {biom.columns = [1, 2, 3]}, Error, /contain/);
-      assert.throws(() => {biom.columns = [0]}, Error, /contain/);
-      assert.throws(() => {biom.columns = [-1, 1]}, Error, /contain/);
-      assert.throws(() => {biom.columns = [0.1, 2]}, Error, /contain/);
+      assert.throws(() => {biom.shape = ['string','string']}, Error, /contain/);
+      assert.throws(() => {biom.shape = [1, 2, 3]}, Error, /contain/);
+      assert.throws(() => {biom.shape = [0]}, Error, /contain/);
+      assert.throws(() => {biom.shape = [-1, 1]}, Error, /contain/);
+      assert.throws(() => {biom.shape = [0.1, 2]}, Error, /contain/);
     });
   });
 });
