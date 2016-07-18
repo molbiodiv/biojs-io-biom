@@ -315,6 +315,26 @@ export class Biom {
     }
 
     /**
+     * Setter for matrix_type
+     * @param matrix_type {string} - Type of matrix data representation
+     *                               (a controlled vocabulary) Acceptable values:
+     *                                 'sparse' : only non-zero values are specified
+     *                                 'dense' : every element must be specified
+     * @throws {TypeError} if matrix_type is not a string
+     * @throws {Error} if matrix_type is not in the controlled vocabulary
+     */
+    set matrix_type(matrix_type){
+        if(typeof matrix_type !== 'string'){
+            throw new TypeError('matrix_type must be string' +
+                ' (part of the controlled vocabulary: "dense" or "sparse")');
+        }
+        if(MATRIX_TYPE_CV.indexOf(matrix_type) === -1){
+            throw new Error('matrix_type must be part of the controlled vocabulary: "dense" or "sparse"');
+        }
+        this._matrix_type = matrix_type;
+    }
+
+    /**
      * Getter for matrix_element_type
      * @returns {string} - Value type in matrix (a controlled vocabulary)
      *                     Acceptable values:
