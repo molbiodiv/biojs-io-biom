@@ -47,8 +47,10 @@
     "gulp-streamify": "^0.0.5",
     "gulp-uglify": "^1.0.1",
     "gulp-util": "^3.0.1",
+    "isparta": "^4.0.0",
     "mkdirp": "^0.5.0",
     "mocha": "1.x",
+    "run-sequence": "^1.2.2",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^3.7.0"
   },

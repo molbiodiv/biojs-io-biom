@@ -28,6 +28,8 @@ var uglify = require('gulp-uglify');
 var mocha = require('gulp-mocha');
 // coverage
 var istanbul = require('gulp-istanbul');
+var isparta = require('isparta');
+var runSequence = require('run-sequence');
 
 // code style 
 var jshint = require('gulp-jshint'); 
@@ -65,12 +67,10 @@ gulp.task('lint', function() {
 
 
 
-gulp.task('test', ['pre-test', 'test-unit']);
-
-gulp.task('pre-test', function () {
+gulp.task('coverage:instrument', function () {
   return gulp.src(['src/**/*.js'])
     // Covering files
-    .pipe(istanbul())
+    .pipe(istanbul({instrumenter: isparta.Instrumenter}))
     // Force `require` to return covered files
     .pipe(istanbul.hookRequire());
 });
@@ -81,10 +81,19 @@ gulp.task('test-unit', function () {
 
         .pipe(mocha({reporter: 'spec',
                     useColors: true}))
-        // Creating the reports after tests ran
-        .pipe(istanbul.writeReports());
 });
 
+gulp.task('coverage:report', function(done) {
+  return gulp.src(['src/**/*.js'], {read: false})
+      .pipe(istanbul.writeReports({
+        // Istanbul configuration (see https://github.com/SBoudrias/gulp-istanbul#istanbulwritereportsopt)
+        // ...
+      }));
+});
+
+gulp.task('test', function(done) {
+  runSequence('coverage:instrument', 'test-unit', 'coverage:report', done);
+});
 
 
 gulp.task('test-watch', function() {
