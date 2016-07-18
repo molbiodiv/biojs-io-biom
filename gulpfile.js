@@ -25,8 +25,9 @@ var uglify = require('gulp-uglify');
 
 
 // testing
-var mocha = require('gulp-mocha'); 
-
+var mocha = require('gulp-mocha');
+// coverage
+var istanbul = require('gulp-istanbul');
 
 // code style 
 var jshint = require('gulp-jshint'); 
@@ -64,15 +65,24 @@ gulp.task('lint', function() {
 
 
 
-gulp.task('test', ['test-unit']);
+gulp.task('test', ['pre-test', 'test-unit']);
 
+gulp.task('pre-test', function () {
+  return gulp.src(['src/**/*.js'])
+    // Covering files
+    .pipe(istanbul())
+    // Force `require` to return covered files
+    .pipe(istanbul.hookRequire());
+});
 
 gulp.task('test-unit', function () {
 
     return gulp.src('./test/**/*.js', {read: false})
 
         .pipe(mocha({reporter: 'spec',
-                    useColors: true}));
+                    useColors: true}))
+        // Creating the reports after tests ran
+        .pipe(istanbul.writeReports());
 });
 
 
