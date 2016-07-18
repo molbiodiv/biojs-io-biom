@@ -183,6 +183,31 @@ export class Biom {
     }
 
     /**
+     * Setter for type
+     * @param type {string} - Table type (a controlled vocabulary)
+     *                        Acceptable values:
+     *                          'OTU table'
+     *                          'Pathway table'
+     *                          'Function table'
+     *                          'Ortholog table'
+     *                          'Gene table'
+     *                          'Metabolite table'
+     *                          'Taxon table'
+     * @throws {TypeError} if type is not a string
+     * @throws {Error} if type is not in the controlled vocabulary
+     */
+    set type(type){
+        if(typeof type !== 'string'){
+            throw new TypeError('type must be string' +
+                ' (part of the controlled vocabulary)');
+        }
+        if(BIOM_TYPE_CV.indexOf(type) === -1){
+            throw new Error('type must be part of the controlled vocabulary')
+        }
+        this._type = type;
+    }
+
+    /**
      * Getter for generated_by
      * @returns {string} - Package and revision that built the table
      */
