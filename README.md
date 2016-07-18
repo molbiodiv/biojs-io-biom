@@ -1,7 +1,10 @@
 # biojs-io-biom
 
-[![NPM version](http://img.shields.io/npm/v/biojs-io-biom.svg)](https://www.npmjs.org/package/biojs-io-biom) 
-[![Build Status](https://secure.travis-ci.org/iimog/biojs-io-biom.png?branch=master)](http://travis-ci.org/iimog/biojs-io-biom) 
+[![NPM version](http://img.shields.io/npm/v/biojs-io-biom.svg)](https://www.npmjs.org/package/biojs-io-biom)
+[![Build Status](https://secure.travis-ci.org/iimog/biojs-io-biom.png?branch=master)](http://travis-ci.org/iimog/biojs-io-biom)
+[![Coverage Status](https://coveralls.io/repos/github/iimog/biojs-io-biom/badge.svg?branch=master)](https://coveralls.io/github/iimog/biojs-io-biom?branch=master)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
+[![Software DOI](https://zenodo.org/badge/latestdoi/12731/iimog/biojs-io-biom)](https://zenodo.org/badge/12731/iimog/biojs-io-biom.svg)
 
 > Parses biom files
 
