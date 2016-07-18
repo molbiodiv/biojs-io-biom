@@ -263,6 +263,18 @@ export class Biom {
     }
 
     /**
+     * Setter for rows
+     * @param rows {Array} - An ORDERED list of obj describing the rows
+     * @throws {TypeError} if date is not an Array
+     */
+    set rows(rows){
+        if(Object.prototype.toString.call(rows) !== '[object Array]'){
+            throw new TypeError('rows must be an Array');
+        }
+        this._rows = rows;
+    }
+
+    /**
      * Getter for columns
      * @returns {Array} - An ORDERED list of obj describing the columns
      */
