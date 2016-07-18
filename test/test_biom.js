@@ -240,4 +240,19 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.shape = [0.1, 2]}, Error, /contain/);
     });
   });
+
+  describe('getter and setter for data should work', () => {
+    it('should set and get the data to array', () => {
+      let biom = new Biom();
+      biom.data = [[1,1,12]];
+      assert.equal(biom.data[0][2], 12);
+    });
+    it('should throw a type error when trying to set data to something other than array', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.data = 'data'}, TypeError);
+      assert.throws(() => {biom.data = 47257}, TypeError);
+      assert.throws(() => {biom.data = {}}, TypeError);
+      assert.throws(() => {biom.data = null}, TypeError);
+    });
+  });
 });
