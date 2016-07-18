@@ -157,4 +157,19 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.rows = null}, TypeError);
     });
   });
+
+  describe('getter and setter for columns should work', () => {
+    it('should set and get the columns to array', () => {
+      let biom = new Biom();
+      biom.columns = [{id: 'col1', metadata: null}];
+      assert.equal(biom.columns[0].id, 'col1');
+    });
+    it('should throw a type error when trying to set columns to something other than array', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.columns = 'columns'}, TypeError);
+      assert.throws(() => {biom.columns = 47257}, TypeError);
+      assert.throws(() => {biom.columns = {}}, TypeError);
+      assert.throws(() => {biom.columns = null}, TypeError);
+    });
+  });
 });
