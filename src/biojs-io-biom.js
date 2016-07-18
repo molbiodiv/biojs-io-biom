@@ -56,7 +56,7 @@ export const BIOM_TYPE_CV = [
     'Gene table',
     'Metabolite table',
     'Taxon table'
-]
+];
 
 /**
  * @class Biom
@@ -154,12 +154,14 @@ export class Biom {
 
     /**
      * Setter for format_url
-     * @param format_url {string} - A string with a static URL providing format details
-     *                              (it is not checked wether the string is an url or not)
+     * @param format_url {string} - A string with a static URL
+     *                              providing format details
+     *                              (not checked whether the string is an url)
      */
     set format_url(format_url){
         if(typeof format_url !== 'string'){
-            throw new TypeError('format_url must be string (representing a static URL)');
+            throw new TypeError('format_url must be string' +
+                ' (representing a static URL)');
         }
         this._format_url = format_url;
     }
