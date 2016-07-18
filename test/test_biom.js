@@ -103,13 +103,28 @@ describe('biojs-io-biom module', () => {
     it('should throw a type error when trying to set type to something other than string', () => {
       let biom = new Biom();
       assert.throws(() => {biom.type = []}, TypeError);
-      assert.throws(() => {biom.type = 27}, TypeError);
+      assert.throws(() => {biom.type = 99}, TypeError);
       assert.throws(() => {biom.type = {}}, TypeError);
       assert.throws(() => {biom.type = null}, TypeError);
     });
     it('should throw an error when trying to set type to a string that is not in the controlled vocabulary', () => {
       let biom = new Biom();
       assert.throws(() => {biom.type = 'Some value that is not in the CV'}, Error, /controlled vocabulary/);
+    });
+  });
+
+  describe('getter and setter for generated_by should work', () => {
+    it('should set and get the generated_by to string', () => {
+      let biom = new Biom();
+      biom.generated_by = "New Generator version 1.0";
+      assert.equal(biom.generated_by, "New Generator version 1.0");
+    });
+    it('should throw a type error when trying to set generated_by to something other than string', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.generated_by = []}, TypeError);
+      assert.throws(() => {biom.generated_by = 123}, TypeError);
+      assert.throws(() => {biom.generated_by = {}}, TypeError);
+      assert.throws(() => {biom.generated_by = null}, TypeError);
     });
   });
 });
