@@ -447,4 +447,26 @@ export class Biom {
         }
         this._data = data;
     }
+
+    /**
+     * Getter for comment
+     * @returns {string} - A free text field containing any information that you
+     *                     feel is relevant (or just feel like sharing)
+     */
+    get comment(){
+        return this._comment;
+    }
+
+    /**
+     * Setter for comment
+     * @param comment {string} - A free text field containing any information that
+     *                           you feel is relevant (or just feel like sharing)
+     * @throws {TypeError} if comment is not a string (or null)
+     */
+    set comment(comment){
+        if(comment !== null && typeof comment !== 'string'){
+            throw new TypeError('comment must be string or null');
+        }
+        this._comment = comment;
+    }
 }
