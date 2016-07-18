@@ -235,10 +235,23 @@ export class Biom {
 
     /**
      * Getter for date
-     * @returns {Date} - Date the table was built (ISO 8601 format)
+     * @returns {string} - Date the table was built (ISO 8601 format)
      */
     get date(){
         return this._date;
+    }
+
+    /**
+     * Setter for date
+     * @param date {string} - Date the table was built (ISO 8601 format)
+     *                       (not checked whether the string is a date)
+     * @throws {TypeError} if date is not a string
+     */
+    set date(date){
+        if(typeof date !== 'string'){
+            throw new TypeError('date must be string (ISO 8601 format)');
+        }
+        this._date = date;
     }
 
     /**
