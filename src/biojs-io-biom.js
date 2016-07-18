@@ -425,4 +425,22 @@ export class Biom {
     get data(){
         return this._data;
     }
+
+    /**
+     * Setter for data
+     * @param data {Array} - counts of observations by sample
+     *                   if matrix_type is 'sparse', [[row, column, value],
+     *                                                 [row, column, value],
+     *                                                                  ...]
+     *                   if matrix_type is 'dense', [[value, value, value, ...],
+     *                                               [value, value, value, ...],
+     *                                                                      ...]
+     * @throws {TypeError} if date is not an Array
+     */
+    set data(data){
+        if(Object.prototype.toString.call(data) !== '[object Array]'){
+            throw new TypeError('data must be an Array');
+        }
+        this._data = data;
+    }
 }
