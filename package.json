@@ -39,6 +39,7 @@
     "gulp": "^3.8.8",
     "gulp-babel": "^6.1.2",
     "gulp-chmod": "^1.1.1",
+    "gulp-coveralls": "^0.1.4",
     "gulp-gzip": "^0.0.8",
     "gulp-istanbul": "^1.0.0",
     "gulp-jshint": "1.x",
