@@ -205,7 +205,7 @@ export class Biom {
                 ' (part of the controlled vocabulary)');
         }
         if(BIOM_TYPE_CV.indexOf(type) === -1){
-            throw new Error('type must be part of the controlled vocabulary')
+            throw new Error('type must be part of the controlled vocabulary');
         }
         this._type = type;
     }
