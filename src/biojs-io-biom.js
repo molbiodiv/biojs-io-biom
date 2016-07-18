@@ -400,6 +400,12 @@ export class Biom {
         if(Object.prototype.toString.call(shape) !== '[object Array]'){
             throw new TypeError('shape must be an Array containing exactly two non-negative integers');
         }
+        if(shape.length !== 2){
+            throw new Error('shape does not contain exactly two elements');
+        }
+        if(!Number.isInteger(shape[0]) || shape[0] < 0 || !Number.isInteger(shape[1]) || shape[1] < 0){
+            throw new Error('shape does not contain non-negative integers');
+        }
         this._shape = shape;
     }
 
