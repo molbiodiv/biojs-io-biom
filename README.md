@@ -73,6 +73,14 @@ biom.id = "New ID";
 //biom.id = 17;
 ```
 
+## Changes
+
+### v0.1.0
+ - Initial release
+ - Constructor
+ - Getter/Setter for specified fields
+ - Basic type checking in setters
+
 ## Contributing
 
 All contributions are welcome.
