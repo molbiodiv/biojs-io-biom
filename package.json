@@ -40,6 +40,7 @@
     "gulp-babel": "^6.1.2",
     "gulp-chmod": "^1.1.1",
     "gulp-gzip": "^0.0.8",
+    "gulp-istanbul": "^1.0.0",
     "gulp-jshint": "1.x",
     "gulp-mocha": "1.x",
     "gulp-rename": "^1.2.0",
