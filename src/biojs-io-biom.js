@@ -117,6 +117,7 @@ export class Biom {
     /**
      * Setter for id
      * @param id {string} - A field that can be used to id a table (or null)
+     * @throws {TypeError} if id is not a string (or null)
      */
     set id(id){
         if(id !== null && typeof id !== 'string'){
@@ -136,6 +137,7 @@ export class Biom {
     /**
      * Setter for format
      * @param format {string} - The name and version of the current biom format
+     * @throws {TypeError} if format is not a string
      */
     set format(format){
         if(typeof format !== 'string'){
@@ -157,6 +159,7 @@ export class Biom {
      * @param format_url {string} - A string with a static URL
      *                              providing format details
      *                              (not checked whether the string is an url)
+     * @throws {TypeError} if format_url is not a string
      */
     set format_url(format_url){
         if(typeof format_url !== 'string'){
