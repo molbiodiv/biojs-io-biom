@@ -278,8 +278,20 @@ export class Biom {
      * Getter for columns
      * @returns {Array} - An ORDERED list of obj describing the columns
      */
-    get columns(){
+    get columns() {
         return this._columns;
+    }
+
+    /**
+     * Setter for columns
+     * @param columns {Array} - An ORDERED list of obj describing the columns
+     * @thcolumns {TypeError} if date is not an Array
+     */
+    set columns(columns){
+        if(Object.prototype.toString.call(columns) !== '[object Array]'){
+            throw new TypeError('columns must be an Array');
+        }
+        this._columns = columns;
     }
 
     /**
