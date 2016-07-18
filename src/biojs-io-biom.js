@@ -41,7 +41,8 @@ export const DEFAULT_BIOM = {
     matrix_type: 'sparse',
     matrix_element_type: 'float',
     shape: [0,0],
-    data: []
+    data: [],
+    comment: null
 };
 
 /**
@@ -95,6 +96,7 @@ export class Biom {
      * @param _matrix_element_type
      * @param _shape
      * @param _data
+     * @param _comment
      */
     constructor({
         id: _id = null,
@@ -109,7 +111,8 @@ export class Biom {
         matrix_element_type:
             _matrix_element_type = DEFAULT_BIOM.matrix_element_type,
         shape: _shape = DEFAULT_BIOM.shape,
-        data: _data = DEFAULT_BIOM.data
+        data: _data = DEFAULT_BIOM.data,
+        comment: _comment = DEFAULT_BIOM.comment
     } = {}){
         this.id = _id;
         this._format = _format;
@@ -126,6 +129,7 @@ export class Biom {
         this._matrix_element_type = _matrix_element_type;
         this._shape = _shape;
         this._data = _data;
+        this._comment = _comment;
     }
 
     /**

@@ -42,6 +42,7 @@ describe('biojs-io-biom module', () => {
       assert.equal(biom.rows, DEFAULT_BIOM.rows);
       assert.equal(biom.shape, DEFAULT_BIOM.shape);
       assert.equal(biom.type, DEFAULT_BIOM.type);
+      assert.equal(biom.comment, DEFAULT_BIOM.comment);
     });
   });
 
