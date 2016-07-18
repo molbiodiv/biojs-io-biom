@@ -172,4 +172,25 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.columns = null}, TypeError);
     });
   });
+
+  describe('getter and setter for matrix_type should work', () => {
+    it('should set and get the matrix_type to dense and sparse', () => {
+      let biom = new Biom();
+      biom.matrix_type = 'dense';
+      assert.equal(biom.matrix_type, 'dense');
+      biom.matrix_type = 'sparse';
+      assert.equal(biom.matrix_type, 'sparse');
+    });
+    it('should throw a type error when trying to set matrix_type to something other than string', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.matrix_type = []}, TypeError);
+      assert.throws(() => {biom.matrix_type = 99}, TypeError);
+      assert.throws(() => {biom.matrix_type = {}}, TypeError);
+      assert.throws(() => {biom.matrix_type = null}, TypeError);
+    });
+    it('should throw an error when trying to set matrix_type to a string that is not in the controlled vocabulary', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.matrix_type = 'Some value that is not in the CV'}, Error, /controlled vocabulary/);
+    });
+  });
 });
