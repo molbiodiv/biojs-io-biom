@@ -127,4 +127,19 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.generated_by = null}, TypeError);
     });
   });
+
+  describe('getter and setter for date should work', () => {
+    it('should set and get the date to string', () => {
+      let biom = new Biom();
+      biom.date = new Date(12345).toISOString();
+      assert.equal(biom.date, '1970-01-01T00:00:12.345Z');
+    });
+    it('should throw a type error when trying to set date to something other than string', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.date = []}, TypeError);
+      assert.throws(() => {biom.date = 153}, TypeError);
+      assert.throws(() => {biom.date = {}}, TypeError);
+      assert.throws(() => {biom.date = null}, TypeError);
+    });
+  });
 });
