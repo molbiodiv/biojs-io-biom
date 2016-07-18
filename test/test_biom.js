@@ -73,9 +73,24 @@ describe('biojs-io-biom module', () => {
     it('should throw a type error when trying to set format to something other than string', () => {
       let biom = new Biom();
       assert.throws(() => {biom.format = []}, TypeError);
-      assert.throws(() => {biom.format = 2}, TypeError);
+      assert.throws(() => {biom.format = 52}, TypeError);
       assert.throws(() => {biom.format = {}}, TypeError);
       assert.throws(() => {biom.format = null}, TypeError);
+    });
+  });
+
+  describe('getter and setter for format_url should work', () => {
+    it('should set and get the format_url to string', () => {
+      let biom = new Biom();
+      biom.format_url = "http://newformat.url";
+      assert.equal(biom.format_url, "http://newformat.url");
+    });
+    it('should throw a type error when trying to set format_url to something other than string', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.format_url = []}, TypeError);
+      assert.throws(() => {biom.format_url = 27}, TypeError);
+      assert.throws(() => {biom.format_url = {}}, TypeError);
+      assert.throws(() => {biom.format_url = null}, TypeError);
     });
   });
 });
