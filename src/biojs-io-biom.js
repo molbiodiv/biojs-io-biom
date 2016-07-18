@@ -359,6 +359,30 @@ export class Biom {
     }
 
     /**
+     * Setter for matrix_element_type
+     * @param matrix_element_type {string} - Value type in matrix
+     *                               (a controlled vocabulary)
+     *                               Acceptable values:
+     *                                 'int' : integer
+     *                                 'float' : floating point
+     *                                 'unicode' : unicode string
+     * @throws {TypeError} if matrix_element_type is not a string
+     * @throws {Error} if matrix_element_type is not in controlled vocabulary
+     */
+    set matrix_element_type(matrix_element_type){
+        if(typeof matrix_element_type !== 'string'){
+            throw new TypeError('matrix_element_type must be string' +
+                ' (part of the controlled vocabulary:' +
+                ' "int", "float" or "unicode")');
+        }
+        if(MATRIX_ELEMENT_TYPE_CV.indexOf(matrix_element_type) === -1){
+            throw new Error('matrix_element_type must be part of the' +
+                ' controlled vocabulary: "int", "float" or "unicode"');
+        }
+        this._matrix_element_type = matrix_element_type;
+    }
+
+    /**
      * Getter for shape
      * @returns {Array} - the number of rows and number of columns in data
      */
