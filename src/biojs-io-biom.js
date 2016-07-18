@@ -394,16 +394,19 @@ export class Biom {
      * Setter for shape
      * @param shape {Array} - the number of rows and number of columns in data
      * @throws {TypeError} if shape is not an Array
-     * @throws {Error} if shape contains something other than two non-negative integers
+     * @throws {Error} if shape contains something other than
+     *                 two non-negative integers
      */
     set shape(shape){
         if(Object.prototype.toString.call(shape) !== '[object Array]'){
-            throw new TypeError('shape must be an Array containing exactly two non-negative integers');
+            throw new TypeError('shape must be an Array containing' +
+                ' exactly two non-negative integers');
         }
         if(shape.length !== 2){
             throw new Error('shape does not contain exactly two elements');
         }
-        if(!Number.isInteger(shape[0]) || shape[0] < 0 || !Number.isInteger(shape[1]) || shape[1] < 0){
+        if(!Number.isInteger(shape[0]) ||
+            shape[0] < 0 || !Number.isInteger(shape[1]) || shape[1] < 0){
             throw new Error('shape does not contain non-negative integers');
         }
         this._shape = shape;
