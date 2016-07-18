@@ -59,6 +59,15 @@ export const TYPE_CV = [
 ];
 
 /**
+ * Controlled vocabulary for the matrix_type field of biom objects
+ * @type {string[]}
+ */
+export const MATRIX_TYPE_CV = [
+    'sparse', // only non-zero values are specified
+    'dense'   // every element must be specified
+];
+
+/**
  * @class Biom
  */
 export class Biom {
