@@ -193,4 +193,27 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.matrix_type = 'Some value that is not in the CV'}, Error, /controlled vocabulary/);
     });
   });
+
+  describe('getter and setter for matrix_element_type should work', () => {
+    it('should set and get the matrix_element_type to int, float and unicode', () => {
+      let biom = new Biom();
+      biom.matrix_element_type = 'int';
+      assert.equal(biom.matrix_element_type, 'int');
+      biom.matrix_element_type = 'float';
+      assert.equal(biom.matrix_element_type, 'float');
+      biom.matrix_element_type = 'unicode';
+      assert.equal(biom.matrix_element_type, 'unicode');
+    });
+    it('should throw a type error when trying to set matrix_element_type to something other than string', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.matrix_element_type = []}, TypeError);
+      assert.throws(() => {biom.matrix_element_type = 9659}, TypeError);
+      assert.throws(() => {biom.matrix_element_type = {}}, TypeError);
+      assert.throws(() => {biom.matrix_element_type = null}, TypeError);
+    });
+    it('should throw an error when trying to set matrix_element_type to a string that is not in the controlled vocabulary', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.matrix_element_type = 'Some value that is not in the CV'}, Error, /controlled vocabulary/);
+    });
+  });
 });
