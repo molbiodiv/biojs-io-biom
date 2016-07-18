@@ -219,6 +219,18 @@ export class Biom {
     }
 
     /**
+     * Setter for generated_by
+     * @param generated_by {string} - Package and revision that built the table
+     * @throws {TypeError} if generated_by is not a string
+     */
+    set generated_by(generated_by){
+        if(typeof generated_by !== 'string'){
+            throw new TypeError('generated_by must be string');
+        }
+        this._generated_by = generated_by;
+    }
+
+    /**
      * Getter for date
      * @returns {Date} - Date the table was built (ISO 8601 format)
      */
