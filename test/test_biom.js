@@ -63,4 +63,19 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.id = {}}, TypeError);
     });
   });
+
+  describe('getter and setter for format should work', () => {
+    it('should set and get the format to string', () => {
+      let biom = new Biom();
+      biom.format = "NewFormat";
+      assert.equal(biom.format, "NewFormat");
+    });
+    it('should throw an type error when trying to set format to something other than string', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.format = []}, TypeError);
+      assert.throws(() => {biom.format = 2}, TypeError);
+      assert.throws(() => {biom.format = {}}, TypeError);
+      assert.throws(() => {biom.format = null}, TypeError);
+    });
+  });
 });
