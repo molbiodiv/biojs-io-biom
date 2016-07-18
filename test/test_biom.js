@@ -23,7 +23,7 @@ import {Biom, VERSION, DEFAULT_BIOM} from '../src/biojs-io-biom';
 describe('biojs-io-biom module', () => {
   describe('Biom constructor should create a biom object with default values', () => {
     it('should create an object', () => {
-      assert.equal(typeof new Biom(), "object");
+      assert.equal(typeof new Biom(), 'object');
     });
     it('id should be null after empty initialization', () => {
       assert.equal(new Biom().id, DEFAULT_BIOM.id);
@@ -48,8 +48,8 @@ describe('biojs-io-biom module', () => {
   describe('getter and setter for id should work', () => {
     it('should set and get the id to string', () => {
       let biom = new Biom();
-      biom.id = "NewID";
-      assert.equal(biom.id, "NewID");
+      biom.id = 'NewID';
+      assert.equal(biom.id, 'NewID');
     });
     it('should set and get the id to null', () => {
       let biom = new Biom();
@@ -67,8 +67,8 @@ describe('biojs-io-biom module', () => {
   describe('getter and setter for format should work', () => {
     it('should set and get the format to string', () => {
       let biom = new Biom();
-      biom.format = "NewFormat";
-      assert.equal(biom.format, "NewFormat");
+      biom.format = 'NewFormat';
+      assert.equal(biom.format, 'NewFormat');
     });
     it('should throw a type error when trying to set format to something other than string', () => {
       let biom = new Biom();
@@ -82,8 +82,8 @@ describe('biojs-io-biom module', () => {
   describe('getter and setter for format_url should work', () => {
     it('should set and get the format_url to string', () => {
       let biom = new Biom();
-      biom.format_url = "http://newformat.url";
-      assert.equal(biom.format_url, "http://newformat.url");
+      biom.format_url = 'http://newformat.url';
+      assert.equal(biom.format_url, 'http://newformat.url');
     });
     it('should throw a type error when trying to set format_url to something other than string', () => {
       let biom = new Biom();
@@ -97,8 +97,8 @@ describe('biojs-io-biom module', () => {
   describe('getter and setter for type should work', () => {
     it('should set and get the type to string', () => {
       let biom = new Biom();
-      biom.type = "Function table";
-      assert.equal(biom.type, "Function table");
+      biom.type = 'Function table';
+      assert.equal(biom.type, 'Function table');
     });
     it('should throw a type error when trying to set type to something other than string', () => {
       let biom = new Biom();
@@ -116,8 +116,8 @@ describe('biojs-io-biom module', () => {
   describe('getter and setter for generated_by should work', () => {
     it('should set and get the generated_by to string', () => {
       let biom = new Biom();
-      biom.generated_by = "New Generator version 1.0";
-      assert.equal(biom.generated_by, "New Generator version 1.0");
+      biom.generated_by = 'New Generator version 1.0';
+      assert.equal(biom.generated_by, 'New Generator version 1.0');
     });
     it('should throw a type error when trying to set generated_by to something other than string', () => {
       let biom = new Biom();
