@@ -68,6 +68,16 @@ export const MATRIX_TYPE_CV = [
 ];
 
 /**
+ * Controlled vocabulary for the matrix_element_type field of biom objects
+ * @type {string[]}
+ */
+export const MATRIX_ELEMENT_TYPE_CV = [
+    'int',    // integer
+    'float',  // floating point
+    'unicode' // unicode string
+];
+
+/**
  * @class Biom
  */
 export class Biom {
