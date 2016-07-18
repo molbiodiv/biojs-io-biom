@@ -45,6 +45,20 @@ export const DEFAULT_BIOM = {
 };
 
 /**
+ * Controlled vocabulary for the type field of biom objects
+ * @type {string[]}
+ */
+export const BIOM_TYPE_CV = [
+    'OTU table',
+    'Pathway table',
+    'Function table',
+    'Ortholog table',
+    'Gene table',
+    'Metabolite table',
+    'Taxon table'
+]
+
+/**
  * @class Biom
  */
 export class Biom {
