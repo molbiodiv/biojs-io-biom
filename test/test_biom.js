@@ -216,4 +216,28 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.matrix_element_type = 'Some value that is not in the CV'}, Error, /controlled vocabulary/);
     });
   });
+
+  describe('getter and setter for shape should work', () => {
+    it('should set and get the columns to array (containing two numbers)', () => {
+      let biom = new Biom();
+      biom.shape = [7,13];
+      assert.equal(biom.shape[0], 7);
+      assert.equal(biom.shape[1], 13);
+    });
+    it('should throw a type error when trying to set columns to something other than array', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.columns = 'columns'}, TypeError);
+      assert.throws(() => {biom.columns = 47257}, TypeError);
+      assert.throws(() => {biom.columns = {}}, TypeError);
+      assert.throws(() => {biom.columns = null}, TypeError);
+    });
+    it('should throw an error when trying to set shape to an array that contains something other than two integers (>=0)', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.columns = ['string','string']}, Error, /contain/);
+      assert.throws(() => {biom.columns = [1, 2, 3]}, Error, /contain/);
+      assert.throws(() => {biom.columns = [0]}, Error, /contain/);
+      assert.throws(() => {biom.columns = [-1, 1]}, Error, /contain/);
+      assert.throws(() => {biom.columns = [0.1, 2]}, Error, /contain/);
+    });
+  });
 });
