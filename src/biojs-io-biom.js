@@ -115,20 +115,20 @@ export class Biom {
         comment: _comment = DEFAULT_BIOM.comment
     } = {}){
         this.id = _id;
-        this._format = _format;
-        this._format_url = _format_url;
-        this._type = _type;
-        this._generated_by = _generated_by;
+        this.format = _format;
+        this.format_url = _format_url;
+        this.type = _type;
+        this.generated_by = _generated_by;
         if(_date === null){
             _date = new Date().toISOString();
         }
-        this._date = _date;
-        this._rows = _rows;
-        this._columns = _columns;
-        this._matrix_type = _matrix_type;
-        this._matrix_element_type = _matrix_element_type;
-        this._shape = _shape;
-        this._data = _data;
+        this.date = _date;
+        this.rows = _rows;
+        this.columns = _columns;
+        this.matrix_type = _matrix_type;
+        this.matrix_element_type = _matrix_element_type;
+        this.shape = _shape;
+        this.data = _data;
         this._comment = _comment;
     }
 
