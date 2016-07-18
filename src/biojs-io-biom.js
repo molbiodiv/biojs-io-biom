@@ -129,12 +129,12 @@ export class Biom {
         this.matrix_element_type = _matrix_element_type;
         this.shape = _shape;
         this.data = _data;
-        this._comment = _comment;
+        this.comment = _comment;
     }
 
     /**
      * Getter for id
-     * @returns {string} - A field that can be used to id a table (or null)
+     * @returns {string|null} - A field that can be used to id a table (or null)
      */
     get id(){
         return this._id;
@@ -142,7 +142,7 @@ export class Biom {
 
     /**
      * Setter for id
-     * @param id {string} - A field that can be used to id a table (or null)
+     * @param id {string|null} - A field that can be used to id a table (or null)
      * @throws {TypeError} if id is not a string (or null)
      */
     set id(id){
@@ -450,7 +450,7 @@ export class Biom {
 
     /**
      * Getter for comment
-     * @returns {string} - A free text field containing any information that you
+     * @returns {string|null} - A free text field containing any information that you
      *                     feel is relevant (or just feel like sharing)
      */
     get comment(){
@@ -459,7 +459,7 @@ export class Biom {
 
     /**
      * Setter for comment
-     * @param comment {string} - A free text field containing any information that
+     * @param comment {string|null} - A free text field containing any information that
      *                           you feel is relevant (or just feel like sharing)
      * @throws {TypeError} if comment is not a string (or null)
      */
