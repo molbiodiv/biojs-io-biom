@@ -30,6 +30,7 @@ var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 var isparta = require('isparta');
 var runSequence = require('run-sequence');
+var coveralls = require('gulp-coveralls');
 
 // code style 
 var jshint = require('gulp-jshint'); 
@@ -92,9 +93,17 @@ gulp.task('coverage:report', function(done) {
 });
 
 gulp.task('test', function(done) {
-  runSequence('coverage:instrument', 'test-unit', 'coverage:report', done);
+  runSequence('coverage:instrument', 'test-unit', 'coverage:report', 'coveralls', done);
 });
 
+gulp.task('coveralls', function () {
+  if (!process.env.CI) {
+    return;
+  }
+
+  return gulp.src('./coverage/lcov.info')
+      .pipe(coveralls());
+});
 
 gulp.task('test-watch', function() {
    gulp.watch(['./src/**/*.js','./lib/**/*.js', './test/**/*.js'], ['test']);
