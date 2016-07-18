@@ -33,7 +33,7 @@ describe('biojs-io-biom module', () => {
       assert.equal(biom.columns, DEFAULT_BIOM.columns);
       assert.equal(biom.data, DEFAULT_BIOM.data);
       // The date is set to now by default and can not be checked in this manner
-      // assert.equal(biom.date, DEFAULT_BIOM.date);
+      assert.equal(typeof biom.date, 'string');
       assert.equal(biom.format, DEFAULT_BIOM.format);
       assert.equal(biom.format_url, DEFAULT_BIOM.format_url);
       assert.equal(biom.generated_by, DEFAULT_BIOM.generated_by);
