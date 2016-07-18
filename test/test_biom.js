@@ -251,9 +251,28 @@ describe('biojs-io-biom module', () => {
     it('should throw a type error when trying to set data to something other than array', () => {
       let biom = new Biom();
       assert.throws(() => {biom.data = 'data'}, TypeError);
-      assert.throws(() => {biom.data = 47257}, TypeError);
+      assert.throws(() => {biom.data = 7257}, TypeError);
       assert.throws(() => {biom.data = {}}, TypeError);
       assert.throws(() => {biom.data = null}, TypeError);
+    });
+  });
+
+  describe('getter and setter for comment should work', () => {
+    it('should set and get the comment to string', () => {
+      let biom = new Biom();
+      biom.comment = 'New comment';
+      assert.equal(biom.comment, 'New comment');
+    });
+    it('should set and get the comment to null', () => {
+      let biom = new Biom();
+      biom.comment = null;
+      assert.equal(biom.comment, null);
+    });
+    it('should throw a type error when trying to set comment to something other than string or null', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.comment = []}, TypeError);
+      assert.throws(() => {biom.comment = 2}, TypeError);
+      assert.throws(() => {biom.comment = {}}, TypeError);
     });
   });
 });
