@@ -139,6 +139,18 @@ export class Biom {
     }
 
     /**
+     * Setter for format_url
+     * @param format_url {string} - A string with a static URL providing format details
+     *                              (it is not checked wether the string is an url or not)
+     */
+    set format_url(format_url){
+        if(typeof format_url !== 'string'){
+            throw new TypeError('format_url must be string (representing a static URL)');
+        }
+        this._format_url = format_url;
+    }
+
+    /**
      * Getter for type
      * @returns {string} - Table type (a controlled vocabulary)
      *                     Acceptable values:
