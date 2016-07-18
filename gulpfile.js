@@ -50,7 +50,7 @@ var outputFileMin = join(buildDir,outputFile + ".min.js");
 var packageConfig = require('./package.json');
 
 // a failing test breaks the whole build chain
-gulp.task('build', ['build-browser', 'build-browser-gzip']);
+gulp.task('build', ['babel', 'build-browser', 'build-browser-gzip']);
 gulp.task('default', ['lint','test',  'build']);
 
 
