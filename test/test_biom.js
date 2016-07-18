@@ -93,4 +93,23 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.format_url = null}, TypeError);
     });
   });
+
+  describe('getter and setter for type should work', () => {
+    it('should set and get the type to string', () => {
+      let biom = new Biom();
+      biom.type = "Function table";
+      assert.equal(biom.type, "Function table");
+    });
+    it('should throw a type error when trying to set type to something other than string', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.type = []}, TypeError);
+      assert.throws(() => {biom.type = 27}, TypeError);
+      assert.throws(() => {biom.type = {}}, TypeError);
+      assert.throws(() => {biom.type = null}, TypeError);
+    });
+    it('should throw an error when trying to set type to a string that is not in the controlled vocabulary', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.type = 'Some value that is not in the CV'}, Error, /controlled vocabulary/);
+    });
+  });
 });
