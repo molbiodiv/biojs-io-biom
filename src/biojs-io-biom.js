@@ -83,7 +83,7 @@ export class Biom {
         format_url: _format_url = DEFAULT_BIOM.format_url,
         type: _type = DEFAULT_BIOM.type,
         generated_by: _generated_by = DEFAULT_BIOM.generated_by,
-        date: _date = Date.now(),
+        date: _date = null,
         rows: _rows = DEFAULT_BIOM.rows,
         columns: _columns = DEFAULT_BIOM.columns,
         matrix_type: _matrix_type = DEFAULT_BIOM.matrix_type,
@@ -97,6 +97,9 @@ export class Biom {
         this._format_url = _format_url;
         this._type = _type;
         this._generated_by = _generated_by;
+        if(_date === null){
+            _date = new Date().toISOString();
+        }
         this._date = _date;
         this._rows = _rows;
         this._columns = _columns;
