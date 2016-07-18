@@ -10,10 +10,18 @@ Install the module with: `npm install biojs-io-biom`
 
 ```javascript
 var Biom = require('biojs-io-biom');
-biom = new Biom(); // "creates biom object"
+biom = new Biom(); // "creates new biom object"
 ```
 
 ## Documentation
+
+See the [biom format specification (version 1.0)](http://biom-format.org/documentation/format_versions/biom-1.0.html) for more details.
+Please cite the biom file format (as opposed to this module) as:
+```
+The Biological Observation Matrix (BIOM) format or: how I learned to stop worrying and love the ome-ome.
+Daniel McDonald, Jose C. Clemente, Justin Kuczynski, Jai Ram Rideout, Jesse Stombaugh, Doug Wendel, Andreas Wilke, Susan Huse, John Hufnagle, Folker Meyer, Rob Knight, and J. Gregory Caporaso.
+GigaScience 2012, 1:7. doi:10.1186/2047-217X-1-7
+```
 
 #### constructor(object)
 
@@ -27,6 +35,42 @@ How to use this method
 
 ```javascript
 biom = new Biom();
+// or with a (partial) biom json object
+biom = new Biom({
+    id: "Table ID",
+    shape: [2,2],
+    rows: [
+        {id: "row1", metadata: null},
+        {id: "row2", metadata: null}
+    ],
+    columns: [
+        {id: "col1", metadata: null},
+        {id: "col2", metadata: null}
+    ]
+    // ...
+});
+// type validation is performed so assigning illegal types will result in a TypeError:
+// would throw a TypeError:
+//new Biom({id: 7});
+```
+
+#### getter/setter
+
+The getter methods are called implicitly when reading properties with the dot notation.
+
+```javascript
+biom = new Biom();
+id = biom.id;
+data = biom.data;
+```
+
+The setter methods are called implicitly when assigning to properties with the dot notation (some basic type checks are performed).
+
+```javascript
+biom = new Biom();
+biom.id = "New ID";
+// would throw a TypeError:
+//biom.id = 17;
 ```
 
 ## Contributing
