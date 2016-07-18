@@ -102,7 +102,7 @@ export class Biom {
 
     /**
      * Setter for id
-     * @param id {string} - Update id to string or null
+     * @param id {string} - A field that can be used to id a table (or null)
      */
     set id(id){
         if(id !== null && typeof id !== "string"){
@@ -117,6 +117,17 @@ export class Biom {
      */
     get format(){
         return this._format;
+    }
+
+    /**
+     * Setter for format
+     * @param format {string} - The name and version of the current biom format
+     */
+    set format(format){
+        if(typeof format !== "string"){
+            throw new TypeError("format must be string");
+        }
+        this._format = format;
     }
 
     /**

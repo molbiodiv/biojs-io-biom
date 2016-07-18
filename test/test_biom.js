@@ -56,7 +56,7 @@ describe('biojs-io-biom module', () => {
       biom.id = null;
       assert.equal(biom.id, null);
     });
-    it('should throw an type error when trying to set id to something other than string or null', () => {
+    it('should throw a type error when trying to set id to something other than string or null', () => {
       let biom = new Biom();
       assert.throws(() => {biom.id = []}, TypeError);
       assert.throws(() => {biom.id = 2}, TypeError);
@@ -70,7 +70,7 @@ describe('biojs-io-biom module', () => {
       biom.format = "NewFormat";
       assert.equal(biom.format, "NewFormat");
     });
-    it('should throw an type error when trying to set format to something other than string', () => {
+    it('should throw a type error when trying to set format to something other than string', () => {
       let biom = new Biom();
       assert.throws(() => {biom.format = []}, TypeError);
       assert.throws(() => {biom.format = 2}, TypeError);
