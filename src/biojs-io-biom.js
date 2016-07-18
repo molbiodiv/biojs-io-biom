@@ -168,13 +168,13 @@ export class Biom {
      * Getter for type
      * @returns {string} - Table type (a controlled vocabulary)
      *                     Acceptable values:
-     *                       "OTU table"
-     *                       "Pathway table"
-     *                       "Function table"
-     *                       "Ortholog table"
-     *                       "Gene table"
-     *                       "Metabolite table"
-     *                       "Taxon table"
+     *                       'OTU table'
+     *                       'Pathway table'
+     *                       'Function table'
+     *                       'Ortholog table'
+     *                       'Gene table'
+     *                       'Metabolite table'
+     *                       'Taxon table'
      */
     get type(){
         return this._type;
@@ -216,8 +216,8 @@ export class Biom {
      * Getter for matrix_type
      * @returns {string} - Type of matrix data representation
      *                     (a controlled vocabulary) Acceptable values:
-     *                       "sparse" : only non-zero values are specified
-     *                       "dense" : every element must be specified
+     *                       'sparse' : only non-zero values are specified
+     *                       'dense' : every element must be specified
      */
     get matrix_type(){
         return this._matrix_type;
@@ -227,9 +227,9 @@ export class Biom {
      * Getter for matrix_element_type
      * @returns {string} - Value type in matrix (a controlled vocabulary)
      *                     Acceptable values:
-     *                       "int" : integer
-     *                       "float" : floating point
-     *                       "unicode" : unicode string
+     *                       'int' : integer
+     *                       'float' : floating point
+     *                       'unicode' : unicode string
      */
     get matrix_element_type(){
         return this._matrix_element_type;
@@ -246,10 +246,10 @@ export class Biom {
     /**
      * Getter for data
      * @returns {Array} - counts of observations by sample
-     *                   if matrix_type is "sparse", [[row, column, value],
+     *                   if matrix_type is 'sparse', [[row, column, value],
      *                                                 [row, column, value],
      *                                                                  ...]
-     *                   if matrix_type is "dense", [[value, value, value, ...],
+     *                   if matrix_type is 'dense', [[value, value, value, ...],
      *                                               [value, value, value, ...],
      *                                                                      ...]
      */
