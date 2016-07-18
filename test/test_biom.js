@@ -231,7 +231,7 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.columns = {}}, TypeError);
       assert.throws(() => {biom.columns = null}, TypeError);
     });
-    it('should throw an error when trying to set shape to an array that contains something other than two integers (>=0)', () => {
+    it('should throw an error when trying to set shape to an array that contains something other than two non-negative integers', () => {
       let biom = new Biom();
       assert.throws(() => {biom.columns = ['string','string']}, Error, /contain/);
       assert.throws(() => {biom.columns = [1, 2, 3]}, Error, /contain/);

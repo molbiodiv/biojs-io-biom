@@ -304,7 +304,7 @@ export class Biom {
     /**
      * Setter for columns
      * @param columns {Array} - An ORDERED list of obj describing the columns
-     * @thcolumns {TypeError} if date is not an Array
+     * @throws {TypeError} if date is not an Array
      */
     set columns(columns){
         if(Object.prototype.toString.call(columns) !== '[object Array]'){
@@ -388,6 +388,19 @@ export class Biom {
      */
     get shape(){
         return this._shape;
+    }
+
+    /**
+     * Setter for shape
+     * @param shape {Array} - the number of rows and number of columns in data
+     * @throws {TypeError} if shape is not an Array
+     * @throws {Error} if shape contains something other than two non-negative integers
+     */
+    set shape(shape){
+        if(Object.prototype.toString.call(shape) !== '[object Array]'){
+            throw new TypeError('shape must be an Array containing exactly two non-negative integers');
+        }
+        this._shape = shape;
     }
 
     /**
