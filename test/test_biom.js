@@ -17,6 +17,38 @@ let assert = chai.assert;
 chai.expect();
 chai.should();
 
+let exampleBiom = {
+  'id': 'My Table ID',
+  'format': 'Biological Observation Matrix 2.1.0',
+  'format_url': 'http://biom-format.org',
+  'matrix_type': 'sparse',
+  'generated_by': 'BIOM-Format 2.1',
+  'date': '2016-05-03T08:13:41.848780',
+  'type': 'OTU table',
+  'matrix_element_type': 'float',
+  'shape': [10, 5],
+  'data': [[0,0,120.0],[3,1,12.0],[5,2,20.0],[7,3,12.7],[8,4,16.0]],
+  'rows': [
+    {'id': 'OTU_1', 'metadata': {'taxonomy': ['k__1', 'p__1', 'c__1', 'o__1', 'f__1', 'g__1', 's__1']}},
+    {'id': 'OTU_2', 'metadata': {'taxonomy': ['k__1', 'p__1', 'c__1', 'o__1', 'f__1', 'g__1', 's__2']}},
+    {'id': 'OTU_3', 'metadata': {'taxonomy': ['k__1', 'p__1', 'c__1', 'o__1', 'f__1', 'g__2', 's__1']}},
+    {'id': 'OTU_4', 'metadata': {'taxonomy': ['k__1', 'p__1', 'c__1', 'o__1', 'f__1', 'g__2', 's__2']}},
+    {'id': 'OTU_5', 'metadata': {'taxonomy': ['k__1', 'p__1', 'c__1', 'o__1', 'f__2', 'g__1', 's__1']}},
+    {'id': 'OTU_6', 'metadata': {'taxonomy': ['k__1', 'p__1', 'c__1', 'o__2', 'f__1', 'g__1', 's__1']}},
+    {'id': 'OTU_7', 'metadata': {'taxonomy': ['k__1', 'p__1', 'c__2', 'o__1', 'f__1', 'g__1', 's__1']}},
+    {'id': 'OTU_8', 'metadata': {'taxonomy': ['k__1', 'p__2', 'c__1', 'o__1', 'f__1', 'g__1', 's__1']}},
+    {'id': 'OTU_9', 'metadata': {'taxonomy': ['k__2', 'p__1', 'c__1', 'o__1', 'f__1', 'g__1', 's__1']}},
+    {'id': 'OTU_10', 'metadata': {'taxonomy': ['k__3', 'p__1', 'c__1', 'o__1', 'f__1', 'g__1', 's__1']}}
+  ],
+  'columns': [
+    {'id': 'Sample_1', 'metadata': {'pH': 7}},
+    {'id': 'Sample_2', 'metadata': {'pH': 3.1}},
+    {'id': 'Sample_3', 'metadata': {'pH': null}},
+    {'id': 'Sample_4', 'metadata': {}},
+    {'id': 'Sample_5', 'metadata': {'pH': 'NA'}}
+  ]
+};
+
 // requires your main app (specified in index.js)
 import {Biom, VERSION, DEFAULT_BIOM} from '../src/biojs-io-biom';
 
@@ -273,6 +305,13 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.comment = []}, TypeError);
       assert.throws(() => {biom.comment = 2}, TypeError);
       assert.throws(() => {biom.comment = {}}, TypeError);
+    });
+  });
+
+  describe('getMetadata should extract metadata from rows of columns', () => {
+    it('should get column metadata', () => {
+      let biom = new Biom(exampleBiom);
+      assert.equal(biom.getMetadata({dimension: 'columns', attribute: 'pH'}), [7, 3.1, null, null, 'NA']);
     });
   });
 });
