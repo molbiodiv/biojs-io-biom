@@ -80,6 +80,7 @@ biom.id = "New ID";
 
 ### v0.1.1
  - Bower init
+
 ### v0.1.0
  - Initial release
  - Constructor
