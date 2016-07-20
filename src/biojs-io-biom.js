@@ -484,24 +484,20 @@ export class Biom {
     } = {}){
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
+        let extractAttribute = function (element) {
+            if(!(_attribute in element.metadata)){
+                return null;
+            }
+            return element.metadata[_attribute];
+        };
         let result;
         if(_attribute === null){
             throw new Error('Missing argument: attribute');
         }
         if(dim_rows.indexOf(_dimension) !== -1){
-            result = this.rows.map((element) => {
-                if(!(_attribute in element.metadata)){
-                    return null;
-                }
-                return element.metadata[_attribute];
-            });
+            result = this.rows.map(extractAttribute);
         } else if (dim_cols.indexOf(_dimension) !== -1){
-            result = this.columns.map((element) => {
-                if(!(_attribute in element.metadata)){
-                    return null;
-                }
-                return element.metadata[_attribute];
-            });
+            result = this.columns.map(extractAttribute);
         } else {
             throw new Error('dimension has to be one of "rows", "observation", "columns" or "sample"');
         }
