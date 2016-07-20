@@ -309,6 +309,10 @@ describe('biojs-io-biom module', () => {
   });
 
   describe('getMetadata should extract metadata from rows of columns', () => {
+    it('should throw an Error if no attribute is given', () => {
+      let biom = new Biom(exampleBiom);
+      assert.throws(() => {biom.getMetadata()}, Error, /attribute/);
+    });
     it('should get column metadata', () => {
       let biom = new Biom(exampleBiom);
       assert.equal(biom.getMetadata({dimension: 'columns', attribute: 'pH'}), [7, 3.1, null, null, 'NA']);
