@@ -1,0 +1,24 @@
+{
+  "name": "biojs-io-biom",
+  "description": "Parses biom files",
+  "main": "lib/index.js",
+  "authors": [
+    "Markus J. Ankenbrand"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "biom",
+    "parser",
+    "community",
+    "expression",
+    "biojs"
+  ],
+  "homepage": "https://github.com/iimog/biojs-io-biom",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
