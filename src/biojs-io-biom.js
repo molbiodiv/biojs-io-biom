@@ -489,7 +489,12 @@ export class Biom {
             throw new Error('Missing argument: attribute');
         }
         if(dim_rows.indexOf(_dimension) !== -1){
-
+            result = this.rows.map((element) => {
+                if(!(_attribute in element.metadata)){
+                    return null;
+                }
+                return element.metadata[_attribute];
+            });
         } else if (dim_cols.indexOf(_dimension) !== -1){
             result = this.columns.map((element) => {
                 if(!(_attribute in element.metadata)){
