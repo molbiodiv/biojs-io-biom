@@ -313,6 +313,10 @@ describe('biojs-io-biom module', () => {
       let biom = new Biom(exampleBiom);
       assert.throws(() => {biom.getMetadata()}, Error, /attribute/);
     });
+    it('should throw an Error if dimension is none of the defined terms', () => {
+      let biom = new Biom(exampleBiom);
+      assert.throws(() => {biom.getMetadata({dimension: 'not something defined', attribute: 'test'})}, Error, /dimension/);
+    });
     it('should get column metadata', () => {
       let biom = new Biom(exampleBiom);
       assert.equal(biom.getMetadata({dimension: 'columns', attribute: 'pH'}), [7, 3.1, null, null, 'NA']);
