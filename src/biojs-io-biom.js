@@ -469,4 +469,31 @@ export class Biom {
         }
         this._comment = comment;
     }
+
+    /**
+     *
+     * @param _dimension {string} - either "rows" ("observation") or "columns" ("sample"), default: "rows"
+     * @param _attribute {string} - the key in the metadata object to extract for each element in "dimension"
+     * @throws Error - if attribute is not set
+     * @throws Error - if dimension is something other than "rows", "observation", "columns" or "sample"
+     * @returns {Array} - containing the metadata of each element in "dimension" with the key "attribute"
+     */
+    getMetadata({
+        dimension: _dimension = 'rows',
+        attribute: _attribute = null
+    } = {}){
+        let dim_rows = ['rows', 'observation'];
+        let dim_cols = ['columns', 'sample'];
+        if(_attribute === null){
+            throw new Error('Missing argument: attribute');
+        }
+        if(dim_rows.indexOf(_dimension) !== -1){
+
+        } else if (dim_cols.indexOf(_dimension) !== -1){
+
+        } else {
+            throw new Error('dimension has to be one of "rows", "observation", "columns" or "sample"');
+        }
+        return [];
+    }
 }
