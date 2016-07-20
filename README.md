@@ -76,7 +76,41 @@ biom.id = "New ID";
 //biom.id = 17;
 ```
 
+#### getMetadata(object)
+
+**Parameter**: `object`
+**Type**: `Object`
+**Example**: `{dimension: 'rows', attribute: 'taxonomy'}`
+**Throws** `Error` if attribute is not set or dimension is none of "rows", "observation", "columns" or "sample"
+
+This method extracts metadata with a given attribute from rows or columns (dimension).
+Default value for `object.dimension` is "rows"
+
+```javascript
+biom = new Biom({
+    id: "Table ID",
+    shape: [2,2],
+    rows: [
+        {id: "row1", metadata: null},
+        {id: "row2", metadata: null}
+    ],
+    columns: [
+        {id: "col1", metadata: {pH: 7.2}},
+        {id: "col2", metadata: {pH: 8.1}},
+        {id: "col3", metadata: {pH: null}},
+        {id: "col4", metadata: {pH: 6.9}},
+        {id: "col5", metadata: {}}
+    ]
+    // ...
+});
+meta = biom.getMetadata({dimension: 'columns', attribute: 'pH'});
+// [7.2, 8.1, null, 6.9, null]
+```
+
 ## Changes
+
+### v0.1.2
+ - Add getMetadata function
 
 ### v0.1.1
  - Bower init
