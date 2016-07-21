@@ -527,11 +527,23 @@ export class Biom {
         if(_attribute === null){
             throw new Error('Missing argument: attribute');
         }
-        if(dim_rows.indexOf(_dimension) === -1 && dim_cols.indexOf(_dimension) === -1){
+        let dim;
+        if(dim_rows.indexOf(_dimension) !== -1){
+            dim = this.rows;
+        } else if(dim_cols.indexOf(_dimension) !== -1) {
+            dim = this.columns;
+        } else {
             throw new Error('dimension has to be one of "rows", "observation", "columns" or "sample"');
         }
         if(_defaultValue !== null && _values !== null){
             throw new Error('please set only one of "defaultValue" and "values", not both');
+        }
+        if(_values !== null){
+            if(Object.prototype.toString.call(_values) === '[object Array]'){
+                if(_values.length !== dim.length){
+                    throw new Error('values is an array but has wrong number of elements');
+                }
+            }
         }
     }
 }
