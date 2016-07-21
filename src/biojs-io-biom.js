@@ -554,7 +554,12 @@ export class Biom {
                 }
             }
         } else if(_defaultValue !== null){
-            // use _defaultValue for each element even if it is null
+            for(let element of dim){
+                if(element.metadata === null){
+                    element.metadata = {};
+                }
+                element.metadata[_attribute] = _defaultValue;
+            }
         }
     }
 }
