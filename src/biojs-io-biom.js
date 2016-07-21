@@ -538,12 +538,17 @@ export class Biom {
         if(_defaultValue !== null && _values !== null){
             throw new Error('please set only one of "defaultValue" and "values", not both');
         }
+        if(_defaultValue === null && _values === null){
+            throw new Error('Missing argument: please set one of "defaultValue" or "values"');
+        }
         if(_values !== null){
             if(Object.prototype.toString.call(_values) === '[object Array]'){
                 if(_values.length !== dim.length){
                     throw new Error('values is an array but has wrong number of elements');
                 }
             }
+        } else if(_defaultValue !== null){
+            // use _defaultValue for each element even if it is null
         }
     }
 }

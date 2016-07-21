@@ -346,7 +346,7 @@ describe('biojs-io-biom module', () => {
     });
     it('should throw an Error if neither "values" nor "defaultValue" is given', () => {
       let biom = new Biom(exampleBiom);
-      assert.throws(() => {biom.addMetadata({dimension: 'rows', attribute: 'test'})}, Error, /attribute/);
+      assert.throws(() => {biom.addMetadata({dimension: 'rows', attribute: 'test'})}, Error, /argument/);
     });
     it('should throw an Error if dimension is none of the defined terms', () => {
       let biom = new Biom(exampleBiom);
