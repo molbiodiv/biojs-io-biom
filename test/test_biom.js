@@ -320,7 +320,7 @@ describe('biojs-io-biom module', () => {
     });
   });
 
-  describe('getMetadata should extract metadata from rows of columns', () => {
+  describe('getMetadata should extract metadata from rows or columns', () => {
     it('should throw an Error if no attribute is given', () => {
       let biom = new Biom(exampleBiom);
       assert.throws(() => {biom.getMetadata()}, Error, /attribute/);
@@ -336,6 +336,47 @@ describe('biojs-io-biom module', () => {
     it('should get row metadata', () => {
       let biom = new Biom(exampleBiom);
       assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'taxonomy'}), exampleTaxonomy);
+    });
+  });
+
+  describe('addMetadata should add metadata to rows or columns', () => {
+    it('should throw an Error if no attribute is given', () => {
+      let biom = new Biom(exampleBiom);
+      assert.throws(() => {biom.addMetadata({dimension: 'rows', defaultValue: 7})}, Error, /attribute/);
+    });
+    it('should throw an Error if dimension is none of the defined terms', () => {
+      let biom = new Biom(exampleBiom);
+      assert.throws(() => {biom.addMetadata({dimension: 'not something defined', attribute: 'test', defaultValue: 7})}, Error, /dimension/);
+    });
+    it('should throw an Error if both "values" and "defaultValue" are set', () => {
+      let biom = new Biom(exampleBiom);
+      assert.throws(() => {biom.addMetadata({dimension: 'rows', attribute: 'test', defaultValue: 7, values: [6,6,6,6,6,6,6,6,6,6]})}, Error, /both/);
+    });
+    it('should throw an Error if "values" is an array with wrong dimension', () => {
+      let biom = new Biom(exampleBiom);
+      assert.throws(() => {biom.addMetadata({dimension: 'rows', attribute: 'test', values: [7,7,7,7]})}, Error, /number of elements/);
+    });
+    it('should throw an Error if "values" is neither an array nor an object', () => {
+      let biom = new Biom(exampleBiom);
+      assert.throws(() => {biom.addMetadata({dimension: 'rows', attribute: 'test', values: 7})}, Error, /values/);
+    });
+    it('should add column metadata (via array)', () => {
+      let biom = new Biom(exampleBiom);
+      biom.addMetadata({dimension: 'columns', attribute: 'pH', values: [1, 2, 3, 4, null]});
+      assert.deepEqual(biom.getMetadata({dimension: 'columns', attribute: 'pH'}), [1, 2, 3, 4, null]);
+    });
+    it('should add column metadata (via defaultValue)', () => {
+      let biom = new Biom(exampleBiom);
+      biom.addMetadata({dimension: 'columns', attribute: 'pH', defaultValue: 7});
+      assert.deepEqual(biom.getMetadata({dimension: 'columns', attribute: 'pH'}), [7, 7, 7, 7, 7]);
+    });
+    it('should add row metadata (via object)', () => {
+      let biom = new Biom(exampleBiom);
+      biom.addMetadata({dimension: 'rows', attribute: 'organism_id', values: {'OTU_3': 5, 'OTU_5': 7, 'OTU_9': 11}});
+      assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'organism_id'}), [null, null, 5, null, 7, null, null, null, 11, null]);
+      // overwriting works as well
+      biom.addMetadata({dimension: 'rows', attribute: 'organism_id', values: {'OTU_1': 1, 'OTU_7': 'NA', 'OTU_9': 9}});
+      assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'organism_id'}), [1, null, 5, null, 7, null, 'NA', null, 9, null]);
     });
   });
 });
