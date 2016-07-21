@@ -107,10 +107,54 @@ meta = biom.getMetadata({dimension: 'columns', attribute: 'pH'});
 // [7.2, 8.1, null, 6.9, null]
 ```
 
+#### addMetadata(object)
+
+**Parameter**: `object`
+**Type**: `Object`
+**Example**: `{dimension: 'columns', attribute: 'pH', defaultValue: 7}`
+**Example**: `{dimension: 'columns', attribute: 'pH', values: [6,7,5,5,9]}`
+**Example**: `{dimension: 'rows', attribute: 'importance', values: {row3id: 5, row7id: 0}}`
+**Throws** `Error` if attribute is not set
+**Throws** `Error` if dimension is none of "rows", "observation", "columns" or "sample"
+**Throws** `Error` if not exactly one of `defaultValue` or `values` is set (setting to null is considered unset)
+**Throws** `Error` if values is an array with a length that does not match that of the dimension (rows or columns)
+
+This method adds metadata with a given attribute to rows or columns (dimension).
+Default value for `object.dimension` is "rows"
+
+```javascript
+biom = new Biom({
+    id: "Table ID",
+    shape: [2,2],
+    rows: [
+        {id: "row1", metadata: null},
+        {id: "row2", metadata: null}
+    ],
+    columns: [
+        {id: "col1", metadata: {}},
+        {id: "col2", metadata: {}},
+        {id: "col3", metadata: {}},
+        {id: "col4", metadata: {}},
+        {id: "col5", metadata: {}}
+    ]
+    // ...
+});
+biom.addMetadata({dimension: 'columns', attribute: 'pH', defaultValue: 7})
+biom.getMetadata({dimension: 'columns', attribute: 'pH'});
+// [7, 7, 7, 7, 7]
+biom.addMetadata({dimension: 'columns', attribute: 'pH', values: [1,2,null,4,5]})
+biom.getMetadata({dimension: 'columns', attribute: 'pH'});
+// [1, 2, null, 4, 5]
+biom.addMetadata({dimension: 'columns', attribute: 'pH', values: {col2: 7, col3: 9, col4: null}})
+biom.getMetadata({dimension: 'columns', attribute: 'pH'});
+// [1, 3, 9, null, 5]
+```
+
 ## Changes
 
 ### v0.1.2
  - Add getMetadata function
+ - Add addMetadata function
 
 ### v0.1.1
  - Bower init
