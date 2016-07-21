@@ -542,6 +542,9 @@ export class Biom {
             throw new Error('Missing argument: please set one of "defaultValue" or "values"');
         }
         if(_values !== null){
+            if(typeof _values !== 'object'){
+                throw new Error('"values" has to be an array or object');
+            }
             if(Object.prototype.toString.call(_values) === '[object Array]'){
                 if(_values.length !== dim.length){
                     throw new Error('values is an array but has wrong number of elements');
