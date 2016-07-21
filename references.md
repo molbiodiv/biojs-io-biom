@@ -1,2 +1,1 @@
-* First Author, Second Author. 2014. [My First Article](https://example.com/articles/1).
-* First Author, Second Author. 2015. [My Second Article](https://example.com/articles/2).
+* Daniel McDonald, Jose C. Clemente, Justin Kuczynski, Jai Ram Rideout, Jesse Stombaugh, Doug Wendel, Andreas Wilke, Susan Huse, John Hufnagle, Folker Meyer, Rob Knight, and J. Gregory Caporaso. 2012, 1:7 GigaScience. [The Biological Observation Matrix (BIOM) format or: how I learned to stop worrying and love the ome-ome.](https://doi.org/10.1186/2047-217X-1-7)

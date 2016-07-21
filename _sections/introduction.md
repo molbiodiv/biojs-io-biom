@@ -2,22 +2,10 @@
 title: "Introduction"
 order: 2
 ---
-The background to the work.
-
-This paragraph contains one species, a _Hippopotamus amphibius_.
-
-This sentence cites an article in the bibliography ([Author, 2014](https://example.com/articles/1)).
-
-This sentence cites another article ([Author, 2015](https://example.com/articles/2)).
-
-This paragraph has a DOI citation at the end, which supports this statement[👍](https://doi.org/10.1038/nature14388 "Cancer: Antibodies regulate antitumour immunity").
-
-This paragraph [links to an article by DOI](https://doi.org/10.7717/peerj.182 "Ontogeny in the tube-crested dinosaur Parasaurolophus (Hadrosauridae) and heterochrony in hadrosaurids").
-
-This paragraph [links to an article by PMID](http://www.ncbi.nlm.nih.gov/pubmed/25898005).
-
-Equations and formula can be included either inline ($$ 2+2=4 $$) or as display blocks:
-
-<div>\[ \sum_{i=0}^{\infty}\pi_i=\sum_{i=0}^{\infty}\rho^i\pi_0=\frac{\pi_0}{1-\rho}=1 \]</div>
-
 The Biological Observation Matrix format [1](https://doi.org/10.1186/2047-217X-1-7 "The Biological Observation Matrix (BIOM) format or: how I learned to stop worrying and love the ome-ome") is widely used for a variety of -omics data.
+It contains the counts along with metadata to both samples and observations in a single file.
+One main purpose of the biom format is to enhance interoperability between different software suits.
+Therefore it has been incorporated into QIIME, MG-RAST, PICRUSt, Mothur, phyloseq, MEGAN, VAMPS, metagenomeSeq, Phinch, RDP Classifier.
+Libraries exist in python and R.
+Challenges for web applications (v1 / v2), requirement of special fields (phinch), performance for representation (datatables).
+Here we present ... a biojs module. (Principles of biojs)
