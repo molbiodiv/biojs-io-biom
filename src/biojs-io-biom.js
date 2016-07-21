@@ -546,6 +546,12 @@ export class Biom {
                 if(_values.length !== dim.length){
                     throw new Error('values is an array but has wrong number of elements');
                 }
+                for(let i=0; i<_values.length; i++){
+                    if(dim[i].metadata === null){
+                        dim[i].metadata = {};
+                    }
+                    dim[i].metadata[_attribute] = _values[i];
+                }
             }
         } else if(_defaultValue !== null){
             // use _defaultValue for each element even if it is null
