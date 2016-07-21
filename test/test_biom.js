@@ -378,5 +378,10 @@ describe('biojs-io-biom module', () => {
       biom.addMetadata({dimension: 'rows', attribute: 'organism_id', values: {'OTU_1': 1, 'OTU_7': 'NA', 'OTU_9': 9}});
       assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'organism_id'}), [1, null, 5, null, 7, null, 'NA', null, 9, null]);
     });
+    it('should init row metadata with null if nothing is given', () => {
+      let biom = new Biom(exampleBiom);
+      biom.addMetadata({dimension: 'rows', attribute: 'ncbi_taxid'});
+      assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'organism_id'}), [null, null, null, null, null, null, null, null, null, null]);
+    });
   });
 });
