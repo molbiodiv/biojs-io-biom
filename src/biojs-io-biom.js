@@ -522,6 +522,8 @@ export class Biom {
         defaultValue: _defaultValue = null,
         values: _values = null
     } = {}){
-
+        if(_attribute === null){
+            throw new Error('Missing argument: attribute');
+        }
     }
 }
