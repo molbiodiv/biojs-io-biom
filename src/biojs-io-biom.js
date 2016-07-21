@@ -530,5 +530,8 @@ export class Biom {
         if(dim_rows.indexOf(_dimension) === -1 && dim_cols.indexOf(_dimension) === -1){
             throw new Error('dimension has to be one of "rows", "observation", "columns" or "sample"');
         }
+        if(_defaultValue !== null && _values !== null){
+            throw new Error('please set only one of "defaultValue" and "values", not both');
+        }
     }
 }
