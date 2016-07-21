@@ -555,6 +555,15 @@ export class Biom {
                     }
                     dim[i].metadata[_attribute] = _values[i];
                 }
+            } else {
+                for(let element of dim){
+                    if(element.metadata === null){
+                        element.metadata = {};
+                    }
+                    if(element.id in _values){
+                        element.metadata[_attribute] = _values[element.id];
+                    }
+                }
             }
         } else if(_defaultValue !== null){
             for(let element of dim){
