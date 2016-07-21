@@ -471,7 +471,7 @@ export class Biom {
     }
 
     /**
-     *
+     * Get specific metadata of rows or columns as array
      * @param _dimension {string} - either "rows" ("observation") or "columns" ("sample"), default: "rows"
      * @param _attribute {string} - the key in the metadata object to extract for each element in "dimension"
      * @throws Error - if attribute is not set
@@ -502,5 +502,26 @@ export class Biom {
             throw new Error('dimension has to be one of "rows", "observation", "columns" or "sample"');
         }
         return result;
+    }
+
+    /**
+     * Add specific metadata to rows or columns
+     * @param _dimension {string} - either "rows" ("observation") or "columns" ("sample"), default: "rows"
+     * @param _attribute {string} - the key in the metadata object to add/set in each element in "dimension"
+     * @param _defaultValue {*} - the metadata "attribute" is set to this value on each element in "dimension"
+     * @param _values {Object|Array} - if Array has to have same length as "dimension" and contain the values to set
+     *                                 if Object keys have to be ids in the "dimension"
+     * @throws Error - if attribute is not set
+     * @throws Error - if dimension is something other than "rows", "observation", "columns" or "sample"
+     * @throws Error - if values is set and has the wrong length
+     * @throws Error - if both defaultValue and values are set
+     */
+    addMetadata({
+        dimension: _dimension = 'rows',
+        attribute: _attribute = null,
+        defaultValue: _defaultValue = null,
+        values: _values = null
+    } = {}){
+
     }
 }
