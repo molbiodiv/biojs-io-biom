@@ -522,8 +522,13 @@ export class Biom {
         defaultValue: _defaultValue = null,
         values: _values = null
     } = {}){
+        let dim_rows = ['rows', 'observation'];
+        let dim_cols = ['columns', 'sample'];
         if(_attribute === null){
             throw new Error('Missing argument: attribute');
+        }
+        if(dim_rows.indexOf(_dimension) === -1 && dim_cols.indexOf(_dimension) === -1){
+            throw new Error('dimension has to be one of "rows", "observation", "columns" or "sample"');
         }
     }
 }
