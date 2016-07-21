@@ -344,6 +344,10 @@ describe('biojs-io-biom module', () => {
       let biom = new Biom(exampleBiom);
       assert.throws(() => {biom.addMetadata({dimension: 'rows', defaultValue: 7})}, Error, /attribute/);
     });
+    it('should throw an Error if neither "values" nor "defaultValue" is given', () => {
+      let biom = new Biom(exampleBiom);
+      assert.throws(() => {biom.addMetadata({dimension: 'rows', attribute: 'test'})}, Error, /attribute/);
+    });
     it('should throw an Error if dimension is none of the defined terms', () => {
       let biom = new Biom(exampleBiom);
       assert.throws(() => {biom.addMetadata({dimension: 'not something defined', attribute: 'test', defaultValue: 7})}, Error, /dimension/);
@@ -377,11 +381,6 @@ describe('biojs-io-biom module', () => {
       // overwriting works as well
       biom.addMetadata({dimension: 'rows', attribute: 'organism_id', values: {'OTU_1': 1, 'OTU_7': 'NA', 'OTU_9': 9}});
       assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'organism_id'}), [1, null, 5, null, 7, null, 'NA', null, 9, null]);
-    });
-    it('should init row metadata with null if nothing is given', () => {
-      let biom = new Biom(exampleBiom);
-      biom.addMetadata({dimension: 'rows', attribute: 'ncbi_taxid'});
-      assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'organism_id'}), [null, null, null, null, null, null, null, null, null, null]);
     });
   });
 });
