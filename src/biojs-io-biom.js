@@ -485,7 +485,7 @@ export class Biom {
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
         let extractAttribute = function (element) {
-            if(!(_attribute in element.metadata)){
+            if(element.metadata === null || !(_attribute in element.metadata)){
                 return null;
             }
             return element.metadata[_attribute];
@@ -524,6 +524,12 @@ export class Biom {
     } = {}){
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
+        let setMetadatum = function(element, value){
+            if(element.metadata === null){
+                element.metadata = {};
+            }
+            element.metadata[_attribute] = value;
+        };
         if(_attribute === null){
             throw new Error('Missing argument: attribute');
         }
@@ -550,27 +556,18 @@ export class Biom {
                     throw new Error('values is an array but has wrong number of elements');
                 }
                 for(let i=0; i<_values.length; i++){
-                    if(dim[i].metadata === null){
-                        dim[i].metadata = {};
-                    }
-                    dim[i].metadata[_attribute] = _values[i];
+                    setMetadatum(dim[i], _values[i]);
                 }
             } else {
                 for(let element of dim){
-                    if(element.metadata === null){
-                        element.metadata = {};
-                    }
                     if(element.id in _values){
-                        element.metadata[_attribute] = _values[element.id];
+                        setMetadatum(element, _values[element.id]);
                     }
                 }
             }
         } else if(_defaultValue !== null){
             for(let element of dim){
-                if(element.metadata === null){
-                    element.metadata = {};
-                }
-                element.metadata[_attribute] = _defaultValue;
+                setMetadatum(element, _defaultValue);
             }
         }
     }

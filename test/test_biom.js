@@ -56,7 +56,7 @@ let exampleBiom = {
     {'id': 'Sample_1', 'metadata': {'pH': 7}},
     {'id': 'Sample_2', 'metadata': {'pH': 3.1}},
     {'id': 'Sample_3', 'metadata': {'pH': null}},
-    {'id': 'Sample_4', 'metadata': {}},
+    {'id': 'Sample_4', 'metadata': null},
     {'id': 'Sample_5', 'metadata': {'pH': 'NA'}}
   ]
 };
