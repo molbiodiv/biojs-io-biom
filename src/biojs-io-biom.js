@@ -573,11 +573,12 @@ export class Biom {
     }
 
     /**
-     * This method creates the json representation of a biom string.
-     * Version 2 can be converted to version 1 if the url of a conversionServer is given.
-     * @param biomString {string} - the biom string to convert to json
+     * This method creates a new biom object from a biom string.
+     * Version 2 (hdf5) can be converted to version 1 if the url of a conversionServer is given.
+     * @param biomString {string} - the biom string to convert to an object
      * @param _conversionServer {string} - url of a biom-conversion-server instance
      *                                     https://github.com/iimog/biom-conversion-server
+     * @throws {Error} - if biomString is not valid JSON and no conversionServer is given
      */
     static parse(biomString = '', {conversionServer: _conversionServer = null} = {}){
         // can only handle json if no conversion server is given
