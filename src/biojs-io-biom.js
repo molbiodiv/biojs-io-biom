@@ -590,5 +590,6 @@ export class Biom {
                 throw new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message);
             }
         }
+        return new Biom(json_obj);
     }
 }
