@@ -579,6 +579,9 @@ export class Biom {
      * @param _conversionServer {string} - url of a biom-conversion-server instance
      *                                     https://github.com/iimog/biom-conversion-server
      * @throws {Error} - if biomString is not valid JSON and no conversionServer is given
+     * @throws {Error} - if biomString is JSON that is not compatible with biom specification
+     *                   Error will be thrown by the Biom constructor
+     * @returns {Biom} - a new biom object as described by the string
      */
     static parse(biomString = '', {conversionServer: _conversionServer = null} = {}){
         // can only handle json if no conversion server is given
