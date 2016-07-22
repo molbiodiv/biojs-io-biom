@@ -1,0 +1,25 @@
+<html>
+<head>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/jquery.dataTables.min.css">
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#example').DataTable( {
+	"serverSide": true,
+	"ajax": function (data, callback, settings) {
+		console.log(data);
+		callback(
+			{"draw": data.draw, "data": [["Tiger Nixon","System Architect","Edinburgh","61","2011/04/25","$320,800"]], "recordsTotal": 7, "recordsFiltered": 1}
+    		);
+  	},
+	"columns": [{title:"Name"},{title:"Position"},{title:"Office"},{title:"Age"},{title:"Start date"},{title:"Salary"}]
+    } );
+} );
+</script>
+<table id="example" class="display" width="100%" cellspacing="0">
+</table>
+</body>
+</html>
