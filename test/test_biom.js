@@ -383,4 +383,10 @@ describe('biojs-io-biom module', () => {
       assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'organism_id'}), [1, null, 5, null, 7, null, 'NA', null, 9, null]);
     });
   });
+
+  describe('parse should create a new object from a string (in json or raw hdf5 format)', () => {
+    it('should throw an Error if the string is not json and no conversion server is given', () => {
+      assert.throws(() => {Biom.parse('just some random text')}, Error, /json/);
+    });
+  });
 });
