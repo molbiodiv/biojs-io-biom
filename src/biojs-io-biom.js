@@ -571,4 +571,23 @@ export class Biom {
             }
         }
     }
+
+    /**
+     * This method creates the json representation of a biom string.
+     * Version 2 can be converted to version 1 if the url of a conversionServer is given.
+     * @param biomString {string} - the biom string to convert to json
+     * @param _conversionServer {string} - url of a biom-conversion-server instance
+     *                                     https://github.com/iimog/biom-conversion-server
+     */
+    static parse(biomString = '', {conversionServer: _conversionServer = null} = {}){
+        // can only handle json if no conversion server is given
+        let json_obj;
+        try{
+            json_obj = JSON.parse(biomString);
+        } catch (e){
+            if(_conversionServer === null) {
+                throw new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message);
+            }
+        }
+    }
 }
