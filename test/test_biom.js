@@ -17,6 +17,9 @@ let assert = chai.assert;
 chai.expect();
 chai.should();
 
+// fs for reading test files
+let fs = require('fs');
+
 let exampleTaxonomy = [
   ['k__1', 'p__1', 'c__1', 'o__1', 'f__1', 'g__1', 's__1'],
   ['k__1', 'p__1', 'c__1', 'o__1', 'f__1', 'g__1', 's__2'],
@@ -387,6 +390,21 @@ describe('biojs-io-biom module', () => {
   describe('parse should create a new object from a string (in json or raw hdf5 format)', () => {
     it('should throw an Error if the string is not json and no conversion server is given', () => {
       assert.throws(() => {Biom.parse('just some random text')}, Error, /json/);
+    });
+    it('should throw an error if the string is valid json which is incompatible with the biom specification', () => {
+      // id is neither string nor null
+      assert.throws(() => {Biom.parse('{id: []}')}, TypeError);
+      // data is not an array
+      assert.throws(() => {Biom.parse('{id: "test", data: "someData"}')}, TypeError);
+    });
+    it('should return a new biom object if the string is valid json', (done) => {
+      // load test json file
+      fs.readFile('./test/files/simpleBiom.json', 'utf8', function(err, data) {
+        let biom = Biom.parse(data);
+        assert.equal(biom.id, 'No Table ID');
+        assert.equal(biom.format, 'Biological Observation Matrix 2.1.0');
+        done();
+      });
     });
   });
 });
