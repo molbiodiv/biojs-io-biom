@@ -393,9 +393,9 @@ describe('biojs-io-biom module', () => {
     });
     it('should throw an error if the string is valid json which is incompatible with the biom specification', () => {
       // id is neither string nor null
-      assert.throws(() => {Biom.parse('{id: []}')}, TypeError);
+      assert.throws(() => {Biom.parse('{"id": []}')}, TypeError);
       // data is not an array
-      assert.throws(() => {Biom.parse('{id: "test", data: "someData"}')}, TypeError);
+      assert.throws(() => {Biom.parse('{"id": "test", "data": "someData"}')}, TypeError);
     });
     it('should return a new biom object if the string is valid json', (done) => {
       // load test json file
