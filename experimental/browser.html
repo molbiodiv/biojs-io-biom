@@ -2,11 +2,31 @@
 <head>
 </head>
 <body>
+<input type="file" id="input" onchange="handleFiles(this.files)">
 <script src="../build/biom.js"></script>
 <script type="text/javascript">
 var Biom = require('biojs-io-biom').Biom;
 biom = new Biom({id:"7"});
 console.log(biom);
+
+function handleFiles(files){
+    var reader = new FileReader();
+    reader.onload = function(c) {
+            fileContent = c.target.result;
+//              console.log(ab2str(toByteArray(fromByteArray(new Uint8Array(c.target.result)))));
+            Biom.parse('', {conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: fileContent}).then(
+                    function(biom){
+                        console.log(biom);
+                    },
+                    function(fail){
+                        console.log(fail);
+                    }
+            );
+
+    };
+    reader.readAsArrayBuffer(files[0], 'utf8');
+}
+
 </script>
 </body>
 </html>
