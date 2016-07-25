@@ -398,15 +398,16 @@ describe('biojs-io-biom module', () => {
       // id is neither string nor null
       assert.throws(() => {Biom.parse('{"id": []}')}, TypeError);
       // data is not an array
-      assert.throws(() => {Biom.parse('{"id": "test", "data": "someData"}')}, TypeError);
+      assert.throws(() => {Biom.parse('{"id": "test", "data": "someData"}',{})}, TypeError);
     });
     it('should return a new biom object if the string is valid json', (done) => {
       // load test json file
       fs.readFile('./test/files/simpleBiom.json', 'utf8', function(err, data) {
-        let biom = Biom.parse(data);
-        assert.equal(biom.id, 'No Table ID');
-        assert.equal(biom.format, 'Biological Observation Matrix 2.1.0');
-        done();
+        Biom.parse(data,{},(biom) => {
+          assert.equal(biom.id, 'No Table ID');
+          assert.equal(biom.format, 'Biological Observation Matrix 2.1.0');
+          done();
+        });
       });
     });
     it('should throw an error if the biomString is no JSON and the conversionServer is not reachable', () => {

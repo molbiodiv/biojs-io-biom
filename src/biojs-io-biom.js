@@ -575,17 +575,19 @@ export class Biom {
     }
 
     /**
-     * This method creates a new biom object from a biom string.
+     * This method creates a new biom object from a biom string and calls the callback with this object.
      * Version 2 (hdf5) can be converted to version 1 if the url of a conversionServer is given.
      * @param biomString {string} - the biom string to convert to an object
      * @param _conversionServer {string} - url of a biom-conversion-server instance
      *                                     https://github.com/iimog/biom-conversion-server
+     * @param callback(biom) {function} - the callback to be called with the newly created biom object
+     *                                    this method can be asynchronous, therefore a callback is used
+     *                                    rather than a simple return
      * @throws {Error} - if biomString is not valid JSON and no conversionServer is given
      * @throws {Error} - if biomString is JSON that is not compatible with biom specification
      *                   Error will be thrown by the Biom constructor
-     * @returns {Biom} - a new biom object as described by the string
      */
-    static parse(biomString = '', {conversionServer: _conversionServer = null} = {}){
+    static parse(biomString = '', {conversionServer: _conversionServer = null} = {}, callback = (biom) => {}){
         // can only handle json if no conversion server is given
         let json_obj;
         try{
