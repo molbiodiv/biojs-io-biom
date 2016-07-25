@@ -582,9 +582,14 @@ export class Biom {
      * @param biomString {string} - the biom string to convert to an object
      * @param _conversionServer {string} - url of a biom-conversion-server instance
      *                                     https://github.com/iimog/biom-conversion-server
+     * @param _arrayBuffer {ArrayBuffer} - instead of a biomString a raw ArrayBuffer as returned by
+     *                                     FileReader.readAsArrayBuffer() can be given
+     *                                     (only used if biomString is not valid json)
+     *                                     For hdf5 files it is recommended to use this method rather than readAsText
      * @throws {Error} - if biomString is not valid JSON and no conversionServer is given
      * @throws {Error} - if biomString is JSON that is not compatible with biom specification
      *                   Error will be thrown by the Biom constructor
+     * @throws {Error} - if there is a conversion error (conversionServer not reachable, conversionServer returns error)
      * @returns promise {Promise} - a promise that is fulfilled when the new Biom object has been created
      *                              or rejected if an error occurs on the way.
      */

@@ -12,9 +12,7 @@ console.log(biom);
 function handleFiles(files){
     var reader = new FileReader();
     reader.onload = function(c) {
-            fileContent = c.target.result;
-//              console.log(ab2str(toByteArray(fromByteArray(new Uint8Array(c.target.result)))));
-            Biom.parse('', {conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: fileContent}).then(
+            Biom.parse('', {conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: c.target.result}).then(
                     function(biom){
                         console.log(biom);
                     },
@@ -22,7 +20,6 @@ function handleFiles(files){
                         console.log(fail);
                     }
             );
-
     };
     reader.readAsArrayBuffer(files[0], 'utf8');
 }
