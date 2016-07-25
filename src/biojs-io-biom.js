@@ -596,7 +596,22 @@ export class Biom {
             if(_conversionServer === null) {
                 throw new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message);
             }
+            nets({
+                body: '{"to": "json", "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}',
+                url: _conversionServer,
+                encoding:undefined,
+                method:"POST",
+                headers:{
+                    "Content-Type": "application/json"
+                }
+            }, function done (err, resp, body) {
+                if(err !== null){
+                    throw new Error("There was an error with the conversion: "+err.code);
+                }
+                console.log(err,resp,body);
+            });
         }
-        return new Biom(json_obj);
+        callback(new Biom(json_obj));
+        return;
     }
 }
