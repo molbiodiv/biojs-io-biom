@@ -474,14 +474,5 @@ describe('biojs-io-biom module', () => {
         );
       });
     });
-    // it('should send a proper request to the given conversion server and interpret the results', (done) => {
-    //   nock('http://example.com')
-    //       .persist()
-    //       .post('/convert.php', {
-    //         to: 'json',
-    //         content: /AAAAAAAAAA/
-    //       })
-    //       .replyWithFile(200, './test/files/simpleBiom.hdf5.conversionServerAnswer');
-    // });
   });
 });
