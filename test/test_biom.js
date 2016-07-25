@@ -453,6 +453,27 @@ describe('biojs-io-biom module', () => {
         );
       });
     });
+    it('should send a proper request to the given conversion server but get an error if not convertible', (done) => {
+      nock('http://example.com')
+          .persist()
+          .post('/convert.php', {
+            to: 'json',
+            content: /VGhpcyBpcyBh/
+          })
+          .replyWithFile(200, './test/files/noJson.conversionServerAnswer');
+      fs.readFile('./test/files/noJson', 'utf8', function(err, data) {
+        Biom.parse(data, {conversionServer: 'http://example.com/convert.php'}).then(
+            (biom) => {
+              throw new Error('The promise should not be fulfilled');
+              done();
+            },
+            (fail) => {
+              assert.match(fail.message, /conversion/, 'Correct error created');
+              done();
+            }
+        );
+      });
+    });
     // it('should send a proper request to the given conversion server and interpret the results', (done) => {
     //   nock('http://example.com')
     //       .persist()
