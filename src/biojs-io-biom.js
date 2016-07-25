@@ -78,6 +78,8 @@ export const MATRIX_ELEMENT_TYPE_CV = [
     'unicode' // unicode string
 ];
 
+let nets = require('nets');
+
 /**
  * @class Biom
  */
