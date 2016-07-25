@@ -20,6 +20,9 @@ chai.should();
 // fs for reading test files
 let fs = require('fs');
 
+// nock for mocking server requests
+let nock = require('nock');
+
 let exampleTaxonomy = [
   ['k__1', 'p__1', 'c__1', 'o__1', 'f__1', 'g__1', 's__1'],
   ['k__1', 'p__1', 'c__1', 'o__1', 'f__1', 'g__1', 's__2'],
@@ -406,5 +409,27 @@ describe('biojs-io-biom module', () => {
         done();
       });
     });
+    it('should throw an error if the biomString is no JSON and the conversionServer is not reachable', () => {
+      assert.throws(() => {Biom.parse('', {conversionServer: 'http://non-existent.example.com/there_is_no_conversion_server'})}, Error);
+      Biom.parse('', {conversionServer: 'http://non-existent.example.com/there_is_no_conversion_server'})
+    });
+    // it('should throw an error if the biomString is no JSON and the conversionServer returns an error', (done) => {
+    //   nock('http://example.com')
+    //       .persist()
+    //       .post('/convert.php', {
+    //         to: 'json',
+    //         content: /AAAAAAAAAA/
+    //       })
+    //       .replyWithFile(200, './test/files/simpleBiom.hdf5.conversionServerAnswer');
+    // });
+    // it('should send a proper request to the given conversion server and interpret the results', (done) => {
+    //   nock('http://example.com')
+    //       .persist()
+    //       .post('/convert.php', {
+    //         to: 'json',
+    //         content: /AAAAAAAAAA/
+    //       })
+    //       .replyWithFile(200, './test/files/simpleBiom.hdf5.conversionServerAnswer');
+    // });
   });
 });
