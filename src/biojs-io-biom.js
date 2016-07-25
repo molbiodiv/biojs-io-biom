@@ -597,7 +597,6 @@ export class Biom {
                 if(_conversionServer === null) {
                     return reject(new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message));
                 }
-                console.log(new Date().toUTCString());
                 nets({
                     body: '{"to": "json", "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}',
                     url: _conversionServer,
