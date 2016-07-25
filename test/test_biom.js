@@ -426,7 +426,7 @@ describe('biojs-io-biom module', () => {
       });
     });
     it('should throw an error if the biomString is no JSON and the conversionServer is not reachable', (done) => {
-      Biom.parse('',{conversionServer: 'blablub'}).then(
+      Biom.parse('',{conversionServer: 'http://non-existent.example.com/non-existent.php'}).then(
           (suc) => {throw new Error('The promise should not be fulfilled'); done();},
           (fail) => {assert.match(fail.message, /conversion/, 'Correct error created'); done();}
       );
