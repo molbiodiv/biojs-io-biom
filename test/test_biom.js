@@ -391,28 +391,45 @@ describe('biojs-io-biom module', () => {
   });
 
   describe('parse should create a new object from a string (in json or raw hdf5 format)', () => {
-    it('should throw an Error if the string is not json and no conversion server is given', () => {
-      assert.throws(() => {Biom.parse('just some random text')}, Error, /json/);
+    it('should reject the promise if the string is not json and no conversion server is given', (done) => {
+      Biom.parse('just some random text').then(
+          (suc) => {throw new Error('The promise should not be fulfilled'); done();},
+          (fail) => {assert.match(fail.message, /json/, 'Correct error created'); done();}
+      );
     });
     it('should throw an error if the string is valid json which is incompatible with the biom specification', () => {
       // id is neither string nor null
-      assert.throws(() => {Biom.parse('{"id": []}')}, TypeError);
+      Biom.parse('{"id": []}').then(
+          (suc) => {throw new Error('The promise should not be fulfilled'); done();},
+          (fail) => {assert.equal(typeof fail, 'TypeError', 'A TypeError was thrown'); done();}
+      );
       // data is not an array
-      assert.throws(() => {Biom.parse('{"id": "test", "data": "someData"}',{})}, TypeError);
+      Biom.parse('{"id": "test", "data": "someData"}').then(
+          (suc) => {throw new Error('The promise should not be fulfilled'); done();},
+          (fail) => {assert.equal(typeof fail, 'TypeError', 'A TypeError was thrown'); done();}
+      );
     });
     it('should return a new biom object if the string is valid json', (done) => {
       // load test json file
       fs.readFile('./test/files/simpleBiom.json', 'utf8', function(err, data) {
-        Biom.parse(data,{},(biom) => {
-          assert.equal(biom.id, 'No Table ID');
-          assert.equal(biom.format, 'Biological Observation Matrix 2.1.0');
-          done();
-        });
+        Biom.parse(data,{}).then(
+            (biom) => {
+              assert.equal(biom.id, 'No Table ID');
+              assert.equal(biom.format, 'Biological Observation Matrix 2.1.0');
+              done();
+            },
+            (fail) => {
+              throw new Error('The promise should not be rejected');
+              done();
+            }
+        );
       });
     });
-    it('should throw an error if the biomString is no JSON and the conversionServer is not reachable', () => {
-      assert.throws(() => {Biom.parse('', {conversionServer: 'http://non-existent.example.com/there_is_no_conversion_server'})}, Error);
-      Biom.parse('', {conversionServer: 'http://non-existent.example.com/there_is_no_conversion_server'})
+    it('should throw an error if the biomString is no JSON and the conversionServer is not reachable', (done) => {
+      Biom.parse('',{conversionServer: 'blablub'}).then(
+          (suc) => {throw new Error('The promise should not be fulfilled'); done();},
+          (fail) => {assert.match(fail.message, /conversion/, 'Correct error created'); done();}
+      );
     });
     // it('should throw an error if the biomString is no JSON and the conversionServer returns an error', (done) => {
     //   nock('http://example.com')

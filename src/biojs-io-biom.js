@@ -580,38 +580,38 @@ export class Biom {
      * @param biomString {string} - the biom string to convert to an object
      * @param _conversionServer {string} - url of a biom-conversion-server instance
      *                                     https://github.com/iimog/biom-conversion-server
-     * @param callback(biom) {function} - the callback to be called with the newly created biom object
-     *                                    this method can be asynchronous, therefore a callback is used
-     *                                    rather than a simple return
      * @throws {Error} - if biomString is not valid JSON and no conversionServer is given
      * @throws {Error} - if biomString is JSON that is not compatible with biom specification
      *                   Error will be thrown by the Biom constructor
+     * @returns promise {Promise} - a promise that is fulfilled when the new Biom object has been created
+     *                              or rejected if an error occurs on the way.
      */
-    static parse(biomString = '', {conversionServer: _conversionServer = null} = {}, callback = (biom) => {}){
-        // can only handle json if no conversion server is given
-        let json_obj;
-        try{
-            json_obj = JSON.parse(biomString);
-        } catch (e){
-            if(_conversionServer === null) {
-                throw new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message);
+    static parse(biomString = '', {conversionServer: _conversionServer = null} = {}){
+        return new Promise((resolve, reject) => {
+            // can only handle json if no conversion server is given
+            let json_obj;
+            try{
+                json_obj = JSON.parse(biomString);
+                return resolve(new Biom(json_obj));
+            } catch (e){
+                if(_conversionServer === null) {
+                    return reject(new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message));
+                }
+                console.log(new Date().toUTCString());
+                nets({
+                    body: '{"to": "json", "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}',
+                    url: _conversionServer,
+                    encoding:undefined,
+                    method:"POST",
+                    headers:{
+                        "Content-Type": "application/json"
+                    }
+                }, function done (err, resp, body) {
+                    if(err !== null){
+                        return reject(new Error('There was an error with the conversion:\n'+err));
+                    }
+                });
             }
-            nets({
-                body: '{"to": "json", "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}',
-                url: _conversionServer,
-                encoding:undefined,
-                method:"POST",
-                headers:{
-                    "Content-Type": "application/json"
-                }
-            }, function done (err, resp, body) {
-                if(err !== null){
-                    throw new Error("There was an error with the conversion: "+err.code);
-                }
-                console.log(err,resp,body);
-            });
-        }
-        callback(new Biom(json_obj));
-        return;
+        });
     }
 }
