@@ -161,8 +161,9 @@ biom.getMetadata({dimension: 'columns', attribute: 'pH'});
 **Returns** `Promise` this function returns a promise. In case of success the new Biom object is passed otherwise the Error object is passed.
 
 The [conversion server](https://github.com/iimog/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
-You can host your own server using a preconfigured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
+You can host your own server using a pre-configured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
 We also plan to host a publicly available server soon.
+For this version of the module biom-conversion-server v0.2.0 or later is required.
 
 The promise is rejected:
  - if biomString is not valid JSON and no conversionServer is given
