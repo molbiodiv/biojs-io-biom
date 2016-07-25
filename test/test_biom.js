@@ -439,8 +439,8 @@ describe('biojs-io-biom module', () => {
             content: /AAAAAAAAAA/
           })
           .replyWithFile(200, './test/files/simpleBiom.hdf5.conversionServerAnswer');
-      fs.readFile('./test/files/simpleBiom.hdf5', 'utf8', function(err, data) {
-        Biom.parse(data, {conversionServer: 'http://example.com/convert.php'}).then(
+      fs.readFile('./test/files/simpleBiom.hdf5', function(err, data) {
+        Biom.parse('', {conversionServer: 'http://example.com/convert.php', arrayBuffer: data}).then(
             (biom) => {
               assert.equal(biom.date, '2016-07-22T09:36:48.816900');
               assert.equal(biom.matrix_element_type, 'float');
@@ -461,8 +461,8 @@ describe('biojs-io-biom module', () => {
             content: /VGhpcyBpcyBh/
           })
           .replyWithFile(200, './test/files/noJson.conversionServerAnswer');
-      fs.readFile('./test/files/noJson', 'utf8', function(err, data) {
-        Biom.parse(data, {conversionServer: 'http://example.com/convert.php'}).then(
+      fs.readFile('./test/files/noJson', function(err, data) {
+        Biom.parse('', {conversionServer: 'http://example.com/convert.php', arrayBuffer: data}).then(
             (biom) => {
               throw new Error('The promise should not be fulfilled');
               done();
