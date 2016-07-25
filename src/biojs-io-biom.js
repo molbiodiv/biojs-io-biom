@@ -79,6 +79,8 @@ export const MATRIX_ELEMENT_TYPE_CV = [
 ];
 
 let nets = require('nets');
+let base64 = require('base64-js');
+let textEncoding = require('text-encoding');
 
 /**
  * @class Biom

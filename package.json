@@ -26,8 +26,10 @@
     "test-watch": "gulp test-watch"
   },
   "dependencies": {
+    "base64-js": "^1.1.2",
     "biojs-io-parser": "^1.0.0",
-    "nets": "^3.2.0"
+    "nets": "^3.2.0",
+    "text-encoding": "^0.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
