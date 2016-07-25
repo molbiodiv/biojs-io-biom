@@ -431,15 +431,28 @@ describe('biojs-io-biom module', () => {
           (fail) => {assert.match(fail.message, /conversion/, 'Correct error created'); done();}
       );
     });
-    // it('should throw an error if the biomString is no JSON and the conversionServer returns an error', (done) => {
-    //   nock('http://example.com')
-    //       .persist()
-    //       .post('/convert.php', {
-    //         to: 'json',
-    //         content: /AAAAAAAAAA/
-    //       })
-    //       .replyWithFile(200, './test/files/simpleBiom.hdf5.conversionServerAnswer');
-    // });
+    it('should send a proper request to the given conversion server and interpret the results', (done) => {
+      nock('http://example.com')
+          .persist()
+          .post('/convert.php', {
+            to: 'json',
+            content: /AAAAAAAAAA/
+          })
+          .replyWithFile(200, './test/files/simpleBiom.hdf5.conversionServerAnswer');
+      fs.readFile('./test/files/simpleBiom.hdf5', 'utf8', function(err, data) {
+        Biom.parse(data, {conversionServer: 'http://example.com/convert.php'}).then(
+            (biom) => {
+              assert.equal(biom.id, 'No Table ID');
+              assert.equal(biom.format, 'Biological Observation Matrix 2.1.0');
+              done();
+            },
+            (fail) => {
+              throw new Error('The promise should not be rejected');
+              done();
+            }
+        );
+      });
+    });
     // it('should send a proper request to the given conversion server and interpret the results', (done) => {
     //   nock('http://example.com')
     //       .persist()
