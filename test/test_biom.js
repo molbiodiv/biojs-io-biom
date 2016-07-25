@@ -442,8 +442,8 @@ describe('biojs-io-biom module', () => {
       fs.readFile('./test/files/simpleBiom.hdf5', 'utf8', function(err, data) {
         Biom.parse(data, {conversionServer: 'http://example.com/convert.php'}).then(
             (biom) => {
-              assert.equal(biom.id, 'No Table ID');
-              assert.equal(biom.format, 'Biological Observation Matrix 2.1.0');
+              assert.equal(biom.date, '2016-07-22T09:36:48.816900');
+              assert.equal(biom.matrix_element_type, 'float');
               done();
             },
             (fail) => {

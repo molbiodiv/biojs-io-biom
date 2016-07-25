@@ -599,8 +599,9 @@ export class Biom {
                 if(_conversionServer === null) {
                     return reject(new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message));
                 }
+                let b64content = base64.fromByteArray(new textEncoding.TextEncoder().encode(biomString));
                 nets({
-                    body: '{"to": "json", "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}',
+                    body: '{"to": "json", "content": "'+b64content+'"}',
                     url: _conversionServer,
                     encoding:undefined,
                     method:"POST",
@@ -611,6 +612,14 @@ export class Biom {
                     if(err !== null){
                         return reject(new Error('There was an error with the conversion:\n'+err));
                     }
+                    let response = body.replace(/\r?\n|\r/g, '');
+                    response = JSON.parse(response);
+                    if(response.error !== null){
+                        return reject(new Error('There was an error with the conversion:\n'+response.error));
+                    }
+                    json_obj = JSON.parse(new textEncoding.TextDecoder().decode(base64.toByteArray(response.content)));
+                    console.log(json_obj);
+                    return resolve(new Biom(json_obj));
                 });
             }
         });
