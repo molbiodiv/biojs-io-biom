@@ -588,9 +588,12 @@ export class Biom {
      * @returns promise {Promise} - a promise that is fulfilled when the new Biom object has been created
      *                              or rejected if an error occurs on the way.
      */
-    static parse(biomString = '', {conversionServer: _conversionServer = null} = {}){
+    static parse(biomString = '', {conversionServer: _conversionServer = null, arrayBuffer: _arrayBuffer = null} = {}){
         return new Promise((resolve, reject) => {
             // can only handle json if no conversion server is given
+            if(_arrayBuffer !== null){
+                biomString = new textEncoding.TextDecoder().decode(_arrayBuffer);
+            }
             let json_obj;
             try{
                 json_obj = JSON.parse(biomString);
@@ -599,7 +602,10 @@ export class Biom {
                 if(_conversionServer === null) {
                     return reject(new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message));
                 }
-                let b64content = base64.fromByteArray(new textEncoding.TextEncoder().encode(biomString));
+                let b64content = base64.fromByteArray(new Uint8Array(new textEncoding.TextEncoder().encode(biomString)));
+                if(_arrayBuffer !== null){
+                    b64content = base64.fromByteArray(new Uint8Array(_arrayBuffer));
+                }
                 nets({
                     body: '{"to": "json", "content": "'+b64content+'"}',
                     url: _conversionServer,
