@@ -150,7 +150,58 @@ biom.getMetadata({dimension: 'columns', attribute: 'pH'});
 // [1, 3, 9, null, 5]
 ```
 
+#### parse(biomString, options)
+
+**Parameter**: `biomString`
+**Type**: `String`
+**Example**: `'{"id": "test", "shape": [0,0]}'`
+**Parameter**: `options`
+**Type**: `Object`
+**Example**: `{conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: ab}`
+**Returns** `Promise` this function returns a promise. In case of success the new Biom object is passed otherwise the Error object is passed.
+
+The [conversion server](https://github.com/iimog/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
+You can host your own server using a preconfigured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
+We also plan to host a publicly available server soon.
+
+The promise is rejected:
+ - if biomString is not valid JSON and no conversionServer is given
+ - if biomString is JSON that is not compatible with biom specification. Error will be thrown by the Biom constructor
+ - if there is a conversion error (conversionServer not reachable, conversionServer returns error)
+
+This method parses the content of a biom file either as string or as ArrayBuffer.
+
+```javascript
+// Example: json String
+Biom.parse('{"id": "Table ID", "shape": [2,2]}', {}).then(
+    function(biom){
+        console.log(biom.shape);
+    }
+);
+
+// Example: raw arrayBuffer from hdf5 file (file is a reference on the hdf5 file)
+// Using a conversionServer running on localhost port 8080
+var reader = new FileReader();
+reader.onload = function(c) {
+    Biom.parse('', {conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: c.target.result}).then(
+        // in case of success
+        function(biom){
+            console.log(biom);
+        },
+        // in case of failure
+        function(fail){
+            console.log(fail);
+        }
+    );
+};
+reader.readAsArrayBuffer(file);
+```
+
 ## Changes
+
+### v0.1.3
+ - Add parse function
+ - Add hdf5 conversion capability to parse (via external server)
 
 ### v0.1.2
  - Add getMetadata function
