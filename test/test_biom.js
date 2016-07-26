@@ -525,27 +525,25 @@ describe('biojs-io-biom module', () => {
           }
       );
     });
-    // it('should send a proper request to the given conversion server and interpret the results', (done) => {
-    //   nock('http://example.com')
-    //       .persist()
-    //       .post('/convert.php', {
-    //         to: 'hdf5',
-    //         content: /AAAAAAAAAA/
-    //       })
-    //       .replyWithFile(200, './test/files/emptyObject.to-hdf5.conversionServerAnswer');
-    //   fs.readFile('./test/files/simpleBiom.hdf5', function(err, data) {
-    //     Biom.parse('', {conversionServer: 'http://example.com/convert.php', arrayBuffer: data}).then(
-    //         (biom) => {
-    //           assert.equal(biom.date, '2016-07-22T09:36:48.816900');
-    //           assert.equal(biom.matrix_element_type, 'float');
-    //           done();
-    //         },
-    //         (fail) => {
-    //           throw new Error('The promise should not be rejected');
-    //           done();
-    //         }
-    //     );
-    //   });
-    // });
+    it('should send a proper request to the given conversion server and interpret the results', (done) => {
+      nock('http://example.com')
+          .persist()
+          .post('/convert.php', {
+            to: 'hdf5',
+            content: /eyJpZCI6bnVsbCwi/
+          })
+          .replyWithFile(200, './test/files/emptyObject.to-hdf5.conversionServerAnswer');
+      let biom = new Biom();
+      biom.write({conversionServer: 'http://example.com/convert.php', asHdf5}).then(
+          (biomAB) => {
+            assert.equal(typeof biomAB, 'ArrayBuffer');
+            done();
+          },
+          (fail) => {
+            throw new Error('The promise should not be rejected');
+            done();
+          }
+      );
+    });
   });
 });
