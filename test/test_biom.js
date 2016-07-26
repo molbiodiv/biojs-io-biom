@@ -488,7 +488,7 @@ describe('biojs-io-biom module', () => {
       let biom = new Biom();
       biom.write().then(
           (biomString) => {
-            asser.match(biomString, /"id": null/);
+            assert.match(biomString, /"id": ?null/);
             done();
           },
           (fail) => {
