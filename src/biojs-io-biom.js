@@ -610,6 +610,27 @@ export class Biom {
                if(_conversionServer === null){
                    reject(new Error('asHdf5 is set but no conversionServer is given'));
                }
+               let b64content = base64.fromByteArray(new Uint8Array(new textEncoding.TextEncoder().encode(biomJson)));
+               nets({
+                   body: '{"to": "hdf5", "content": "'+b64content+'"}',
+                   url: _conversionServer,
+                   encoding: undefined,
+                   method: "POST",
+                   headers:{
+                       "Content-Type": "application/json"
+                   }
+               }, function done (err, resp, body) {
+                   if(err !== null){
+                       return reject(new Error('There was an error with the conversion:\n'+err));
+                   }
+                   let response = body.replace(/\r?\n|\r/g, '');
+                   response = JSON.parse(response);
+                   if(response.error !== null){
+                       return reject(new Error('There was an error with the conversion:\n'+response.error));
+                   }
+                   // json_obj = JSON.parse(new textEncoding.TextDecoder().decode(base64.toByteArray(response.content)));
+                   // return resolve(new Biom(json_obj));
+               });
            } else {
                resolve(biomJson);
            }
