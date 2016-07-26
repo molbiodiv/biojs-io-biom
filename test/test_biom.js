@@ -497,6 +497,27 @@ describe('biojs-io-biom module', () => {
           }
       )
     });
+    // this mocked server answer is not expected for the generated request however other errors may occur and look like that
+    it('should send a proper request to the given conversion server but handle an error if one occurs', (done) => {
+      nock('http://example.com')
+          .persist()
+          .post('/convert.php', {
+            to: 'hdf5',
+            content: /VGhpcyBpcyBh/
+          })
+          .replyWithFile(200, './test/files/noJson.conversionServerAnswer');
+      let biom = new Biom();
+      biom.write({conversionServer: 'http://example.com/convert.php', asHdf5: true}).then(
+          (biom) => {
+            throw new Error('The promise should not be fulfilled');
+            done();
+          },
+          (fail) => {
+            assert.match(fail.message, /conversion/, 'Correct error created');
+            done();
+          }
+      );
+    });
     // it('should send a proper request to the given conversion server and interpret the results', (done) => {
     //   nock('http://example.com')
     //       .persist()
