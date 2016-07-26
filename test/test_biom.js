@@ -477,6 +477,13 @@ describe('biojs-io-biom module', () => {
   });
 
   describe('write should create a JSON string or ArrayBuffer representation of the biom object', () => {
+    it('should throw an error if hdf5 is requested but no conversionServer is given', (done) => {
+      let biom = new Biom();
+      biom.write({asHdf5: true}).then(
+          (suc) => {throw new Error('The promise should not be fulfilled'); done();},
+          (fail) => {assert.match(fail.message, /conversion/, 'Correct error created'); done();}
+      );
+    });
     it('should return a valid json string', (done) => {
       let biom = new Biom();
       biom.write().then(
