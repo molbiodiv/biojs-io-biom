@@ -497,6 +497,13 @@ describe('biojs-io-biom module', () => {
           }
       )
     });
+    it('should throw an error if asHdf5 is set and the conversionServer is not reachable', (done) => {
+      let biom = new Biom();
+      biom.write({conversionServer: 'http://non-existent.example.com/non-existent.php', asHdf5: true}).then(
+          (suc) => {throw new Error('The promise should not be fulfilled'); done();},
+          (fail) => {assert.match(fail.message, /conversion/, 'Correct error created'); done();}
+      );
+    });
     // this mocked server answer is not expected for the generated request however other errors may occur and look like that
     it('should send a proper request to the given conversion server but handle an error if one occurs', (done) => {
       nock('http://example.com')
