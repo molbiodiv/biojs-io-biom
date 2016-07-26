@@ -510,7 +510,7 @@ describe('biojs-io-biom module', () => {
           .persist()
           .post('/convert.php', {
             to: 'hdf5',
-            content: /VGhpcyBpcyBh/
+            content: /eyJpZCI6bnVsbCwi/
           })
           .replyWithFile(200, './test/files/noJson.conversionServerAnswer');
       let biom = new Biom();
