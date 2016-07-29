@@ -249,6 +249,10 @@ biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}
 
 ## Changes
 
+### v0.1.4
+ - Add write function
+ - Add browserified build
+
 ### v0.1.3
  - Add parse function
  - Add hdf5 conversion capability to parse (via external server)
