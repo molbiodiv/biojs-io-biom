@@ -526,7 +526,7 @@ describe('biojs-io-biom module', () => {
       );
     });
     it('should send a proper request to the given conversion server and interpret the results', (done) => {
-      nock('http://example.com')
+      nock('http://2.example.com')
           .persist()
           .post('/convert.php', {
             to: 'hdf5',
@@ -534,9 +534,15 @@ describe('biojs-io-biom module', () => {
           })
           .replyWithFile(200, './test/files/emptyObject.to-hdf5.conversionServerAnswer');
       let biom = new Biom();
-      biom.write({conversionServer: 'http://example.com/convert.php', asHdf5}).then(
+      biom.write({conversionServer: 'http://2.example.com/convert.php', asHdf5: true}).then(
           (biomAB) => {
-            assert.equal(typeof biomAB, 'ArrayBuffer');
+            assert.equal(Object.prototype.toString.call(biomAB), '[object ArrayBuffer]');
+            let u8 = new Uint8Array(biomAB);
+            assert.equal(u8[0], 137);
+            assert.equal(u8[1], 72);
+            assert.equal(u8[2], 68);
+            assert.equal(u8[3], 70);
+            assert.equal(u8[4], 13);
             done();
           },
           (fail) => {

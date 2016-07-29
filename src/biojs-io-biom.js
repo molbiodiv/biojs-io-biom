@@ -628,8 +628,8 @@ export class Biom {
                    if(response.error !== null){
                        return reject(new Error('There was an error with the conversion:\n'+response.error));
                    }
-                   // json_obj = JSON.parse(new textEncoding.TextDecoder().decode(base64.toByteArray(response.content)));
-                   // return resolve(new Biom(json_obj));
+                   let arrayBuffer = base64.toByteArray(response.content).buffer;
+                   return resolve(arrayBuffer);
                });
            } else {
                resolve(biomJson);
