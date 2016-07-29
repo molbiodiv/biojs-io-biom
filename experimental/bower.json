@@ -1,0 +1,21 @@
+{
+  "name": "datatables_pseudo_serverside",
+  "homepage": "https://github.com/iimog/biojs-io-biom",
+  "authors": [
+    "Markus Ankenbrand <markus@ankenbrand.me>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "file-saver": "^1.3.2"
+  }
+}

@@ -3,10 +3,12 @@
 </head>
 <body>
 <input type="file" id="input" onchange="handleFiles(this.files)">
+<script src="./bower_components/file-saver/FileSaver.min.js"></script>
 <script src="../build/biom.js"></script>
 <script type="text/javascript">
 var Biom = require('biojs-io-biom').Biom;
-biom = new Biom({id:"7"});
+biom = new Biom();
+biom.write({conversionServer: "http://localhost:8080/convert.php", asHdf5: true});
 console.log(biom);
 
 function handleFiles(files){
@@ -15,6 +17,12 @@ function handleFiles(files){
             Biom.parse('', {conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: c.target.result}).then(
                     function(biom){
                         console.log(biom);
+                       // biom.write().then(
+                        biom.write({conversionServer: "http://localhost:8080/convert.php", asHdf5: true}).then(
+                                function(success){
+                                    saveAs(new Blob([success], {type: "application/octet-stream"}), "myBiomExport.hdf5", true);
+                                }
+                        )
                     },
                     function(fail){
                         console.log(fail);
