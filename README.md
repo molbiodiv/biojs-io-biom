@@ -150,7 +150,7 @@ biom.getMetadata({dimension: 'columns', attribute: 'pH'});
 // [1, 3, 9, null, 5]
 ```
 
-#### parse(biomString, options)
+#### static parse(biomString, options)
 
 **Parameter**: `biomString`
 **Type**: `String`
@@ -196,6 +196,55 @@ reader.onload = function(c) {
     );
 };
 reader.readAsArrayBuffer(file);
+```
+
+#### write(options)
+
+**Parameter**: `options`
+**Type**: `Object`
+**Example**: `{conversionServer: 'http://localhost:8080/convert.php', asHdf5: false}`
+**Returns** `Promise` this function returns a promise. In case of success the String or ArrayBuffer representation of the biom object is passed otherwise the Error object is passed.
+
+The [conversion server](https://github.com/iimog/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
+You can host your own server using a pre-configured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
+We also plan to host a publicly available server soon.
+For this version of the module biom-conversion-server v0.2.0 or later is required.
+
+The promise is rejected:
+ - if there is a conversion error (conversionServer not reachable, conversionServer returns error)
+
+This method generates a String (json) or ArrayBuffer (hdf5) representation of the biom object.
+
+```javascript
+biom = new Biom({
+    id: "Table ID",
+    shape: [2,2]
+    // ...
+});
+
+// Example: to json String
+biom.write().then(
+    function(biomString){
+        console.log(biomString);
+    }
+);
+
+// Example: to raw arrayBuffer (hdf5)
+// Using a conversionServer running on localhost port 8080
+biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}).then(
+    // in case of success
+    function(biomArrayBuffer){
+        console.log(biomArrayBuffer);
+        // a Blob can be created
+        // blob = new Blob([biomArrayBuffer], {type: "application/octet-stream"});
+        // and saved as file e.g. with https://github.com/eligrey/FileSaver.js/
+        // saveAs(blob, 'export.hdf5.biom', true);
+    },
+    // in case of failure
+    function(fail){
+        console.log(fail);
+    }
+);
 ```
 
 ## Changes
