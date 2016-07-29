@@ -1,7 +1,7 @@
 {
   "name": "biojs-io-biom",
   "description": "Parses biom files",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/iimog/biojs-io-biom",
   "author": {
     "name": "Markus J. Ankenbrand",
