@@ -2,6 +2,7 @@
 title: "Discussion"
 order: 5
 ---
-Discussion of the results and implications.
-
-This paragraph contains one species, a _Hippopotamus amphibius_.
+The utility and versatility of biojs-io-biom has been demonstrated in three example applications.
+It is implemented using latest web technologies, well tested and well documented.
+It provides a unified interface and abstracts from details like version or internal data representation.
+Therefore it will facilitate the development of web applications that use the biom format.
