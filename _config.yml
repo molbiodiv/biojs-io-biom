@@ -6,10 +6,10 @@ imports:
 theme: https://peerj.github.io/paper-themes/paper-now/
 collections:
     figures:
-        output: true
+        output: false
         title: 'Figures'
     tables:
-        output: true
+        output: false
         title: 'Tables'
     sections:
         output: true
