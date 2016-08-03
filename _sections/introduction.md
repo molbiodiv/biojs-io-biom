@@ -9,14 +9,16 @@ Consisting of a matrix of counts for each observations (e.g. gene or OTU) in eac
 The Biological Observation Matrix format [<sup>1</sup>](https://doi.org/10.1186/2047-217X-1-7 "The Biological Observation Matrix (BIOM) format or: how I learned to stop worrying and love the ome-ome") was developed to store this kind of data.
 One main purpose of the biom format is to enhance interoperability between different software suits.
 Many current tools support the biom format, e.g. QIIME, MG-RAST, PICRUSt, Mothur, phyloseq, MEGAN, VAMPS, metagenomeSeq, Phinch, RDP Classifier (add citations).
-Official libraries exist in python and R.
+Official libraries exist in python and R (cite).
 
-Interactive visualization of biological data in a web browser are becoming more and more popular. (cite biojs and some modules)
-BIOM format version 1 can be easily handled by web applications as it's underlying JSON format is natively supported by javascript.
-The more recent BIOM format version 2 however uses HDF5 as undelying format and con therefore not be handled natively by javascript.
-Also there are challenges when accessing the internal data as this can be stored either in dense or sparse format.
-So web applications have to handle the different versions and internal representations.
+Interactive visualization of biological data in a web browser is becoming more and more popular. (cite biojs and some modules)
+For the development of web applications that support biom data a corresponding library would be very helpful.
+There are several challenges when trying to handle biom data directly.
+While BIOM format version 1 builds on the JSON format and thus is natively supported by javascript,
+the more recent BIOM format version 2 uses HDF5 and can therefore not be handled natively by javascript.
+Also the internal data storage can be either dense or sparse so applications have to handle both cases.
+Furthermore application developers need to be very careful when modifying biom data as changes that do not abide to the specification will break interoperability with other tools.
 Here we present biojs-io-biom a javascript module that provides a unified interface to read, modify, and write biom data.
-To demonstrate the utility of this generic module it has been used to implement a simple user interface for a biom conversion server.
-Further the well known biom visualization tool Phinch has been extended to support biom version 2.
-This module is available at [github](https://github.com/iimog/biojs-io-biom) and [npm](https://www.npmjs.com/package/biojs-io-biom).
+It can be used as a library by applications that need to handle biom data.
+To demonstrate the utility of this module it has been used to implement a simple user interface for a biom conversion server (cite).
+Additionally the popular biom visualization tool Phinch (cite) has been extended to support biom version 2 (see fork cite).
