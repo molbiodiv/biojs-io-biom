@@ -15,7 +15,6 @@ So web applications have to handle the different versions and internal represent
 Here we present biojs-io-biom a javascript module that provides a unified interface to read, modify, and write biom data.
 To demonstrate the utility of this generic module it has been used to implement a simple user interface for a biom conversion server.
 Further the well known biom visualization tool Phinch has been extended to support biom version 2.
-Additionally a demo application that presents the biom content as a set of data tables with massively improved performance compared to a naive approach has been developed. (TODO)
 This module is available at [github](https://github.com/iimog/biojs-io-biom) and [npm](https://www.npmjs.com/package/biojs-io-biom).
 <!-- and thus allows applications to abstract from the internal data storage.
 Challenges for web applications (v1 / v2), requirement of special fields (phinch), performance for representation (datatables).

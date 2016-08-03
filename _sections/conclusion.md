@@ -1,5 +1,5 @@
 ---
-title: "Discussion"
+title: "Conclusion"
 order: 5
 ---
 The utility and versatility of biojs-io-biom has been demonstrated in two example applications.
