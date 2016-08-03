@@ -53,6 +53,11 @@ contributions:
     contributors:
       - *markus-j-ankenbrand
 
+  - name: "Supervision"
+    url: http://dictionary.casrai.org/Contributor_Roles/Supervision
+    contributors:
+      - *alexander-keller
+
   - name: "Writing - original draft"
     url: http://dictionary.casrai.org/Contributor_Roles/Writing_%E2%80%93_original_draft
     contributors:
@@ -61,4 +66,5 @@ contributions:
   - name: "Writing - review & editing"
     url: http://dictionary.casrai.org/Contributor_Roles/Writing_%E2%80%93_review_%26_editing
     contributors:
+      - *markus-j-ankenbrand
       - *alexander-keller
