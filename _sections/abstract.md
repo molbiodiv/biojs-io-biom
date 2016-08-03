@@ -3,6 +3,6 @@ title: Abstract
 order: 1
 container: header
 ---
-This is the first paragraph of the abstract.
+**Summary** summary
 
-This is another paragraph of the abstract.
+**Availability** biojs github zenodo
