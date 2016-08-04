@@ -14,6 +14,19 @@ authors:
     url: https://iimog.org
     orcid: "0000-0002-6620-807X"
 
+  - &niklas-terhoeven
+    id: "niklas-terhoeven"
+    name: "Niklas Terhoeven"
+
+  - &sonja-hohlfeld
+    id: "sonja-hohlfeld"
+    name: "Sonja Hohlfeld"
+
+  - &frank-foerster
+    id: "frank-foerster"
+    name: "Frank Förster"
+    orcid: "0000-0003-4166-5423"
+
   - &alexander-keller
     id: "alexander-keller"
     name: "Alexander Keller"
@@ -27,6 +40,22 @@ affiliations:
     members:
       - *markus-j-ankenbrand
       - *alexander-keller
+      - *sonja-hohlfeld
+
+  - name: "University of Würzburg"
+    department: "Center for Computational and Theoretical Biology (CCTB)"
+    location: "Würzburg, Germany"
+    url: http://www.cctb.uni-wuerzburg.de/
+    members:
+      - *niklas-terhoeven
+      - *frank-foerster
+
+  - name: "University of Würzburg"
+    department: "Department of Plant Physiology and Biophysics (Botany I)"
+    location: "Würzburg, Germany"
+    url: http://www.bot1.biozentrum.uni-wuerzburg.de/
+    members:
+      - *niklas-terhoeven
 
 funders:
   - name: "German Excellence Initiative"
@@ -41,12 +70,13 @@ contributions:
     url: http://dictionary.casrai.org/Contributor_Roles/Methodology
     contributors:
       - *markus-j-ankenbrand
+      - *sonja-hohlfeld
 
   - name: "Investigation"
     url: http://dictionary.casrai.org/Contributor_Roles/Investigation
     contributors:
       - *markus-j-ankenbrand
-      - *alexander-keller
+      - *niklas-terhoeven
 
   - name: "Software"
     url: http://dictionary.casrai.org/Contributor_Roles/Software
@@ -57,6 +87,7 @@ contributions:
     url: http://dictionary.casrai.org/Contributor_Roles/Supervision
     contributors:
       - *alexander-keller
+      - *frank-foerster
 
   - name: "Writing - original draft"
     url: http://dictionary.casrai.org/Contributor_Roles/Writing_%E2%80%93_original_draft
@@ -68,3 +99,6 @@ contributions:
     contributors:
       - *markus-j-ankenbrand
       - *alexander-keller
+      - *frank-foerster
+      - *niklas-terhoeven
+      - *sonja-hohlfeld
