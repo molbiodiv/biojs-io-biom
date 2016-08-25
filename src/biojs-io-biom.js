@@ -498,7 +498,8 @@ export class Biom {
     }
 
     /**
-     * Getter for comment
+     * Getter for nnz
+     * This property is read-only, attempts to set it will result in a TypeError
      * @returns {number} - Number of non-zero elements in data
      */
     get nnz(){
