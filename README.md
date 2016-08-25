@@ -76,6 +76,16 @@ biom.id = "New ID";
 //biom.id = 17;
 ```
 
+The `matrix_type` setter also updates internal representation of `data`:
+
+```javascript
+biom = new Biom({matrix_type: 'sparse', shape: [2,4], data: [[0,1,12],[1,2,7],[1,3,17]]});
+biom.matrix_type = 'dense';
+biom.data;
+// [[0,12,0,0],
+//  [0,0,7,17]]
+```
+
 #### getMetadata(object)
 
 **Parameter**: `object`
