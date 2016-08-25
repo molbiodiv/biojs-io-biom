@@ -259,25 +259,25 @@ biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}
 
 ## Changes
 
-### v0.1.5
+### v0.1.5 <small>(TBD)</small>
  - Add `data` transformation to `matrix_type` setter
 
-### v0.1.4
+### v0.1.4 <small>(2016-07-29)</small>
  - Add write function
  - Add browserified build
 
-### v0.1.3
+### v0.1.3 <small>(2016-07-25)</small>
  - Add parse function
  - Add hdf5 conversion capability to parse (via external server)
 
-### v0.1.2
+### v0.1.2 <small>(2016-07-21)</small>
  - Add getMetadata function
  - Add addMetadata function
 
-### v0.1.1
+### v0.1.1 <small>(2016-07-20)</small>
  - Bower init
 
-### v0.1.0
+### v0.1.0 <small>(2016-07-18)</small>
  - Initial release
  - Constructor
  - Getter/Setter for specified fields
