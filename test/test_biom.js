@@ -365,13 +365,13 @@ describe('biojs-io-biom module', () => {
       biom = new Biom({data: [[1,1,0],[0,1,1],[0,2,0]], matrix_type: 'dense', shape: [3,3]});
       assert.equal(biom.nnz, 5);
     });
-    it('should throw an error when trying to set nnz (read-only)', () => {
+    it('should throw a type error when trying to set nnz (read-only)', () => {
       let biom = new Biom();
-      assert.throws(() => {biom.nnz = 'data'}, Error);
-      assert.throws(() => {biom.nnz = 7257}, Error);
-      assert.throws(() => {biom.nnz = {}}, Error);
-      assert.throws(() => {biom.nnz = null}, Error);
-      assert.throws(() => {biom.nnz = []}, Error);
+      assert.throws(() => {biom.nnz = 'data'}, TypeError);
+      assert.throws(() => {biom.nnz = 7257}, TypeError);
+      assert.throws(() => {biom.nnz = {}}, TypeError);
+      assert.throws(() => {biom.nnz = null}, TypeError);
+      assert.throws(() => {biom.nnz = []}, TypeError);
     });
   });
 
