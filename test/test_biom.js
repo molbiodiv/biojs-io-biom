@@ -249,10 +249,9 @@ describe('biojs-io-biom module', () => {
         [0,12,0,0,0],
         [0,0,7,0,0],
         [0,17,0,0,0],
-        [0,0,0,0,109],
-        [0,0,0,0,0],
+        [0,0,0,0,109]
       ];
-      let biom = new Biom({matrix_type: 'sparse', shape: [5,5], data: original_data});
+      let biom = new Biom({matrix_type: 'sparse', shape: [4,5], data: original_data});
       assert.deepEqual(biom.data, original_data);
       biom.matrix_type = 'dense';
       assert.deepEqual(biom.data, transformed_data);
