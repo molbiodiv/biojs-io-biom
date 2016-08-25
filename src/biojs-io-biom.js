@@ -498,6 +498,26 @@ export class Biom {
     }
 
     /**
+     * Getter for comment
+     * @returns {number} - Number of non-zero elements in data
+     */
+    get nnz(){
+        let nnz = 0;
+        if(this.matrix_type === 'sparse'){
+            return this.data.length;
+        } else if(this.matrix_type === 'dense') {
+            for(let row of this.data){
+                for(let elem of row){
+                    if(elem !== 0){
+                        nnz++;
+                    }
+                }
+            }
+        }
+        return nnz;
+    }
+
+    /**
      * Get specific metadata of rows or columns as array
      * @param _dimension {string} - either "rows" ("observation") or "columns" ("sample"), default: "rows"
      * @param _attribute {string} - the key in the metadata object to extract for each element in "dimension"
