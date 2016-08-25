@@ -334,6 +334,7 @@ export class Biom {
 
     /**
      * Setter for matrix_type
+     * Will update internal representation of 'data' to new type
      * @param matrix_type {string} - Type of matrix data representation
      *                               (a controlled vocabulary)
      *                               Acceptable values:
