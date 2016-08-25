@@ -260,7 +260,8 @@ biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}
 ## Changes
 
 ### v0.1.5 <small>(TBD)</small>
- - Add `data` transformation to `matrix_type` setter
+ - Add getter for `nnz` (#10)
+ - Add `data` transformation to `matrix_type` setter (#3)
 
 ### v0.1.4 <small>(2016-07-29)</small>
  - Add write function
