@@ -356,6 +356,25 @@ describe('biojs-io-biom module', () => {
     });
   });
 
+  describe('getter and setter for nnz should work', () => {
+    it('should get the nnz', () => {
+      let biom = new Biom({data: [[1,1,12]], matrix_type: 'sparse', shape: [2,2]});
+      assert.equal(biom.nnz, 1);
+      biom = new Biom({data: [[1,1,12],[2,1,1],[2,2,9]], matrix_type: 'sparse', shape: [3,3]});
+      assert.equal(biom.nnz, 3);
+      biom = new Biom({data: [[1,1,0],[0,1,1],[0,2,0]], matrix_type: 'dense', shape: [3,3]});
+      assert.equal(biom.nnz, 5);
+    });
+    it('should throw an error when trying to set nnz (read-only)', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.nnz = 'data'}, Error);
+      assert.throws(() => {biom.nnz = 7257}, Error);
+      assert.throws(() => {biom.nnz = {}}, Error);
+      assert.throws(() => {biom.nnz = null}, Error);
+      assert.throws(() => {biom.nnz = []}, Error);
+    });
+  });
+
   describe('getMetadata should extract metadata from rows or columns', () => {
     it('should throw an Error if no attribute is given', () => {
       let biom = new Biom(exampleBiom);
