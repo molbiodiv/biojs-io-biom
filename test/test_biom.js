@@ -257,6 +257,23 @@ describe('biojs-io-biom module', () => {
       biom.matrix_type = 'dense';
       assert.deepEqual(biom.data, transformed_data);
     });
+    it('should update internal data representation from dense to sparse', () => {
+      let original_data = [
+        [0,2,0,1,0],
+        [0,0,7,0,3],
+        [0,5,0,0,0],
+        [0,0,34,0,0],
+        [0,0,0,0,2],
+      ];
+      let transformed_data = [[0,1,2],[0,3,1],[1,2,7],[1,4,3],[2,1,5],[3,2,34],[4,4,2]];
+      let biom = new Biom({matrix_type: 'dense', shape: [5,5], data: original_data});
+      assert.deepEqual(biom.data, original_data);
+      // no transformation when confirming the type that is already set
+      biom.matrix_type = 'dense';
+      assert.deepEqual(biom.data, original_data);
+      biom.matrix_type = 'sparse';
+      assert.deepEqual(biom.data, transformed_data);
+    });
   });
 
   describe('getter and setter for matrix_element_type should work', () => {
