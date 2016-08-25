@@ -259,6 +259,9 @@ biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}
 
 ## Changes
 
+### v0.1.5
+ - Add `data` transformation to `matrix_type` setter
+
 ### v0.1.4
  - Add write function
  - Add browserified build
