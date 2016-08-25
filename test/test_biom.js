@@ -243,6 +243,20 @@ describe('biojs-io-biom module', () => {
       let biom = new Biom();
       assert.throws(() => {biom.matrix_type = 'Some value that is not in the CV'}, Error, /controlled vocabulary/);
     });
+    it('should update internal data representation from sparse to dense', () => {
+      let original_data = [[0,1,12],[1,2,7],[3,4,109],[2,1,17]];
+      let transformed_data = [
+        [0,12,0,0,0],
+        [0,0,7,0,0],
+        [0,17,0,0,0],
+        [0,0,0,0,109],
+        [0,0,0,0,0],
+      ];
+      let biom = new Biom({matrix_type: 'sparse', shape: [5,5], data: original_data});
+      assert.deepEqual(biom.data, original_data);
+      biom.matrix_type = 'dense';
+      assert.deepEqual(biom.data, transformed_data);
+    });
   });
 
   describe('getter and setter for matrix_element_type should work', () => {
