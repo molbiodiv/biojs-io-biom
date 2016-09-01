@@ -114,10 +114,13 @@ export class Biom {
         matrix_type: _matrix_type = DEFAULT_BIOM.matrix_type,
         matrix_element_type:
             _matrix_element_type = DEFAULT_BIOM.matrix_element_type,
-        shape: _shape = DEFAULT_BIOM.shape,
+        shape: _shape = null,
         data: _data = DEFAULT_BIOM.data,
         comment: _comment = DEFAULT_BIOM.comment
     } = {}){
+        this.rows = _rows;
+        this.columns = _columns;
+        this.matrix_type = _matrix_type;
         this.id = _id;
         this.format = _format;
         this.format_url = _format_url;
@@ -127,11 +130,11 @@ export class Biom {
             _date = new Date().toISOString();
         }
         this.date = _date;
-        this.rows = _rows;
-        this.columns = _columns;
-        this.matrix_type = _matrix_type;
         this.matrix_element_type = _matrix_element_type;
-        this.shape = _shape;
+        if(_shape !== null){
+            // @throws Error if _shape is not concordant with rows and columns
+            this.checkShape(_shape);
+        }
         this.data = _data;
         this.comment = _comment;
     }
@@ -415,20 +418,22 @@ export class Biom {
 
     /**
      * Getter for shape
+     * read-only trying to set shape will fail. If shape is set in the constructor it is checked for validity.
      * @returns {Array} - the number of rows and number of columns in data
      */
     get shape(){
-        return this._shape;
+        return [this.rows.length, this.columns.length];
     }
 
     /**
-     * Setter for shape
+     * Check if shape is concordant with rows and columns
      * @param shape {Array} - the number of rows and number of columns in data
      * @throws {TypeError} if shape is not an Array
      * @throws {Error} if shape contains something other than
      *                 two non-negative integers
+     * @throws {Error} if shape is not concordant with rows and columns
      */
-    set shape(shape){
+    checkShape(shape){
         if(Object.prototype.toString.call(shape) !== '[object Array]'){
             throw new TypeError('shape must be an Array containing' +
                 ' exactly two non-negative integers');
@@ -440,7 +445,12 @@ export class Biom {
             shape[0] < 0 || !Number.isInteger(shape[1]) || shape[1] < 0){
             throw new Error('shape does not contain non-negative integers');
         }
-        this._shape = shape;
+        if(shape[0] !== this.rows.length){
+            throw new Error('First dimension of shape does not match number of rows');
+        }
+        if(shape[1] !== this.columns.length){
+            throw new Error('Second dimension of shape does not match number of columns');
+        }
     }
 
     /**
