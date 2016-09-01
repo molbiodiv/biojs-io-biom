@@ -90,7 +90,7 @@ describe('biojs-io-biom module', () => {
       assert.equal(biom.matrix_element_type, DEFAULT_BIOM.matrix_element_type);
       assert.equal(biom.matrix_type, DEFAULT_BIOM.matrix_type);
       assert.equal(biom.rows, DEFAULT_BIOM.rows);
-      assert.equal(biom.shape, DEFAULT_BIOM.shape);
+      assert.deepEqual(biom.shape, DEFAULT_BIOM.shape);
       assert.equal(biom.type, DEFAULT_BIOM.type);
       assert.equal(biom.comment, DEFAULT_BIOM.comment);
     });
@@ -105,7 +105,8 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {new Biom({shape: [-1, 1]})}, Error, /contain/);
       assert.throws(() => {new Biom({shape: [0.1, 2]})}, Error, /contain/);
       // shape is ok but not concordant with empty rows/columns
-      assert.throws(() => {new Biom({shape: [5,5]})}, Error, /contain/);
+      assert.throws(() => {new Biom({shape: [5,0]})}, Error, /dimension/);
+      assert.throws(() => {new Biom({shape: [0,5]})}, Error, /dimension/);
       // if shape is correct it should work
       let biom = new Biom({shape: [1,1], rows: [{id: 'row1', metadata:{}}], columns: [{id: 'col1', metadata:{}}]});
       assert.deepEqual(biom.shape, [1,1]);
@@ -267,7 +268,9 @@ describe('biojs-io-biom module', () => {
         [0,17,0,0,0],
         [0,0,0,0,109]
       ];
-      let biom = new Biom({matrix_type: 'sparse', shape: [4,5], data: original_data});
+      let rows = [{id: 'r1', metadata:{}},{id: 'r2', metadata:{}},{id: 'r3', metadata:{}},{id: 'r4', metadata:{}}];
+      let cols = [{id: 'c1', metadata:{}},{id: 'c2', metadata:{}},{id: 'c3', metadata:{}},{id: 'c4', metadata:{}},{id: 'c5', metadata:{}}];
+      let biom = new Biom({matrix_type: 'sparse', shape: [4,5], data: original_data, rows: rows, columns: cols});
       assert.deepEqual(biom.data, original_data);
       biom.matrix_type = 'dense';
       assert.deepEqual(biom.data, transformed_data);
@@ -280,8 +283,10 @@ describe('biojs-io-biom module', () => {
         [0,0,34,0,0],
         [0,0,0,0,2]
       ];
+      let rows = [{id: 'r1', metadata:{}},{id: 'r2', metadata:{}},{id: 'r3', metadata:{}},{id: 'r4', metadata:{}},{id: 'r5', metadata:{}}];
+      let cols = [{id: 'c1', metadata:{}},{id: 'c2', metadata:{}},{id: 'c3', metadata:{}},{id: 'c4', metadata:{}},{id: 'c5', metadata:{}}];
       let transformed_data = [[0,1,2],[0,3,1],[1,2,7],[1,4,3],[2,1,5],[3,2,34],[4,4,2]];
-      let biom = new Biom({matrix_type: 'dense', shape: [5,5], data: original_data});
+      let biom = new Biom({matrix_type: 'dense', shape: [5,5], data: original_data, rows: rows, columns: cols});
       assert.deepEqual(biom.data, original_data);
       // no transformation when confirming the type that is already set
       biom.matrix_type = 'dense';
@@ -316,10 +321,11 @@ describe('biojs-io-biom module', () => {
 
   describe('getter for shape should work, setter should throw an error', () => {
     it('should set and get the columns to array (containing two numbers)', () => {
-      let biom = new Biom();
-      biom.shape = [7,13];
+      let rows = [{id: 'r1', metadata:{}},{id: 'r2', metadata:{}},{id: 'r3', metadata:{}},{id: 'r4', metadata:{}},{id: 'r5', metadata:{}},{id: 'r6', metadata:{}},{id: 'r7', metadata:{}}];
+      let cols = [{id: 'c1', metadata:{}},{id: 'c2', metadata:{}},{id: 'c3', metadata:{}},{id: 'c4', metadata:{}},{id: 'c5', metadata:{}}];
+      let biom = new Biom({rows: rows, columns: cols});
       assert.equal(biom.shape[0], 7);
-      assert.equal(biom.shape[1], 13);
+      assert.equal(biom.shape[1], 5);
     });
     it('should throw a type error when trying to set columns to something other than array', () => {
       let biom = new Biom();
@@ -363,11 +369,20 @@ describe('biojs-io-biom module', () => {
 
   describe('getter and setter for nnz should work', () => {
     it('should get the nnz', () => {
-      let biom = new Biom({data: [[1,1,12]], matrix_type: 'sparse', shape: [2,2]});
+      let biom = new Biom({data: [[1,1,12]], matrix_type: 'sparse', shape: [2,2],
+        rows: [{id: 'r1', metadata:{}},{id: 'r2', metadata:{}}],
+        columns: [{id: 'c1', metadata:{}},{id: 'c2', metadata:{}}]
+      });
       assert.equal(biom.nnz, 1);
-      biom = new Biom({data: [[1,1,12],[2,1,1],[2,2,9]], matrix_type: 'sparse', shape: [3,3]});
+      biom = new Biom({data: [[1,1,12],[2,1,1],[2,2,9]], matrix_type: 'sparse', shape: [3,3],
+        rows: [{id: 'r1', metadata:{}},{id: 'r2', metadata:{}},{id: 'r3', metadata:{}}],
+        columns: [{id: 'c1', metadata:{}},{id: 'c2', metadata:{}},{id: 'c3', metadata:{}}]
+      });
       assert.equal(biom.nnz, 3);
-      biom = new Biom({data: [[1,1,0],[0,1,1],[0,2,0]], matrix_type: 'dense', shape: [3,3]});
+      biom = new Biom({data: [[1,1,0],[0,1,1],[0,2,0]], matrix_type: 'dense', shape: [3,3],
+        rows: [{id: 'r1', metadata:{}},{id: 'r2', metadata:{}},{id: 'r3', metadata:{}}],
+        columns: [{id: 'c1', metadata:{}},{id: 'c2', metadata:{}},{id: 'c3', metadata:{}}]
+      });
       assert.equal(biom.nnz, 5);
     });
     it('should throw a type error when trying to set nnz (read-only)', () => {
