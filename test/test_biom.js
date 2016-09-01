@@ -94,6 +94,22 @@ describe('biojs-io-biom module', () => {
       assert.equal(biom.type, DEFAULT_BIOM.type);
       assert.equal(biom.comment, DEFAULT_BIOM.comment);
     });
+    it('should throw an error if shape is not concordant with columns and rows', () => {
+      assert.throws(() => {new Biom({shape: 'columns'})}, TypeError);
+      assert.throws(() => {new Biom({shape: 47257})}, TypeError);
+      assert.throws(() => {new Biom({shape: {}})}, TypeError);
+      assert.throws(() => {new Biom({shape: {}})}, TypeError);
+      assert.throws(() => {new Biom({shape: ['string','string']})}, Error, /contain/);
+      assert.throws(() => {new Biom({shape: [1, 2, 3]})}, Error, /contain/);
+      assert.throws(() => {new Biom({shape: [0]})}, Error, /contain/);
+      assert.throws(() => {new Biom({shape: [-1, 1]})}, Error, /contain/);
+      assert.throws(() => {new Biom({shape: [0.1, 2]})}, Error, /contain/);
+      // shape is ok but not concordant with empty rows/columns
+      assert.throws(() => {new Biom({shape: [5,5]})}, Error, /contain/);
+      // if shape is correct it should work
+      let biom = new Biom({shape: [1,1], rows: [{id: 'row1', metadata:{}}], columns: [{id: 'col1', metadata:{}}]});
+      assert.deepEqual(biom.shape, [1,1]);
+    });
   });
 
   describe('getter and setter for id should work', () => {
@@ -262,7 +278,7 @@ describe('biojs-io-biom module', () => {
         [0,0,7,0,3],
         [0,5,0,0,0],
         [0,0,34,0,0],
-        [0,0,0,0,2],
+        [0,0,0,0,2]
       ];
       let transformed_data = [[0,1,2],[0,3,1],[1,2,7],[1,4,3],[2,1,5],[3,2,34],[4,4,2]];
       let biom = new Biom({matrix_type: 'dense', shape: [5,5], data: original_data});
@@ -298,7 +314,7 @@ describe('biojs-io-biom module', () => {
     });
   });
 
-  describe('getter and setter for shape should work', () => {
+  describe('getter for shape should work, setter should throw an error', () => {
     it('should set and get the columns to array (containing two numbers)', () => {
       let biom = new Biom();
       biom.shape = [7,13];
@@ -307,18 +323,7 @@ describe('biojs-io-biom module', () => {
     });
     it('should throw a type error when trying to set columns to something other than array', () => {
       let biom = new Biom();
-      assert.throws(() => {biom.shape = 'columns'}, TypeError);
-      assert.throws(() => {biom.shape = 47257}, TypeError);
-      assert.throws(() => {biom.shape = {}}, TypeError);
-      assert.throws(() => {biom.shape = null}, TypeError);
-    });
-    it('should throw an error when trying to set shape to an array that contains something other than two non-negative integers', () => {
-      let biom = new Biom();
-      assert.throws(() => {biom.shape = ['string','string']}, Error, /contain/);
-      assert.throws(() => {biom.shape = [1, 2, 3]}, Error, /contain/);
-      assert.throws(() => {biom.shape = [0]}, Error, /contain/);
-      assert.throws(() => {biom.shape = [-1, 1]}, Error, /contain/);
-      assert.throws(() => {biom.shape = [0.1, 2]}, Error, /contain/);
+      assert.throws(() => {biom.shape = [0,0]}, TypeError);
     });
   });
 
