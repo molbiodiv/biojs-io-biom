@@ -13,7 +13,7 @@
     "expression",
     "biojs"
   ],
-  "homepage": "https://github.com/iimog/biojs-io-biom",
+  "homepage": "https://github.com/molbiodiv/biojs-io-biom",
   "ignore": [
     "**/.*",
     "node_modules",

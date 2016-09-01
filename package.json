@@ -2,17 +2,17 @@
   "name": "biojs-io-biom",
   "description": "Parses biom files",
   "version": "0.1.4",
-  "homepage": "https://github.com/iimog/biojs-io-biom",
+  "homepage": "https://github.com/molbiodiv/biojs-io-biom",
   "author": {
     "name": "Markus J. Ankenbrand",
     "email": "markus.ankenbrand@uni-wuerzburg.de"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/iimog/biojs-io-biom.git"
+    "url": "git://github.com/molbiodiv/biojs-io-biom.git"
   },
   "bugs": {
-    "url": "https://github.com/iimog/biojs-io-biom/issues"
+    "url": "https://github.com/molbiodiv/biojs-io-biom/issues"
   },
   "license": "MIT",
   "main": "lib/index.js",

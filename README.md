@@ -1,10 +1,10 @@
 # biojs-io-biom
 
 [![NPM version](http://img.shields.io/npm/v/biojs-io-biom.svg)](https://www.npmjs.org/package/biojs-io-biom)
-[![Build Status](https://secure.travis-ci.org/iimog/biojs-io-biom.png?branch=master)](http://travis-ci.org/iimog/biojs-io-biom)
-[![Coverage Status](https://coveralls.io/repos/github/iimog/biojs-io-biom/badge.svg?branch=master)](https://coveralls.io/github/iimog/biojs-io-biom?branch=master)
+[![Build Status](https://secure.travis-ci.org/molbiodiv/biojs-io-biom.png?branch=master)](http://travis-ci.org/molbiodiv/biojs-io-biom)
+[![Coverage Status](https://coveralls.io/repos/github/molbiodiv/biojs-io-biom/badge.svg?branch=master)](https://coveralls.io/github/molbiodiv/biojs-io-biom?branch=master)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
-[![DOI](https://zenodo.org/badge/12731/iimog/biojs-io-biom.svg)](https://zenodo.org/badge/latestdoi/12731/iimog/biojs-io-biom)
+[![DOI](https://zenodo.org/badge/12731/iimog/biojs-io-biom.svg)](https://zenodo.org/badge/latestdoi/12731/iimog/biojs-io-biom) (last from iimog/biojs-io-biom)
 
 > Parses biom files
 
@@ -170,7 +170,7 @@ biom.getMetadata({dimension: 'columns', attribute: 'pH'});
 **Example**: `{conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: ab}`
 **Returns** `Promise` this function returns a promise. In case of success the new Biom object is passed otherwise the Error object is passed.
 
-The [conversion server](https://github.com/iimog/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
+The [conversion server](https://github.com/molbiodiv/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
 You can host your own server using a pre-configured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
 We also plan to host a publicly available server soon.
 For this version of the module biom-conversion-server v0.2.0 or later is required.
@@ -215,7 +215,7 @@ reader.readAsArrayBuffer(file);
 **Example**: `{conversionServer: 'http://localhost:8080/convert.php', asHdf5: false}`
 **Returns** `Promise` this function returns a promise. In case of success the String or ArrayBuffer representation of the biom object is passed otherwise the Error object is passed.
 
-The [conversion server](https://github.com/iimog/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
+The [conversion server](https://github.com/molbiodiv/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
 You can host your own server using a pre-configured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
 We also plan to host a publicly available server soon.
 For this version of the module biom-conversion-server v0.2.0 or later is required.
@@ -290,7 +290,7 @@ All contributions are welcome.
 
 ## Support
 
-If you have any problem or suggestion please open an issue [here](https://github.com/iimog/biojs-io-biom/issues).
+If you have any problem or suggestion please open an issue [here](https://github.com/molbiodiv/biojs-io-biom/issues).
 
 ## License 
 
