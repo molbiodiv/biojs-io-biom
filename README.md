@@ -260,6 +260,8 @@ biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}
 ## Changes
 
 ### v0.1.5 <small>(TBD)</small>
+ - Make `shape` property read only
+ - Check `shape` on construction
  - Add getter for `nnz` (#10)
  - Add `data` transformation to `matrix_type` setter (#3)
 
