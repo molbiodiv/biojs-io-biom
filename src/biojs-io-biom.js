@@ -301,12 +301,15 @@ export class Biom {
         if(Object.prototype.toString.call(rows) !== '[object Array]'){
             throw new TypeError('rows must be an Array');
         }
-        let id_dict = {};
+        let id_dict = new Object();
         for(let row of rows){
             if(typeof row.id === 'undefined'){
                 throw new TypeError('every row has to have an id');
+            };
+            if(typeof id_dict[row.id] !== 'undefined'){
+                throw new Error('duplicate row id: '+row.id);
             }
-
+            id_dict[row.id] = true;
         }
         this._rows = rows;
     }
