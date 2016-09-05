@@ -376,6 +376,18 @@ describe('biojs-io-biom module', () => {
       // Wrong data in constructor
       assert.throws(() => {new Biom({data: [[0,0,1],[5,0,1],[0,3,3]], rows: rows, columns: cols, matrix_type: 'dense'})}, Error);
     });
+    it('should throw an error when trying to set data not concordant with dimensions (sparse)', () => {
+      let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'}];
+      let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'}];
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      // Correct usage works
+      biom.data = [[0,0,12],[1,1,3],[3,2,31]];
+      assert.equal(biom.data[1][2], 3);
+      // row out of bounds
+      assert.throws(() => {biom.data = [[0,0,12],[5,1,3],[3,2,31]]}, Error);
+      // column out of bounds
+      assert.throws(() => {biom.data = [[0,0,12],[1,5,3],[3,2,31]]}, Error);
+    });
   });
 
   describe('getter and setter for comment should work', () => {
