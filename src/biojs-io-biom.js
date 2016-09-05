@@ -301,6 +301,13 @@ export class Biom {
         if(Object.prototype.toString.call(rows) !== '[object Array]'){
             throw new TypeError('rows must be an Array');
         }
+        let id_dict = {};
+        for(let row of rows){
+            if(typeof row.id === 'undefined'){
+                throw new TypeError('every row has to have an id');
+            }
+
+        }
         this._rows = rows;
     }
 
