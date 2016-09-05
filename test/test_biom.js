@@ -224,6 +224,11 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.rows = {}}, TypeError);
       assert.throws(() => {biom.rows = null}, TypeError);
     });
+    it('should throw an error if id is missing or duplicate', () => {
+      let biom = new Biom();
+      assert.throws(() => {biom.rows = [{id: 'row1', metadata: null},{metadata: null},{id: 'row2', metadata: null}]}, Error);
+      assert.throws(() => {biom.rows = [{id: 'row1', metadata: null},{id: 'row2', metadata: null},{id: 'row2', metadata: null}]}, Error);
+    });
   });
 
   describe('getter and setter for columns should work', () => {
