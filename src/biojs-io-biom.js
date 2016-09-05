@@ -504,6 +504,17 @@ export class Biom {
         if(Object.prototype.toString.call(data) !== '[object Array]'){
             throw new TypeError('data must be an Array');
         }
+        if(this.matrix_type === 'dense'){
+            if(data.length !== this.shape[0]){
+                throw new Error("This data matrix has wrong number of rows (dense).");
+            }
+            for(let row of data){
+                let cols = this.shape[1];
+                if(row.length !== cols){
+                    throw new Error("This data matrix has wrong number of cols in at least one row (dense).");
+                }
+            }
+        }
         this._data = data;
     }
 
