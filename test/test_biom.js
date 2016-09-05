@@ -235,7 +235,16 @@ describe('biojs-io-biom module', () => {
     it('should update data according to new rows (dense)', () => {
       let new_data1 = [[0,1],[5,0],[0,0],[0,0]];
       let new_data2 = [[0,0],[0,1]];
-      let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'}], data: [[0,1],[2,7],[5,0]]});
+      let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'}], data: [[0,1],[2,7],[5,0]], matrix_type: 'dense'});
+      biom.rows = [{id: 'r1'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
+      assert.deepEqual(biom.data, new_data1);
+      biom.rows = [{id: 'r6'},{id: 'r1'}];
+      assert.deepEqual(biom.data, new_data2);
+    });
+    it('should update data according to new rows (sparse)', () => {
+      let new_data1 = [[0,1,1],[1,0,5]];
+      let new_data2 = [[1,1,1]];
+      let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'}], data: [[0,1,1],[1,0,2],[1,1,7],[2,0,5]], matrix_type: 'sparse'});
       biom.rows = [{id: 'r1'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
       assert.deepEqual(biom.data, new_data1);
       biom.rows = [{id: 'r6'},{id: 'r1'}];
