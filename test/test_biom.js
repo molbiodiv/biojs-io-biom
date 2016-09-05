@@ -362,6 +362,20 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.data = {}}, TypeError);
       assert.throws(() => {biom.data = null}, TypeError);
     });
+    it('should throw an error when trying to set data not concordant with dimensions (dense)', () => {
+      let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'}];
+      let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'}];
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'dense'});
+      // Correct usage works
+      biom.data = [[0,0,1,2],[5,0,1,0],[0,3,3,1]];
+      assert.equal(biom.data[1][2], 1);
+      // Wrong number of rows
+      assert.throws(() => {biom.data = [[0,0,1,2],[5,0,1,0],[0,3,3,1],[0,0,0,0]]}, Error);
+      // Wrong number of columns
+      assert.throws(() => {biom.data = [[0,0,1],[5,0,1],[0,3,3]]}, Error);
+      // Wrong data in constructor
+      assert.throws(() => {new Biom({data: [[0,0,1],[5,0,1],[0,3,3]], rows: rows, columns: cols, matrix_type: 'dense'})}, Error);
+    });
   });
 
   describe('getter and setter for comment should work', () => {
