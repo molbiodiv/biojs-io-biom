@@ -351,7 +351,7 @@ describe('biojs-io-biom module', () => {
 
   describe('getter and setter for data should work', () => {
     it('should set and get the data to array', () => {
-      let biom = new Biom();
+      let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'},{id: 'c3'}]});
       biom.data = [[1,1,12]];
       assert.equal(biom.data[0][2], 12);
     });
