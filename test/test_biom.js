@@ -224,9 +224,12 @@ describe('biojs-io-biom module', () => {
       assert.throws(() => {biom.rows = {}}, TypeError);
       assert.throws(() => {biom.rows = null}, TypeError);
     });
-    it('should throw an error if id is missing or duplicate', () => {
+    it('should throw an error if id is missing', () => {
       let biom = new Biom();
       assert.throws(() => {biom.rows = [{id: 'row1', metadata: null},{metadata: null},{id: 'row2', metadata: null}]}, Error);
+    });
+    it('should throw an error if id is duplicate', () => {
+      let biom = new Biom();
       assert.throws(() => {biom.rows = [{id: 'row1', metadata: null},{id: 'row2', metadata: null},{id: 'row2', metadata: null}]}, Error);
     });
   });
