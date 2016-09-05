@@ -259,7 +259,8 @@ biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}
 
 ## Changes
 
-### v0.1.5 <small>(TBD)</small>
+### v1.0.0 <small>(TBD)</small>
+ - Check `rows` and `columns` for missing or duplicate ids
  - Make `shape` property read only
  - Check `shape` on construction
  - Add getter for `nnz` (#10)
