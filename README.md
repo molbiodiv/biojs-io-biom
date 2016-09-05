@@ -260,6 +260,7 @@ biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}
 ## Changes
 
 ### v1.0.0 <small>(TBD)</small>
+ - Check `data` for correct dimensions
  - Check `rows` and `columns` for missing or duplicate ids
  - Make `shape` property read only
  - Check `shape` on construction
