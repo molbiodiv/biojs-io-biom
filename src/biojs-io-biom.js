@@ -384,6 +384,7 @@ export class Biom {
                 for(let d of this.data){
                     new_data[d[0]][d[1]] = d[2];
                 }
+                this._matrix_type = matrix_type;
                 this.data = new_data;
             } else if(matrix_type === 'sparse') {
                 let new_data = Array();
@@ -394,6 +395,7 @@ export class Biom {
                         }
                     }
                 }
+                this._matrix_type = matrix_type;
                 this.data = new_data;
             }
         }
