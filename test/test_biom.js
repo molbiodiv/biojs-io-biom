@@ -232,6 +232,15 @@ describe('biojs-io-biom module', () => {
       let biom = new Biom();
       assert.throws(() => {biom.rows = [{id: 'row1', metadata: null},{id: 'row2', metadata: null},{id: 'row2', metadata: null}]}, Error);
     });
+    it('should update data according to new rows (dense)', () => {
+      let new_data1 = [[0,1],[5,0],[0,0],[0,0]];
+      let new_data2 = [[0,0],[0,1]];
+      let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'}], data: [[0,1],[2,7],[5,0]]});
+      biom.rows = [{id: 'r1'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
+      assert.deepEqual(biom.data, new_data1);
+      biom.rows = [{id: 'r6'},{id: 'r1'}];
+      assert.deepEqual(biom.data, new_data2);
+    });
   });
 
   describe('getter and setter for columns should work', () => {
