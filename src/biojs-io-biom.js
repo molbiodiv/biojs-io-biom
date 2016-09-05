@@ -331,6 +331,16 @@ export class Biom {
         if(Object.prototype.toString.call(columns) !== '[object Array]'){
             throw new TypeError('columns must be an Array');
         }
+        let id_dict = new Object();
+        for(let col of columns){
+            if(typeof col.id === 'undefined'){
+                throw new TypeError('every column has to have an id');
+            };
+            if(typeof id_dict[col.id] !== 'undefined'){
+                throw new Error('duplicate column id: '+col.id);
+            }
+            id_dict[col.id] = true;
+        }
         this._columns = columns;
     }
 
