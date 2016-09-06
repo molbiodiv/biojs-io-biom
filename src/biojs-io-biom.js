@@ -852,6 +852,7 @@ export class Biom {
                     update[entry[1]] = true;
                 }
             }
+            // remove positions with big index first - otherwise indices change
             for(let i of toRemove.sort((a,b)=>{return b-a;})){
                 this.data.splice(i,1);
             }
@@ -925,6 +926,7 @@ export class Biom {
                     update[entry[0]] = true;
                 }
             }
+            // remove positions with big index first - otherwise indices change
             for(let i of toRemove.sort((a,b)=>{return b-a;})){
                 this.data.splice(i,1);
             }
