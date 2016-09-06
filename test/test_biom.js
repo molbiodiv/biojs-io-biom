@@ -67,6 +67,14 @@ let exampleBiom = {
   ]
 };
 
+// helper function for comparing sparse data arrays
+let sortByCoord = function (a,b) {
+  if(a[0]===b[0]){
+    return a[1]-b[1];
+  }
+  return a[0]-b[0];
+};
+
 // requires your main app (specified in index.js)
 import {Biom, VERSION, DEFAULT_BIOM} from '../src/biojs-io-biom';
 
@@ -286,12 +294,6 @@ describe('biojs-io-biom module', () => {
       let new_data1 = [[0,0,1],[0,1,3],[0,3,6],[1,0,4],[1,1,2],[1,3,21],[2,3,1]];
       let new_data2 = [[0,0,3],[0,1,6],[1,0,2],[1,1,21],[2,1,1]];
       let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'},{id: 'c3'}], data: [[0,0,3],[0,1,1],[0,2,6],[1,0,2],[1,1,4],[1,2,21],[2,2,1]], matrix_type: 'sparse'});
-      let sortByCoord = function (a,b) {
-        if(a[0]===b[0]){
-          return a[1]-b[1];
-        }
-        return a[0]-b[0];
-      };
       biom.columns = [{id: 'c2'},{id: 'c1'},{id: 'c4'},{id: 'c3'}];
       assert.deepEqual(biom.data.sort(sortByCoord), new_data1);
       biom.columns = [{id: 'c1'},{id: 'c3'}];
@@ -943,8 +945,8 @@ describe('biojs-io-biom module', () => {
   describe('static dense2sparse should convert a dense data matrix into a sparse data matrix', () => {
     let denseData = [[9,0,0,0,0],[0,5,0,0,0],[0,13,0,0,0],[0,0,0,0,0],[0,0,0,1,0]];
     let sparseData = [[1,1,5],[2,1,13],[4,3,1],[0,0,9]];
-    it('should return null if ID is unknown', () => {
-      assert.deepEqual(Biom.dense2sparse(denseData), sparseData);
+    it('should return data in sparse format', () => {
+      assert.deepEqual(Biom.dense2sparse(denseData).sort(sortByCoord), sparseData.sort(sortByCoord));
     });
   });
 });
