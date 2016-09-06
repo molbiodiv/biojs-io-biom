@@ -1095,4 +1095,20 @@ export class Biom {
             }
         });
     }
+
+    /**
+     * Convert a sparse data matrix into a dense one
+     * @param data - the sparse data matrix
+     * @param shape - the desired shape of the dense matrix
+     * @return {Array} - array of arrays containing data in dense format
+     */
+    static sparse2dense(data, shape){
+        // create data array of given shape with only 0
+        let denseData = Array(shape[0]).fill().map(() => Array(shape[1]).fill(0));
+        // fill in the non-zero values
+        for(let d of data){
+            denseData[d[0]][d[1]] = d[2];
+        }
+        return denseData;
+    }
 }
