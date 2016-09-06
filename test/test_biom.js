@@ -734,4 +734,28 @@ describe('biojs-io-biom module', () => {
       assert.equal(biom.getDataAt('r5', 'c5'), 9);
     });
   });
+
+  describe('_indexByID should return the index by given id in rows or columns', () => {
+    let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
+    let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}];
+    it('should return null if ID is unknown', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.equal(biom._indexByID('c2', true), null);
+      assert.equal(biom._indexByID('r1', false), null);
+      assert.equal(biom._indexByID('bla', false), null);
+      assert.equal(biom._indexByID('', false), null);
+    });
+    it('should give the correct index in rows', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.equal(biom._indexByID('r2', true), 1);
+      assert.equal(biom._indexByID('r1', true), 0);
+      assert.equal(biom._indexByID('r4', true), 3);
+    });
+    it('should give the correct index in columns', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.equal(biom._indexByID('c2', false), 1);
+      assert.equal(biom._indexByID('c1', false), 0);
+      assert.equal(biom._indexByID('c4', false), 3);
+    });
+  });
 });
