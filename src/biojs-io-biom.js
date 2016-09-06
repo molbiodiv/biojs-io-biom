@@ -301,15 +301,36 @@ export class Biom {
         if(Object.prototype.toString.call(rows) !== '[object Array]'){
             throw new TypeError('rows must be an Array');
         }
-        let id_dict = new Object();
-        for(let row of rows){
+        let new_id_dict = new Object();
+        for(let i=0; i<rows.length; i++){
+            let row = rows[i];
             if(typeof row.id === 'undefined'){
                 throw new TypeError('every row has to have an id');
             };
-            if(typeof id_dict[row.id] !== 'undefined'){
+            if(typeof new_id_dict[row.id] !== 'undefined'){
                 throw new Error('duplicate row id: '+row.id);
             }
-            id_dict[row.id] = true;
+            new_id_dict[row.id] = i;
+        }
+        // update old data according to new rows (unless in constructor)
+        if(typeof this.data !== 'undefined'){
+            let new_data = Array();
+            let old_rows = this.rows;
+            let old_id_dict = new Object();
+            for(let i=0; i<old_rows.length; i++){
+                old_id_dict[old_rows[i].id] = i;
+            }
+            if(this.matrix_type === 'dense'){
+                for(let row of rows){
+                    let new_row = Array(this.shape[1]).fill(0);
+                    if(typeof old_id_dict[row.id] !== 'undefined'){
+                        new_row = this.data[old_id_dict[row.id]];
+                    }
+                    new_data.push(new_row);
+                }
+                this._rows = rows;
+                this.data = new_data;
+            }
         }
         this._rows = rows;
     }
