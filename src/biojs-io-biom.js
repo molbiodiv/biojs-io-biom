@@ -743,7 +743,27 @@ export class Biom {
      * @throws Error - if colID is unknown
      */
     getDataAt(rowID, colID){
-        
+
+    }
+
+    /**
+     * Get row/column index of a given id, returns null for unknown id
+     * This function is meant for internal use
+     * @param id {string} - the id of the desired row/column
+     * @param inRow {boolean} - search in rows (true) or columns (false)
+     * @return {int|null} - the index of the row/column with given id or null if unknown
+     */
+    _indexByID(id, inRow = true){
+        let a = this.columns;
+        if(inRow){
+            a = this.rows;
+        }
+        for(let i=0; i<a.length; i++){
+            if(a[i].id === id){
+                return i;
+            }
+        }
+        return null;
     }
 
     /**
