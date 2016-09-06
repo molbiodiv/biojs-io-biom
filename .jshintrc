@@ -11,7 +11,7 @@
   "maxdepth": 3,
   "maxparams": 3,
   "maxstatements": 15,
-  "maxlen": 80,
+  "maxlen": 120,
   "eqnull": true,
   "funcscope": true,
   "node": true,
