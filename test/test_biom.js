@@ -930,4 +930,13 @@ describe('biojs-io-biom module', () => {
       assert.equal(biom._indexByID('c4', false), 3);
     });
   });
+
+  describe('static sparse2dense should convert a sparse data matrix into a dense data matrix', () => {
+    let data = [[1,1,5],[2,1,13],[4,3,1],[0,0,9]];
+    let shape = [5,5];
+    let denseData = [[9,0,0,0,0],[0,5,0,0,0],[0,13,0,0,0],[0,0,0,0,0],[0,0,0,1,0]];
+    it('should return null if ID is unknown', () => {
+      assert.equal(Biom.sparse2dense(data, shape), denseData);
+    });
+  });
 });
