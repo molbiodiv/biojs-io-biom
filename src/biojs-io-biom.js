@@ -811,13 +811,14 @@ export class Biom {
         if(this.matrix_type === 'dense'){
             return this.data[rowIndex];
         } else if(this.matrix_type === 'sparse'){
+            let row = Array(this.shape[1]).fill(0);
             for(let entry of this.data){
-                if(entry[0] === rowIndex && entry[1] === colIndex){
-                    return entry[2];
+                if(entry[0] === rowIndex){
+                    row[entry[1]] = entry[2];
                 }
             }
+            return row;
         }
-        return 0;
     }
 
     /**
