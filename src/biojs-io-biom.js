@@ -853,7 +853,6 @@ export class Biom {
                 }
             }
             for(let i of toRemove.sort((a,b)=>{return b-a;})){
-                console.log(i);
                 this.data.splice(i,1);
             }
             for(let i=0; i<values.length; i++){
