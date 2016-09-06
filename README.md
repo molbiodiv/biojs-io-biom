@@ -198,6 +198,54 @@ biom.getMetadata({dimension: 'columns', attribute: 'pH'});
 // [1, 3, 9, null, 5]
 ```
 
+#### getter/setter for `data` independent of `matrix_type`
+
+Accessing `data` directly returns different results depending on `matrix_type` (`sparse` or `dense`).
+Therefore a couple of helper functions have been implemented that work independent of `matrix_type`:
+
+ - `getDataAt(rowID, colID)` returns a single data point
+ - `setDataAt(rowID, colID, value)` sets a single data point
+ - `getDataRow(rowID)` returns data for a single row
+ - `setDataRow(rowID, values)` sets data for a single row
+ - `getDataColumn(colID)` returns data for a single column
+ - `setDataColumn(colID, values)` sets data for a single column
+ - `getDataMatrix()` returns the full data matrix in dense format (independent of internal representation)
+ - `setDataMatrix(values)` sets the full data matrix in dense format (independent of internal representation)
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'},{id: 'r5'}],
+    columns: [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}],
+    matrix_type: 'sparse',
+    data: [[0,1,11],[1,2,13],[4,4,9]]
+});
+biom.getDataAt('r1','c2');
+// 11
+biom.getDataRow('r2');
+// [0,0,13,0,0]
+biom.getDataColumn('c5');
+// [0,0,0,0,9]
+biom.getDataMatrix();
+// [[0,11, 0, 0, 0],
+//  [0, 0,13, 0, 0],
+//  [0, 0, 0, 0, 0],
+//  [0, 0, 0, 0, 0],
+//  [0, 0, 0, 0, 9]]
+biom.setDataAt('r3','c4',99);
+biom.setDataRow('r4',[1,2,3,4,5]);
+biom.setDataColumn('c1',[10,9,8,7,6]);
+biom.getDataMatrix();
+// [[10,11, 0, 0, 0],
+//  [ 9, 0,13, 0, 0],
+//  [ 8, 0, 0,99, 0],
+//  [ 7, 2, 3, 4, 5],
+//  [ 6, 0, 0, 0, 9]]
+
+// internal data remains to be sparse
+biom.data
+// [[0,0,10],[0,1,11],[1,0,9],[1,2,13],[2,0,8],[2,3,99],[3,0,7],[3,1,2],[3,2,3],[3,3,4],[3,4,5],[4,1,6],[4,4,9]]
+```
+
 #### static parse(biomString, options)
 
 **Parameter**: `biomString`
