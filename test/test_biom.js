@@ -861,6 +861,39 @@ describe('biojs-io-biom module', () => {
     });
   });
 
+  describe('setDataColumn should set data for a given column', () => {
+    let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
+    let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}];
+    it('should throw an Error if columnID is unknown', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.throws(() => {biom.setDataColumn('c7',[0,0,0,0,0])}, Error, /unknown/);
+    });
+    it('should throw an Error if the new column has wrong length', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.throws(() => {biom.setDataColumn('c1',[0,0,0,0,0,0])}, Error, /length/);
+    });
+    it('should set correct value for sparse data', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse', data: [[0,1,11],[1,2,13],[4,4,9]]});
+      assert.deepEqual(biom.getDataColumn('c2'), [11,0,0,0,0]);
+      biom.setDataColumn('c2', [1,2,3,4,5]);
+      assert.deepEqual(biom.getDataColumn('c2'), [1,2,3,4,5]);
+      biom.setDataColumn('c3', [0,11,0,5,0]);
+      assert.deepEqual(biom.getDataColumn('c3'), [0,11,0,5,0]);
+      biom.setDataColumn('c3', [0,0,0,0,0]);
+      assert.deepEqual(biom.getDataColumn('c3'), [0,0,0,0,0]);
+    });
+    it('should return correct value for dense data', () => {
+      let biom = new Biom({Columns: Columns, columns: cols, matrix_type: 'dense', data: [[0,1,11,1,0],[0,1,2,0,13],[0,1,0,1,1],[1,20,0,0,13],[3,0,4,4,9]]});
+      assert.deepEqual(biom.getDataColumn('c1'), [0,0,0,1,3]);
+      biom.setDataColumn('c1', [1,2,3,4,5]);
+      assert.deepEqual(biom.getDataColumn('c1'), [1,2,3,4,5]);
+      biom.setDataColumn('c2', [0,0,0,0,0]);
+      assert.deepEqual(biom.getDataColumn('c2'), [0,0,0,0,0]);
+      biom.setDataColumn('c3', [0,11,0,5,0]);
+      assert.deepEqual(biom.getDataColumn('c3'), [0,11,0,5,0]);
+    });
+  });
+
   describe('_indexByID should return the index by given id in rows or columns', () => {
     let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
     let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}];
