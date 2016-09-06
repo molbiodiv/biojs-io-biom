@@ -1105,4 +1105,21 @@ export class Biom {
         }
         return denseData;
     }
+
+    /**
+     * Convert a dense data matrix into a sparse one
+     * @param data - the dense data matrix
+     * @return {Array} - array of arrays containing data in sparse format
+     */
+    static dense2sparse(data){
+        let sparseData = Array();
+        for(let i=0; i<data.length; i++){
+            for(let j=0; j<data[i].length; j++){
+                if(data[i][j] !== 0){
+                    sparseData.push([i, j, data[i][j]]);
+                }
+            }
+        }
+        return sparseData;
+    }
 }
