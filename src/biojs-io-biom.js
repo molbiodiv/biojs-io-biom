@@ -765,6 +765,39 @@ export class Biom {
     }
 
     /**
+     * Set data for a specific row and column
+     * @param rowID {string} - the id of the desired row
+     * @param colID {string} - the id of the desired column
+     * @param value {number} - the value to set at the specified position
+     * @throws Error - if rowID is unknown
+     * @throws Error - if colID is unknown
+     */
+    setDataAt(rowID, colID, value){
+        let rowIndex = this._indexByID(rowID, true);
+        if(rowIndex === null){
+            throw new Error('unknown rowID: '+rowID);
+        };
+        let colIndex = this._indexByID(colID, false);
+        if(colIndex === null){
+            throw new Error('unknown colID: '+colID);
+        };
+        if(this.matrix_type === 'dense'){
+            this.data[rowIndex][colIndex] = value;
+        } else if(this.matrix_type === 'sparse'){
+            let update = false;
+            for(let entry of this.data){
+                if(entry[0] === rowIndex && entry[1] === colIndex){
+                    entry[2] = value;
+                    update = true;
+                }
+            }
+            if(!update){
+                this.data.push([rowIndex, colIndex, value]);
+            }
+        }
+    }
+
+    /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
      * @param id {string} - the id of the desired row/column
