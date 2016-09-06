@@ -295,9 +295,37 @@ biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}
 );
 ```
 
+#### static sparse2dense(sparseData, shape)
+
+**Parameter**: `sparseData`
+**Type**: `Array`
+**Example**: `[[0,1,1],[1,0,2]]`
+**Parameter**: `shape`
+**Type**: `Array`
+**Example**: `[2,2]`
+**Returns** `Array` the given sparseData converted to dense, e.g. `[[0,1],[2,0]]`
+
+```javascript
+var denseData = Biom.sparse2dense([[0,1,1],[1,0,2]], [2,2]);
+// denseData = [[0,1],[2,0]]
+```
+
+#### static dense2sparse(denseData)
+
+**Parameter**: `denseData`
+**Type**: `Array`
+**Example**: `[[0,1],[2,0]]`
+**Returns** `Array` the given denseData converted to sparse, e.g. `[[0,1,1],[1,0,2]]`
+
+```javascript
+var sparseData = Biom.dense2sparse([[0,1],[2,0]]);
+// sparseData = [[0,1,1],[1,0,2]]
+```
+
 ## Changes
 
 ### v1.0.0 <small>(TBD)</small>
+ - Add static methods `sparse2dense` and `dense2sparse`
  - Update `data` on set `columns`
  - Update `data` on set `rows`
  - Check `data` for correct dimensions
