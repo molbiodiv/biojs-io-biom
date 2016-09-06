@@ -705,4 +705,33 @@ describe('biojs-io-biom module', () => {
       );
     });
   });
+
+  describe('getDataAt should return data for a given row and column', () => {
+    let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
+    let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}];
+    it('should throw an Error if rowID is unknown', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.throws(() => {biom.getDataAt('r7','c1')}, Error, /unknown/);
+    });
+    it('should throw an Error if colID is unknown', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.throws(() => {biom.getDataAt('r1','c9')}, Error, /unknown/);
+    });
+    it('should return correct value for sparse data', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse', data: [[0,1,11],[1,2,13],[4,4,9]]});
+      assert.equal(biom.getDataAt('r1', 'c1'), 0);
+      assert.equal(biom.getDataAt('r1', 'c2'), 11);
+      assert.equal(biom.getDataAt('r2', 'c3'), 13);
+      assert.equal(biom.getDataAt('r3', 'c4'), 0);
+      assert.equal(biom.getDataAt('r5', 'c5'), 9);
+    });
+    it('should return correct value for dense data', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'dense', data: [[0,1,11,1,0],[0,1,2,0,13],[0,1,0,1,1],[1,20,0,0,13],[3,0,4,4,9]]});
+      assert.equal(biom.getDataAt('r1', 'c1'), 0);
+      assert.equal(biom.getDataAt('r1', 'c2'), 1);
+      assert.equal(biom.getDataAt('r2', 'c3'), 2);
+      assert.equal(biom.getDataAt('r3', 'c4'), 1);
+      assert.equal(biom.getDataAt('r5', 'c5'), 9);
+    });
+  });
 });
