@@ -801,6 +801,39 @@ describe('biojs-io-biom module', () => {
     });
   });
 
+  describe('setDataRow should set data for a given row', () => {
+    let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
+    let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}];
+    it('should throw an Error if rowID is unknown', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.throws(() => {biom.setDataRow('r7',[0,0,0,0,0])}, Error, /unknown/);
+    });
+    it('should throw an Error if the new row has wrong length', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
+      assert.throws(() => {biom.setDataRow('r1',[0,0,0,0,0,0])}, Error, /length/);
+    });
+    it('should set correct value for sparse data', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse', data: [[0,1,11],[1,2,13],[4,4,9]]});
+      assert.deepEqual(biom.getDataRow('r1'), [0,11,0,0,0]);
+      biom.setDataRow('r1', [1,2,3,4,5]);
+      assert.deepEqual(biom.getDataRow('r1'), [1,2,3,4,5]);
+      biom.setDataRow('r2', [0,0,0,0,0]);
+      assert.deepEqual(biom.getDataRow('r2'), [0,0,0,0,0]);
+      biom.setDataRow('r3', [0,11,0,5,0]);
+      assert.deepEqual(biom.getDataRow('r2'), [0,11,0,5,0]);
+    });
+    it('should return correct value for dense data', () => {
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'dense', data: [[0,1,11,1,0],[0,1,2,0,13],[0,1,0,1,1],[1,20,0,0,13],[3,0,4,4,9]]});
+      assert.deepEqual(biom.getDataRow('r1'), [0,1,11,1,0]);
+      biom.setDataRow('r1', [1,2,3,4,5]);
+      assert.deepEqual(biom.getDataRow('r1'), [1,2,3,4,5]);
+      biom.setDataRow('r2', [0,0,0,0,0]);
+      assert.deepEqual(biom.getDataRow('r2'), [0,0,0,0,0]);
+      biom.setDataRow('r3', [0,11,0,5,0]);
+      assert.deepEqual(biom.getDataRow('r2'), [0,11,0,5,0]);
+    });
+  });
+
   describe('_indexByID should return the index by given id in rows or columns', () => {
     let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
     let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}];
