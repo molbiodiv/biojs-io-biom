@@ -373,6 +373,7 @@ var sparseData = Biom.dense2sparse([[0,1],[2,0]]);
 ## Changes
 
 ### v1.0.0 <small>(TBD)</small>
+ - Add `matrix_type` agnostic getter/setter for `data`
  - Add static methods `sparse2dense` and `dense2sparse`
  - Update `data` on set `columns`
  - Update `data` on set `rows`
