@@ -741,16 +741,27 @@ export class Biom {
      * @param colID {string} - the id of the desired column
      * @throws Error - if rowID is unknown
      * @throws Error - if colID is unknown
+     * @return int - entry in the data matrix at the given position
      */
     getDataAt(rowID, colID){
         let rowIndex = this._indexByID(rowID, true);
         if(rowIndex === null){
             throw new Error('unknown rowID: '+rowID);
         };
-        let colIndex = this._indexByID(colID, true);
+        let colIndex = this._indexByID(colID, false);
         if(colIndex === null){
             throw new Error('unknown colID: '+colID);
         };
+        if(this.matrix_type === 'dense'){
+            return this.data[rowIndex][colIndex];
+        } else if(this.matrix_type === 'sparse'){
+            for(let entry of this.data){
+                if(entry[0] === rowIndex && entry[1] === colIndex){
+                    return entry[2];
+                }
+            }
+        }
+        return 0;
     }
 
     /**
