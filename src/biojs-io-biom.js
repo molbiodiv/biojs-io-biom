@@ -822,6 +822,49 @@ export class Biom {
     }
 
     /**
+     * Set data for a specific row (independent of matrix_type)
+     * @param rowID {string} - the id of the desired row
+     * @param values {Array} - the array of new values to set for the specified row
+     * @throws Error - if rowID is unknown
+     * @throws Error - if values length does not equal the number of columns
+     */
+    setDataRow(rowID, values){
+        let rowIndex = this._indexByID(rowID, true);
+        if(rowIndex === null){
+            throw new Error('unknown rowID: '+rowID);
+        };
+        if(values.length !== this.shape[1]){
+            throw new Error('length of values does not equal the number of columns');
+        }
+        if(this.matrix_type === 'dense'){
+            this.data[rowIndex] = values;
+        } else if(this.matrix_type === 'sparse'){
+            let update = Array(this.shape[1]).fill(false);
+            let toRemove = Array();
+            for(let i=0; i<this.data.length; i++){
+                let entry = this.data[i];
+                if(entry[0] === rowIndex){
+                    if(values[entry[1]] === 0){
+                        toRemove.push(i);
+                    } else {
+                        entry[2] = values[entry[1]];
+                    }
+                    update[entry[1]] = true;
+                }
+            }
+            for(let i of toRemove.sort((a,b)=>{return b-a;})){
+                console.log(i);
+                this.data.splice(i,1);
+            }
+            for(let i=0; i<values.length; i++){
+                if(!update[i]){
+                    this.data.push(Array(rowIndex, i, values[i]));
+                }
+            }
+        }
+    }
+
+    /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
      * @param id {string} - the id of the desired row/column
