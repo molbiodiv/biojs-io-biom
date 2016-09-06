@@ -361,15 +361,37 @@ export class Biom {
         if(Object.prototype.toString.call(columns) !== '[object Array]'){
             throw new TypeError('columns must be an Array');
         }
-        let id_dict = new Object();
-        for(let col of columns){
+        let new_id_dict = new Object();
+        for(let i=0; i<columns.length; i++){
+            let col = columns[i];
             if(typeof col.id === 'undefined'){
                 throw new TypeError('every column has to have an id');
             };
-            if(typeof id_dict[col.id] !== 'undefined'){
+            if(typeof new_id_dict[col.id] !== 'undefined'){
                 throw new Error('duplicate column id: '+col.id);
             }
-            id_dict[col.id] = true;
+            new_id_dict[col.id] = i;
+        }
+        // update old data according to new columns (unless in constructor)
+        if(typeof this.data !== 'undefined'){
+            let new_data = Array();
+            let old_cols = this.columns;
+            let old_id_dict = new Object();
+            for(let i=0; i<old_cols.length; i++){
+                old_id_dict[old_cols[i].id] = i;
+            }
+            if(this.matrix_type === 'dense'){
+
+            } else if(this.matrix_type === 'sparse'){
+                for(let entry of this.data){
+                    let newPos = new_id_dict[old_cols[entry[1]].id];
+                    if(typeof newPos !== 'undefined'){
+                        new_data.push(new Array(entry[0], newPos, entry[2]));
+                    }
+                }
+                this._columns = columns;
+                this.data = new_data;
+            }
         }
         this._columns = columns;
     }
