@@ -767,11 +767,11 @@ describe('biojs-io-biom module', () => {
       assert.equal(biom.getDataAt('r1', 'c1'), 3);
       biom.setDataAt('r1', 'c2', 5);
       assert.equal(biom.getDataAt('r1', 'c2'), 5);
-      setDataAt('r2', 'c3', 2);
+      biom.setDataAt('r2', 'c3', 2);
       assert.equal(biom.getDataAt('r2', 'c3'), 2);
-      setDataAt('r3', 'c4', 11);
+      biom.setDataAt('r3', 'c4', 11);
       assert.equal(biom.getDataAt('r3', 'c4'), 11);
-      setDataAt('r5', 'c5', 91);
+      biom.setDataAt('r5', 'c5', 91);
       assert.equal(biom.getDataAt('r5', 'c5'), 91);
     });
   });
