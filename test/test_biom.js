@@ -820,7 +820,9 @@ describe('biojs-io-biom module', () => {
       biom.setDataRow('r2', [0,0,0,0,0]);
       assert.deepEqual(biom.getDataRow('r2'), [0,0,0,0,0]);
       biom.setDataRow('r3', [0,11,0,5,0]);
-      assert.deepEqual(biom.getDataRow('r2'), [0,11,0,5,0]);
+      assert.deepEqual(biom.getDataRow('r3'), [0,11,0,5,0]);
+      biom.setDataRow('r3', [0,0,0,0,0]);
+      assert.deepEqual(biom.getDataRow('r3'), [0,0,0,0,0]);
     });
     it('should return correct value for dense data', () => {
       let biom = new Biom({rows: rows, columns: cols, matrix_type: 'dense', data: [[0,1,11,1,0],[0,1,2,0,13],[0,1,0,1,1],[1,20,0,0,13],[3,0,4,4,9]]});
@@ -830,7 +832,7 @@ describe('biojs-io-biom module', () => {
       biom.setDataRow('r2', [0,0,0,0,0]);
       assert.deepEqual(biom.getDataRow('r2'), [0,0,0,0,0]);
       biom.setDataRow('r3', [0,11,0,5,0]);
-      assert.deepEqual(biom.getDataRow('r2'), [0,11,0,5,0]);
+      assert.deepEqual(biom.getDataRow('r3'), [0,11,0,5,0]);
     });
   });
 
