@@ -333,7 +333,7 @@ export class Biom {
             } else if(this.matrix_type === 'sparse'){
                 for(let entry of this.data){
                     let newPos = new_id_dict[old_rows[entry[0]].id];
-                    if(entry[0] < rows.length && typeof newPos !== 'undefined'){
+                    if(typeof newPos !== 'undefined'){
                         new_data.push(new Array(newPos, entry[1], entry[2]));
                     }
                 }
