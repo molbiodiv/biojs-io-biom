@@ -865,6 +865,34 @@ export class Biom {
     }
 
     /**
+     * Get data for a specific column (independent of matrix_type)
+     * @param colID {string} - the id of the desired column
+     * @throws Error - if colID is unknown
+     * @return Array - array of entries in the given column of the data matrix
+     */
+    getDataColumn(colID){
+        let colIndex = this._indexByID(colID, false);
+        if(colIndex === null){
+            throw new Error('unknown colID: '+colID);
+        };
+        if(this.matrix_type === 'dense'){
+            let col = Array();
+            for(let row of this.data){
+                col.push(row[colIndex]);
+            }
+            return col;
+        } else if(this.matrix_type === 'sparse'){
+            let col = Array(this.shape[0]).fill(0);
+            for(let entry of this.data){
+                if(entry[1] === colIndex){
+                    col[entry[0]] = entry[2];
+                }
+            }
+            return col;
+        }
+    }
+
+    /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
      * @param id {string} - the id of the desired row/column
