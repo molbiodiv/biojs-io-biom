@@ -446,16 +446,8 @@ export class Biom {
                 this._matrix_type = matrix_type;
                 this.data = this.constructor.sparse2dense(this.data, this.shape);
             } else if(matrix_type === 'sparse') {
-                let new_data = Array();
-                for(let i=0; i<this.data.length; i++){
-                    for(let j=0; j<this.data[i].length; j++){
-                        if(this.data[i][j] !== 0){
-                            new_data.push([i, j, this.data[i][j]]);
-                        }
-                    }
-                }
                 this._matrix_type = matrix_type;
-                this.data = new_data;
+                this.data = this.constructor.dense2sparse(this.data);
             }
         }
         this._matrix_type = matrix_type;
