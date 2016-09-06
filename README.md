@@ -18,8 +18,8 @@ biom = new Biom(); // "creates new biom object"
 
 ## Documentation
 
-See the [biom format specification (version 1.0)](http://biom-format.org/documentation/format_versions/biom-1.0.html) for more details.
-Please cite the biom file format (as opposed to this module) as:
+See the [biom format specification (version 1.0)](http://biom-format.org/documentation/format_versions/biom-1.0.html) for more details on the file format.
+Please cite the biom-format project (in addition to this module) as:
 ```
 The Biological Observation Matrix (BIOM) format or: how I learned to stop worrying and love the ome-ome.
 Daniel McDonald, Jose C. Clemente, Justin Kuczynski, Jai Ram Rideout, Jesse Stombaugh, Doug Wendel, Andreas Wilke, Susan Huse, John Hufnagle, Folker Meyer, Rob Knight, and J. Gregory Caporaso.
