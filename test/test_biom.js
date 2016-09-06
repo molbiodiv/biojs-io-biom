@@ -883,7 +883,7 @@ describe('biojs-io-biom module', () => {
       assert.deepEqual(biom.getDataColumn('c3'), [0,0,0,0,0]);
     });
     it('should return correct value for dense data', () => {
-      let biom = new Biom({Columns: Columns, columns: cols, matrix_type: 'dense', data: [[0,1,11,1,0],[0,1,2,0,13],[0,1,0,1,1],[1,20,0,0,13],[3,0,4,4,9]]});
+      let biom = new Biom({rows: rows, columns: cols, matrix_type: 'dense', data: [[0,1,11,1,0],[0,1,2,0,13],[0,1,0,1,1],[1,20,0,0,13],[3,0,4,4,9]]});
       assert.deepEqual(biom.getDataColumn('c1'), [0,0,0,1,3]);
       biom.setDataColumn('c1', [1,2,3,4,5]);
       assert.deepEqual(biom.getDataColumn('c1'), [1,2,3,4,5]);
