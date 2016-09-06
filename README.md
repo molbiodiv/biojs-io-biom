@@ -86,6 +86,44 @@ biom.data;
 //  [0,0,7,17]]
 ```
 
+The `rows` and `columns` setter update the internal data by id.
+Consider the following example:
+
+```javascript
+biom = new Biom({
+    matrix_type: 'dense',
+    rows: [{id: 'row1'},{id: 'row2'},{id: 'row3'}],
+    columns: [{id: 'col1'},{id: 'col2'}],
+    data: [[0,1],[2,7],[5,0]]
+});
+```
+This will result in the following `data` matrix:
+
+|          | col1  | col2  |
+| -------- |:-----:|:-----:|
+| **row1** | 0     | 1     |
+| **row2** | 2     | 7     |
+| **row3** | 5     | 0     |
+
+Now setting the `rows` will also update the `data` accordingly:
+
+```javascript
+biom.rows = [{id: 'row2'},{id: 'row1'},{id: 'row4'},{id: 'row5'}];
+console.log(biom.data);
+```
+
+This results in the following table (row1 and row2 are swapped, row3 is removed and two new rows, row4 and row5 are added):
+
+|          | col1  | col2  |
+| -------- |:-----:|:-----:|
+| **row2** | 2     | 7     |
+| **row1** | 0     | 1     |
+| **row4** | 0     | 0     |
+| **row5** | 0     | 0     |
+
+This all happens in the background by simply assigning to `rows`. The same applies to `columns`.
+This way data integrity is preserved.
+
 #### getMetadata(object)
 
 **Parameter**: `object`
