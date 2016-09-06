@@ -779,14 +779,23 @@ export class Biom {
             this.data[rowIndex][colIndex] = value;
         } else if(this.matrix_type === 'sparse'){
             let update = false;
-            for(let entry of this.data){
+            let toRemove = -1;
+            for(let i=0; i<this.data.length; i++){
+                let entry = this.data[i];
                 if(entry[0] === rowIndex && entry[1] === colIndex){
-                    entry[2] = value;
+                    if(value === 0){
+                        toRemove = i;
+                    } else {
+                        entry[2] = value;
+                    }
                     update = true;
                 }
             }
             if(!update){
                 this.data.push([rowIndex, colIndex, value]);
+            }
+            if(toRemove !== -1){
+                this.data.splice(toRemove, 1);
             }
         }
     }
