@@ -740,11 +740,11 @@ describe('biojs-io-biom module', () => {
     let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}];
     it('should throw an Error if rowID is unknown', () => {
       let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
-      assert.throws(() => {biom.setDataAt('r7','c1')}, Error, /unknown/);
+      assert.throws(() => {biom.setDataAt('r7','c1',0)}, Error, /unknown/);
     });
     it('should throw an Error if colID is unknown', () => {
       let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse'});
-      assert.throws(() => {biom.setDataAt('r1','c9')}, Error, /unknown/);
+      assert.throws(() => {biom.setDataAt('r1','c9',0)}, Error, /unknown/);
     });
     it('should set correct value for sparse data', () => {
       let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse', data: [[1,2,13],[4,4,9]]});
