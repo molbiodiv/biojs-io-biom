@@ -892,6 +892,51 @@ export class Biom {
     }
 
     /**
+     * Set data for a specific column (independent of matrix_type)
+     * @param colID {string} - the id of the desired column
+     * @param values {Array} - the array of new values to set for the specified column
+     * @throws Error - if colID is unknown
+     * @throws Error - if values length does not equal the number of rows
+     */
+    setDataColumn(colID, values){
+        let colIndex = this._indexByID(colID, false);
+        if(colIndex === null){
+            throw new Error('unknown colID: '+colID);
+        };
+        if(values.length !== this.shape[0]){
+            throw new Error('length of values does not equal the number of rows');
+        }
+        if(this.matrix_type === 'dense'){
+            for(let i=0; i<this.data.length; i++){
+                let row = this.data[i];
+                row[colIndex] = values[i];
+            }
+        } else if(this.matrix_type === 'sparse'){
+            let update = Array(this.shape[0]).fill(false);
+            let toRemove = Array();
+            for(let i=0; i<this.data.length; i++){
+                let entry = this.data[i];
+                if(entry[1] === colIndex){
+                    if(values[entry[0]] === 0){
+                        toRemove.push(i);
+                    } else {
+                        entry[2] = values[entry[0]];
+                    }
+                    update[entry[0]] = true;
+                }
+            }
+            for(let i of toRemove.sort((a,b)=>{return b-a;})){
+                this.data.splice(i,1);
+            }
+            for(let i=0; i<values.length; i++){
+                if(!update[i]){
+                    this.data.push(Array(i, colIndex, values[i]));
+                }
+            }
+        }
+    }
+
+    /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
      * @param id {string} - the id of the desired row/column
