@@ -282,6 +282,15 @@ describe('biojs-io-biom module', () => {
       biom.columns = [{id: 'c1'},{id: 'c3'}];
       assert.deepEqual(biom.data, new_data2);
     });
+    it('should update data according to new columns (sparse)', () => {
+      let new_data1 = [[0,0,1],[0,1,3],[0,3,6],[1,0,4],[1,1,2],[1,3,21],[2,3,1]];
+      let new_data2 = [[0,0,3],[0,1,6],[1,0,2],[1,1,21],[2,1,1]];
+      let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'},{id: 'c3'}], data: [[0,0,3],[0,1,1],[0,2,6],[1,0,2],[1,1,4],[1,2,21],[2,2,1]], matrix_type: 'sparse'});
+      biom.columns = [{id: 'c2'},{id: 'c1'},{id: 'c4'},{id: 'c3'}];
+      assert.deepEqual(biom.data, new_data1);
+      biom.columns = [{id: 'c1'},{id: 'c3'}];
+      assert.deepEqual(biom.data, new_data2);
+    });
   });
 
   describe('getter and setter for matrix_type should work', () => {
