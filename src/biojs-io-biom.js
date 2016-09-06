@@ -443,14 +443,8 @@ export class Biom {
         // transform data if required
         if(typeof this.matrix_type !== 'undefined' && this.matrix_type !== matrix_type){
             if(matrix_type === 'dense'){
-                // create data array of given shape with only 0
-                let new_data = Array(this.shape[0]).fill().map(() => Array(this.shape[1]).fill(0));
-                // fill in the non-zero values
-                for(let d of this.data){
-                    new_data[d[0]][d[1]] = d[2];
-                }
                 this._matrix_type = matrix_type;
-                this.data = new_data;
+                this.data = this.constructor.sparse2dense(this.data, this.shape);
             } else if(matrix_type === 'sparse') {
                 let new_data = Array();
                 for(let i=0; i<this.data.length; i++){
