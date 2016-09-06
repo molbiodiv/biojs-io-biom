@@ -10,7 +10,7 @@
  * Version
  * @type {string} version of this module
  */
-export const VERSION = '0.1.4';
+export const VERSION = '1.0.0';
 
 /**
  * Default Biom Object for empty initialization
