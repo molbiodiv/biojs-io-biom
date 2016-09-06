@@ -946,6 +946,18 @@ export class Biom {
     }
 
     /**
+     * Set full data in dense format (independent of matrix_type)
+     * @param data {Array} - array of arrays containing the full data matrix in dense format
+     */
+    setDataMatrix(data){
+        if(this.matrix_type === 'dense'){
+            this.data = data;
+        } else if(this.matrix_type === 'sparse'){
+            this.data = this.constructor.dense2sparse(data);
+        }
+    }
+
+    /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
      * @param id {string} - the id of the desired row/column
