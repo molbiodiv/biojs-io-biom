@@ -736,12 +736,12 @@ export class Biom {
     }
 
     /**
-     * Get data for a specific row and column
+     * Get data for a specific row and column (independent of matrix_type)
      * @param rowID {string} - the id of the desired row
      * @param colID {string} - the id of the desired column
      * @throws Error - if rowID is unknown
      * @throws Error - if colID is unknown
-     * @return int - entry in the data matrix at the given position
+     * @return number - entry in the data matrix at the given position
      */
     getDataAt(rowID, colID){
         let rowIndex = this._indexByID(rowID, true);
@@ -765,7 +765,7 @@ export class Biom {
     }
 
     /**
-     * Set data for a specific row and column
+     * Set data for a specific row and column (independent of matrix_type)
      * @param rowID {string} - the id of the desired row
      * @param colID {string} - the id of the desired column
      * @param value {number} - the value to set at the specified position
