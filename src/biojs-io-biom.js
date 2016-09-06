@@ -381,7 +381,20 @@ export class Biom {
                 old_id_dict[old_cols[i].id] = i;
             }
             if(this.matrix_type === 'dense'){
-
+                for(let row of this.data){
+                    let new_row = Array();
+                    for(let i=0; i<columns.length; i++){
+                        let oldPos = old_id_dict[columns[i].id];
+                        if(typeof oldPos === 'undefined'){
+                            new_row.push(0);
+                        } else {
+                            new_row.push(row[oldPos]);
+                        }
+                    }
+                    new_data.push(new_row);
+                }
+                this._columns = columns;
+                this.data = new_data;
             } else if(this.matrix_type === 'sparse'){
                 for(let entry of this.data){
                     let newPos = new_id_dict[old_cols[entry[1]].id];
