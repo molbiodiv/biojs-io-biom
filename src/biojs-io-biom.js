@@ -743,7 +743,14 @@ export class Biom {
      * @throws Error - if colID is unknown
      */
     getDataAt(rowID, colID){
-
+        let rowIndex = this._indexByID(rowID, true);
+        if(rowIndex === null){
+            throw new Error('unknown rowID: '+rowID);
+        };
+        let colIndex = this._indexByID(colID, true);
+        if(colIndex === null){
+            throw new Error('unknown colID: '+colID);
+        };
     }
 
     /**
