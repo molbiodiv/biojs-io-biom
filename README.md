@@ -4,7 +4,7 @@
 [![Build Status](https://secure.travis-ci.org/molbiodiv/biojs-io-biom.png?branch=master)](http://travis-ci.org/molbiodiv/biojs-io-biom)
 [![Coverage Status](https://coveralls.io/repos/github/molbiodiv/biojs-io-biom/badge.svg?branch=master)](https://coveralls.io/github/molbiodiv/biojs-io-biom?branch=master)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
-[![DOI](https://zenodo.org/badge/12731/iimog/biojs-io-biom.svg)](https://zenodo.org/badge/latestdoi/12731/iimog/biojs-io-biom) (last from iimog/biojs-io-biom)
+[![DOI](https://zenodo.org/badge/12731/molbiodiv/biojs-io-biom.svg)](https://zenodo.org/badge/latestdoi/12731/molbiodiv/biojs-io-biom)
 
 > Parses biom files
 
