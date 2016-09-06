@@ -935,7 +935,7 @@ describe('biojs-io-biom module', () => {
     let sparseData = [[1,1,5],[2,1,13],[4,3,1],[0,0,9]];
     let shape = [5,5];
     let denseData = [[9,0,0,0,0],[0,5,0,0,0],[0,13,0,0,0],[0,0,0,0,0],[0,0,0,1,0]];
-    it('should return null if ID is unknown', () => {
+    it('should return data in dense format', () => {
       assert.deepEqual(Biom.sparse2dense(sparseData, shape), denseData);
     });
   });
