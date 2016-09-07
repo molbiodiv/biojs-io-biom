@@ -563,19 +563,19 @@ export class Biom {
         }
         if(this.matrix_type === 'dense'){
             if(data.length !== this.shape[0]){
-                throw new Error("This data matrix has wrong number of rows (dense).");
+                throw new Error('This data matrix has wrong number of rows (dense).');
             }
             for(let row of data){
                 let cols = this.shape[1];
                 if(row.length !== cols){
-                    throw new Error("This data matrix has wrong number of cols in at least one row (dense).");
+                    throw new Error('This data matrix has wrong number of cols in at least one row (dense).');
                 }
             }
         } else if(this.matrix_type === 'sparse'){
             let shape = this.shape;
             for(let entry of data){
                 if(entry[0] >= shape[0] || entry[1] >= shape[1]){
-                    throw new Error("This data matrix has out of bounds value (sparse): "+entry[0]+","+entry[0]);
+                    throw new Error('This data matrix has out of bounds value (sparse): '+entry[0]+','+entry[0]);
                 }
             }
         }
@@ -1019,9 +1019,9 @@ export class Biom {
                    body: '{"to": "hdf5", "content": "'+b64content+'"}',
                    url: _conversionServer,
                    encoding: undefined,
-                   method: "POST",
+                   method: 'POST',
                    headers:{
-                       "Content-Type": "application/json"
+                       'Content-Type': 'application/json'
                    }
                }, function done (err, resp, body) {
                    if(err !== null){
@@ -1080,9 +1080,9 @@ export class Biom {
                     body: '{"to": "json", "content": "'+b64content+'"}',
                     url: _conversionServer,
                     encoding:undefined,
-                    method:"POST",
+                    method:'POST',
                     headers:{
-                        "Content-Type": "application/json"
+                        'Content-Type': 'application/json'
                     }
                 }, function done (err, resp, body) {
                     if(err !== null){
