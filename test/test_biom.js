@@ -258,6 +258,12 @@ describe('biojs-io-biom module', () => {
       biom.rows = [{id: 'r6'},{id: 'r1'}];
       assert.deepEqual(biom.data, new_data2);
     });
+    it('should add empty metadata object if missing', () => {
+      let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'},{id: 'c3'}], matrix_type: 'sparse'});
+      assert.deepEqual(biom.rows[0], {id: 'r1', metadata: {}});
+      biom.rows = [{id: 'r4'},{id: 'r5'},{id: 'r6'}];
+      assert.deepEqual(biom.rows[1], {id: 'r5', metadata: {}});
+    });
   });
 
   describe('getter and setter for columns should work', () => {
@@ -298,6 +304,12 @@ describe('biojs-io-biom module', () => {
       assert.deepEqual(biom.data.sort(sortByCoord), new_data1);
       biom.columns = [{id: 'c1'},{id: 'c3'}];
       assert.deepEqual(biom.data.sort(sortByCoord), new_data2);
+    });
+    it('should add empty metadata object if missing', () => {
+      let biom = new Biom({rows: [{id: 'r1'},{id: 'r2'},{id: 'r3'}], columns: [{id: 'c1'},{id: 'c2'},{id: 'c3'}], matrix_type: 'sparse'});
+      assert.deepEqual(biom.columns[0], {id: 'c1', metadata: {}});
+      biom.columns = [{id: 'c4'},{id: 'c5'},{id: 'c6'}];
+      assert.deepEqual(biom.columns[1], {id: 'c5', metadata: {}});
     });
   });
 
