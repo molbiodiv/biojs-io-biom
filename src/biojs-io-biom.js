@@ -1070,9 +1070,16 @@ export class Biom {
                 return resolve(new Biom(json_obj));
             } catch (e){
                 if(_conversionServer === null) {
-                    return reject(new Error('The given biomString is not in json format and no conversion server is specified.\n' + e.message));
+                    return reject(
+                        new Error(
+                            'The given biomString is not in json format and no conversion server is specified.\n' +
+                            e.message
+                        )
+                    );
                 }
-                let b64content = base64.fromByteArray(new Uint8Array(new textEncoding.TextEncoder().encode(biomString)));
+                let b64content = base64.fromByteArray(
+                    new Uint8Array(new textEncoding.TextEncoder().encode(biomString))
+                );
                 if(_arrayBuffer !== null){
                     b64content = base64.fromByteArray(new Uint8Array(_arrayBuffer));
                 }
