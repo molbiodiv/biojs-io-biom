@@ -680,9 +680,6 @@ export class Biom {
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
         let setMetadatum = function(element, value){
-            if(element.metadata === null){
-                element.metadata = {};
-            }
             element.metadata[_attribute] = value;
         };
         if(_attribute === null){
