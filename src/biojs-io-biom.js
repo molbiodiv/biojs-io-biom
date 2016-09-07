@@ -306,10 +306,10 @@ export class Biom {
             let row = rows[i];
             if(typeof row.id === 'undefined'){
                 throw new TypeError('every row has to have an id');
-            };
+            }
             if(typeof row.metadata === 'undefined' || row.metadata === null){
                 row.metadata = {};
-            };
+            }
             if(typeof new_id_dict[row.id] !== 'undefined'){
                 throw new Error('duplicate row id: '+row.id);
             }
