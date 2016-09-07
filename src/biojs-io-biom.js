@@ -301,7 +301,7 @@ export class Biom {
         if(Object.prototype.toString.call(rows) !== '[object Array]'){
             throw new TypeError('rows must be an Array');
         }
-        let new_id_dict = new Object();
+        let new_id_dict = {};
         for(let i=0; i<rows.length; i++){
             let row = rows[i];
             if(typeof row.id === 'undefined'){
@@ -319,7 +319,7 @@ export class Biom {
         if(typeof this.data !== 'undefined'){
             let new_data = Array();
             let old_rows = this.rows;
-            let old_id_dict = new Object();
+            let old_id_dict = {};
             for(let i=0; i<old_rows.length; i++){
                 old_id_dict[old_rows[i].id] = i;
             }
