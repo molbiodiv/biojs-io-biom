@@ -369,10 +369,10 @@ export class Biom {
             let col = columns[i];
             if(typeof col.id === 'undefined'){
                 throw new TypeError('every column has to have an id');
-            };
+            }
             if(typeof col.metadata === 'undefined' || col.metadata === null){
                 col.metadata = {};
-            };
+            }
             if(typeof new_id_dict[col.id] !== 'undefined'){
                 throw new Error('duplicate column id: '+col.id);
             }
@@ -736,11 +736,11 @@ export class Biom {
         let rowIndex = this._indexByID(rowID, true);
         if(rowIndex === null){
             throw new Error('unknown rowID: '+rowID);
-        };
+        }
         let colIndex = this._indexByID(colID, false);
         if(colIndex === null){
             throw new Error('unknown colID: '+colID);
-        };
+        }
         if(this.matrix_type === 'dense'){
             return this.data[rowIndex][colIndex];
         } else if(this.matrix_type === 'sparse'){
@@ -765,11 +765,11 @@ export class Biom {
         let rowIndex = this._indexByID(rowID, true);
         if(rowIndex === null){
             throw new Error('unknown rowID: '+rowID);
-        };
+        }
         let colIndex = this._indexByID(colID, false);
         if(colIndex === null){
             throw new Error('unknown colID: '+colID);
-        };
+        }
         if(this.matrix_type === 'dense'){
             this.data[rowIndex][colIndex] = value;
         } else if(this.matrix_type === 'sparse'){
@@ -805,7 +805,7 @@ export class Biom {
         let rowIndex = this._indexByID(rowID, true);
         if(rowIndex === null){
             throw new Error('unknown rowID: '+rowID);
-        };
+        }
         if(this.matrix_type === 'dense'){
             return this.data[rowIndex];
         } else if(this.matrix_type === 'sparse'){
@@ -830,7 +830,7 @@ export class Biom {
         let rowIndex = this._indexByID(rowID, true);
         if(rowIndex === null){
             throw new Error('unknown rowID: '+rowID);
-        };
+        }
         if(values.length !== this.shape[1]){
             throw new Error('length of values does not equal the number of columns');
         }
@@ -872,7 +872,7 @@ export class Biom {
         let colIndex = this._indexByID(colID, false);
         if(colIndex === null){
             throw new Error('unknown colID: '+colID);
-        };
+        }
         if(this.matrix_type === 'dense'){
             let col = Array();
             for(let row of this.data){
@@ -901,7 +901,7 @@ export class Biom {
         let colIndex = this._indexByID(colID, false);
         if(colIndex === null){
             throw new Error('unknown colID: '+colID);
-        };
+        }
         if(values.length !== this.shape[0]){
             throw new Error('length of values does not equal the number of rows');
         }
