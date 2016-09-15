@@ -9,8 +9,13 @@
 > Parses biom files
 
 ## Getting Started
-Install the module with: `npm install biojs-io-biom`
 
+### node
+Install the module with:
+```bash
+npm install biojs-io-biom
+```
+Then you can use it in node like this:
 ```javascript
 var Biom = require('biojs-io-biom');
 biom = new Biom(); // "creates new biom object"
