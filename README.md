@@ -16,6 +16,25 @@ var Biom = require('biojs-io-biom');
 biom = new Biom(); // "creates new biom object"
 ```
 
+### browser
+To use the biojs-io-biom module in the browser you need the `build/biom.js` file:
+```html
+<!-- ... -->
+<script src="biom.js"></script>
+<script type="text/javascript">
+var Biom = require('biojs-io-biom').Biom;
+biom = new Biom();
+</script>
+<!-- ... -->
+```
+
+### bower
+You can also use bower to install the biojs-io-biom component for use in the browser:
+```bash
+bower install biojs-io-biom
+```
+The file you need will be under `bower_components/biojs-io-biom/build/biom.js` in this case.
+
 ## Documentation
 
 See the [biom format specification (version 1.0)](http://biom-format.org/documentation/format_versions/biom-1.0.html) for more details on the file format.
