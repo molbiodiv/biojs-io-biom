@@ -396,6 +396,10 @@ var sparseData = Biom.dense2sparse([[0,1],[2,0]]);
 
 ## Changes
 
+### v1.0.2 <small>(2016-09-15)</small>
+ - Fix installation via npm
+ - Fix minfied version of js
+
 ### v1.0.1 <small>(2016-09-07)</small>
  - Init metadata in `rows` and `columns`
 
