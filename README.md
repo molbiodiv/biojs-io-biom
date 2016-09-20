@@ -277,12 +277,12 @@ biom.data
 **Example**: `'{"id": "test", "shape": [0,0]}'`
 **Parameter**: `options`
 **Type**: `Object`
-**Example**: `{conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: ab}`
+**Example**: `{conversionServer: 'https://biomcs.iimog.org/convert.php', arrayBuffer: ab}`
 **Returns** `Promise` this function returns a promise. In case of success the new Biom object is passed otherwise the Error object is passed.
 
 The [conversion server](https://github.com/molbiodiv/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
 You can host your own server using a pre-configured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
-We also plan to host a publicly available server soon.
+A publicly available instance is reachable under [https://biomcs.iimog.org/]().
 For this version of the module biom-conversion-server v0.2.0 or later is required.
 
 The promise is rejected:
@@ -301,10 +301,10 @@ Biom.parse('{"id": "Table ID", "shape": [2,2]}', {}).then(
 );
 
 // Example: raw arrayBuffer from hdf5 file (file is a reference on the hdf5 file)
-// Using a conversionServer running on localhost port 8080
+// Using the public conversionServer on biomcs.iimog.org
 var reader = new FileReader();
 reader.onload = function(c) {
-    Biom.parse('', {conversionServer: 'http://localhost:8080/convert.php', arrayBuffer: c.target.result}).then(
+    Biom.parse('', {conversionServer: 'https://biomcs.iimog.org/convert.php', arrayBuffer: c.target.result}).then(
         // in case of success
         function(biom){
             console.log(biom);
@@ -322,12 +322,12 @@ reader.readAsArrayBuffer(file);
 
 **Parameter**: `options`
 **Type**: `Object`
-**Example**: `{conversionServer: 'http://localhost:8080/convert.php', asHdf5: false}`
+**Example**: `{conversionServer: 'https://biomcs.iimog.org/convert.php', asHdf5: false}`
 **Returns** `Promise` this function returns a promise. In case of success the String or ArrayBuffer representation of the biom object is passed otherwise the Error object is passed.
 
 The [conversion server](https://github.com/molbiodiv/biom-conversion-server) is a simple php application that provides a webservice interface to the [official python biom-format utility](http://biom-format.org/).
 You can host your own server using a pre-configured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
-We also plan to host a publicly available server soon.
+A publicly available instance is reachable under [https://biomcs.iimog.org/]().
 For this version of the module biom-conversion-server v0.2.0 or later is required.
 
 The promise is rejected:
@@ -350,8 +350,8 @@ biom.write().then(
 );
 
 // Example: to raw arrayBuffer (hdf5)
-// Using a conversionServer running on localhost port 8080
-biom.write({conversionServer: 'http://localhost:8080/convert.php', asHdf5: true}).then(
+// Using the public conversionServer on biomcs.iimog.org
+biom.write({conversionServer: 'https://biomcs.iimog.org/convert.php', asHdf5: true}).then(
     // in case of success
     function(biomArrayBuffer){
         console.log(biomArrayBuffer);
