@@ -17,7 +17,7 @@ npm install biojs-io-biom
 ```
 Then you can use it in node like this:
 ```javascript
-var Biom = require('biojs-io-biom');
+var Biom = require('biojs-io-biom').Biom;
 biom = new Biom(); // "creates new biom object"
 ```
 
