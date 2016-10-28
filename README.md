@@ -8,6 +8,11 @@
 
 > Parses biom files
 
+## Requirements
+
+For use in `node` this module is tested with  nodejs version 4.2 or higher.
+Specifically versions 0.x are not working (still standard in Ubuntu prior to 16.04).
+
 ## Getting Started
 
 ### node
@@ -15,7 +20,7 @@ Install the module with:
 ```bash
 npm install biojs-io-biom
 ```
-Then you can use it in node like this:
+Then you can use it in `node` like this:
 ```javascript
 var Biom = require('biojs-io-biom').Biom;
 biom = new Biom(); // "creates new biom object"
