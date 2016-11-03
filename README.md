@@ -365,6 +365,7 @@ The [conversion server](https://github.com/molbiodiv/biom-conversion-server) is 
 You can host your own server using a pre-configured [Docker container](https://hub.docker.com/r/iimog/biom-conversion-server/).
 A publicly available instance is reachable under [https://biomcs.iimog.org/]().
 For this version of the module biom-conversion-server v0.2.0 or later is required.
+If you just want to get the JSON string representation (i.e. biom-format version 1) you can use `.toString()` which works synchronously.
 
 The promise is rejected:
  - if there is a conversion error (conversionServer not reachable, conversionServer returns error)
