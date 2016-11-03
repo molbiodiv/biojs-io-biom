@@ -785,6 +785,17 @@ describe('biojs-io-biom module', () => {
     });
   });
 
+  describe('toString should return the json representation', () => {
+    it('should work if toString is invoked explicitly', () => {
+      let biom = new Biom();
+      assert.match(biom.toString(), /"id": ?null/);
+    });
+    it('should work if toString is invoked implicitly', () => {
+      let biom = new Biom();
+      assert.match(biom+"", /"id": ?null/);
+    });
+  });
+
   describe('getDataAt should return data for a given row and column', () => {
     let rows = [{id: 'r1'},{id: 'r2'},{id: 'r3'},{id: 'r4'},{id: 'r5'}];
     let cols = [{id: 'c1'},{id: 'c2'},{id: 'c3'},{id: 'c4'},{id: 'c5'}];
