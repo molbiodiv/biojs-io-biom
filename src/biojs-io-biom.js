@@ -627,6 +627,11 @@ export class Biom {
         return nnz;
     }
 
+    /**
+     * Returns the JSON string representation of the biom-format version 1 fields.
+     * This can be used as a synchronous alternative to write if JSON is desired.
+     * @return {string} biomJson
+     */
     toString(){
         let biomJson = JSON.stringify({
             id: this.id,
