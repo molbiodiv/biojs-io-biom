@@ -528,7 +528,7 @@ describe('biojs-io-biom module', () => {
       let biom = new Biom(exampleBiom);
       let rows = [
           {'id': 'OTU_1', 'metadata': {'numbers': [1,2,3,4]}},
-          {'id': 'OTU_2', 'metadata': {'numbers': 'numbers'}},
+          {'id': 'OTU_2', 'metadata': {'numbers': []}},
           {'id': 'OTU_3', 'metadata': {'numbers': [1,2,3]}},
           {'id': 'OTU_4', 'metadata': {'numbers': [1,2,3,4,5]}},
           {'id': 'OTU_5', 'metadata': {'numbers': [6,7,8,9]}},

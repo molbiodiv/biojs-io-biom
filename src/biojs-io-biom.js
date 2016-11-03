@@ -642,22 +642,11 @@ export class Biom {
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
         let extractAttribute = function (element) {
-            let currentLevel = element.metadata;
-            for(let attribute of _attribute){
-                if(currentLevel === null || typeof currentLevel !== 'object' || !(attribute in currentLevel)){
-                    return null;
-                }
-                currentLevel = currentLevel[attribute];
-            }
-            return currentLevel;
+            return _.get(element.metadata, _attribute, null);
         };
         let result;
         if(_attribute === null){
             throw new Error('Missing argument: attribute');
-        }
-        // Transform string to one-element array so we can always expect an array
-        if(typeof _attribute === 'string'){
-            _attribute = [_attribute];
         }
         if(dim_rows.indexOf(_dimension) !== -1){
             result = this.rows.map(extractAttribute);
