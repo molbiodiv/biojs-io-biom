@@ -161,12 +161,12 @@ This way data integrity is preserved.
 **Throws** `Error` if attribute is not set or dimension is none of "rows", "observation", "columns" or "sample"
 
 This method extracts metadata with a given attribute from rows or columns (dimension).
-Default value for `object.dimension` is "rows"
+Default value for `object.dimension` is "rows".
 
 ```javascript
 biom = new Biom({
     id: "Table ID",
-    shape: [2,2],
+    shape: [2,5],
     rows: [
         {id: "row1", metadata: null},
         {id: "row2", metadata: null}
@@ -182,6 +182,30 @@ biom = new Biom({
 });
 meta = biom.getMetadata({dimension: 'columns', attribute: 'pH'});
 // [7.2, 8.1, null, 6.9, null]
+```
+
+The attribute is used as path as in the lodash get function (https://lodash.com/docs/4.16.6#get)
+so multiple levels can be searched (string with dots is interpreted as a path ('a.b.c' is equivalent to ['a','b','c']))
+
+```javascript
+biom = new Biom({
+    id: "Table ID",
+    shape: [2,2],
+    rows: [
+        {id: "row1", metadata: null},
+        {id: "row2", metadata: null}
+    ],
+    columns: [
+        {id: "col1", metadata: {'a': {'b': {'c': 1}}}},
+        {id: "col2", metadata: {'a': {'b': {'c': 2}}}},
+        {id: "col3", metadata: {'a': {'b': null}}},
+        {id: "col4", metadata: {'a': {'b': {'c': null}}}},
+        {id: "col5", metadata: {'a': {'b': {'c': 5}}}}
+    ]
+    // ...
+});
+meta = biom.getMetadata({dimension: 'columns', attribute: ['a', 'b', 'c']});
+// [1, 2, null, null, 5]
 ```
 
 #### addMetadata(object)
@@ -202,7 +226,7 @@ Default value for `object.dimension` is "rows"
 ```javascript
 biom = new Biom({
     id: "Table ID",
-    shape: [2,2],
+    shape: [2,5],
     rows: [
         {id: "row1", metadata: null},
         {id: "row2", metadata: null}
@@ -226,6 +250,9 @@ biom.addMetadata({dimension: 'columns', attribute: 'pH', values: {col2: 7, col3:
 biom.getMetadata({dimension: 'columns', attribute: 'pH'});
 // [1, 3, 9, null, 5]
 ```
+
+The attribute is used as path as in the lodash set function (https://lodash.com/docs/4.16.6#set)
+so multiple levels can be given (string with dots is interpreted as a path ('a.b.c' is equivalent to ['a','b','c']))
 
 #### getter/setter for `data` independent of `matrix_type`
 
