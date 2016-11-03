@@ -688,7 +688,7 @@ export class Biom {
      * Add specific metadata to rows or columns
      * @param _dimension {string} - either "rows" ("observation") or "columns" ("sample"), default: "rows"
      * @param _attribute {string|string[]} - the path in the metadata object to add/set in each element in "dimension"
-     *                                       this is used as path for the lodash get function (https://lodash.com/docs/4.16.6#get)
+     *                                       this is used as path for the lodash set function (https://lodash.com/docs/4.16.6#set)
      *                                       so a string with dots is interpreted as a path ('a.b.c' is equivalent to ['a','b','c']
      * @param _defaultValue {*} - the metadata "attribute" is set to this value on each element in "dimension"
      * @param _values {Object|Array} - if Array has to have same length as "dimension" and contain the values to set
