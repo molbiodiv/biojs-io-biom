@@ -13,6 +13,10 @@
 For use in `node` this module is tested with  nodejs version 4.2 or higher.
 Specifically versions 0.x are not working (still standard in Ubuntu prior to 16.04).
 
+Included libraries are:
+ - [base64-js](https://github.com/beatgammit/base64-js)
+ - [lodash](https://lodash.com)
+
 ## Getting Started
 
 ### node
