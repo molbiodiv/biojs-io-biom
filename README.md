@@ -433,6 +433,13 @@ var sparseData = Biom.dense2sparse([[0,1],[2,0]]);
 
 ## Changes
 
+### v1.0.3 <small>(2016-11-03)</small>
+ - Override toString function to get JSON
+ - Add capability of deep attributes in getMetadata
+ - Add capability of deep attributes in addMetadata
+ - Add minimal required node version
+ - Fix installation instructions
+
 ### v1.0.2 <small>(2016-09-15)</small>
  - Fix installation via npm
  - Fix minfied version of js
