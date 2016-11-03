@@ -672,7 +672,7 @@ export class Biom {
     /**
      * Add specific metadata to rows or columns
      * @param _dimension {string} - either "rows" ("observation") or "columns" ("sample"), default: "rows"
-     * @param _attribute {string} - the key in the metadata object to add/set in each element in "dimension"
+     * @param _attribute {string|string[]} - the key in the metadata object to add/set in each element in "dimension"
      * @param _defaultValue {*} - the metadata "attribute" is set to this value on each element in "dimension"
      * @param _values {Object|Array} - if Array has to have same length as "dimension" and contain the values to set
      *                                 if Object keys have to be ids in the "dimension"
@@ -690,7 +690,7 @@ export class Biom {
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
         let setMetadatum = function(element, value){
-            element.metadata[_attribute] = value;
+            _.set(element.metadata, _attribute, value);
         };
         if(_attribute === null){
             throw new Error('Missing argument: attribute');
