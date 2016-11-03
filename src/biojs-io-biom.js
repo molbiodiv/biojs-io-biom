@@ -627,6 +627,25 @@ export class Biom {
         return nnz;
     }
 
+    toString(){
+        let biomJson = JSON.stringify({
+            id: this.id,
+            format: this.format,
+            format_url: this.format_url,
+            type: this.type,
+            generated_by: this.generated_by,
+            date: this.date,
+            rows: this.rows,
+            columns: this.columns,
+            matrix_type: this.matrix_type,
+            matrix_element_type: this.matrix_element_type,
+            shape: this.shape,
+            data: this.data,
+            comment: this.comment
+        });
+        return biomJson;
+    }
+
     /**
      * Get specific metadata of rows or columns as array
      * @param _dimension {string} - either "rows" ("observation") or "columns" ("sample"), default: "rows"
