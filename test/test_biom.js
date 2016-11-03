@@ -522,7 +522,7 @@ describe('biojs-io-biom module', () => {
         {'id': 'Sample_5', 'metadata': {'firstLevel': {'secondLevel': {'hasNoThird': 'will not be found'}}}}
       ];
       biom.columns = columns;
-      assert.equal(biom.getMetadata({dimension: 'columns', attribute: ['firstLevel','secondLevel','thirdLevel']}), ['a', 'b', null, 'c', null]);
+      assert.deepEqual(biom.getMetadata({dimension: 'columns', attribute: ['firstLevel','secondLevel','thirdLevel']}), ['a', 'b', null, 'c', null]);
     });
     it('should get nested row metadata (array)', () => {
       let biom = new Biom(exampleBiom);
@@ -540,7 +540,7 @@ describe('biojs-io-biom module', () => {
       ];
       biom.rows = rows;
       let expectedNumbers = [4, null, null, 4, 9, 44, 12, null, null, null];
-      assert.equal(biom.getMetadata({dimension: 'rows', attribute: ['numbers', 3]}), expectedNumbers);
+      assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: ['numbers', 3]}), expectedNumbers);
     });
   });
 

@@ -628,7 +628,7 @@ export class Biom {
     /**
      * Get specific metadata of rows or columns as array
      * @param _dimension {string} - either "rows" ("observation") or "columns" ("sample"), default: "rows"
-     * @param _attribute {string} - the key in the metadata object to extract for each element in "dimension"
+     * @param _attribute {string|string[]} - the key in the metadata object to extract for each element in "dimension"
      * @throws Error - if attribute is not set
      * @throws Error - if dimension is something other than "rows", "observation", "columns" or "sample"
      * @returns {Array} - containing the metadata of each element in "dimension" with the key "attribute"
@@ -640,14 +640,22 @@ export class Biom {
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
         let extractAttribute = function (element) {
-            if(element.metadata === null || !(_attribute in element.metadata)){
-                return null;
+            let currentLevel = element.metadata;
+            for(let attribute of _attribute){
+                if(currentLevel === null || typeof currentLevel !== 'object' || !(attribute in currentLevel)){
+                    return null;
+                }
+                currentLevel = currentLevel[attribute];
             }
-            return element.metadata[_attribute];
+            return currentLevel;
         };
         let result;
         if(_attribute === null){
             throw new Error('Missing argument: attribute');
+        }
+        // Transform string to one-element array so we can always expect an array
+        if(typeof _attribute === 'string'){
+            _attribute = [_attribute];
         }
         if(dim_rows.indexOf(_dimension) !== -1){
             result = this.rows.map(extractAttribute);
