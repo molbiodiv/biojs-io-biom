@@ -512,6 +512,36 @@ describe('biojs-io-biom module', () => {
       let biom = new Biom(exampleBiom);
       assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'taxonomy'}), exampleTaxonomy);
     });
+    it('should get nested column metadata (object)', () => {
+      let biom = new Biom(exampleBiom);
+      let columns = [
+        {'id': 'Sample_1', 'metadata': {'firstLevel': {'secondLevel': {'thirdLevel': 'a'}}}},
+        {'id': 'Sample_2', 'metadata': {'firstLevel': {'secondLevel': {'thirdLevel': 'b'}}}},
+        {'id': 'Sample_3', 'metadata': {'firstLevel': {'thirdLevel': {'secondLevel': 'will not be found'}}}},
+        {'id': 'Sample_4', 'metadata': {'firstLevel': {'secondLevel': {'thirdLevel': 'c'}}}},
+        {'id': 'Sample_5', 'metadata': {'firstLevel': {'secondLevel': {'hasNoThird': 'will not be found'}}}}
+      ];
+      biom.columns = columns;
+      assert.equal(biom.getMetadata({dimension: 'columns', attribute: ['firstLevel','secondLevel','thirdLevel']}), ['a', 'b', null, 'c', null]);
+    });
+    it('should get nested row metadata (array)', () => {
+      let biom = new Biom(exampleBiom);
+      let rows = [
+          {'id': 'OTU_1', 'metadata': {'numbers': [1,2,3,4]}},
+          {'id': 'OTU_2', 'metadata': {'numbers': 'numbers'}},
+          {'id': 'OTU_3', 'metadata': {'numbers': [1,2,3]}},
+          {'id': 'OTU_4', 'metadata': {'numbers': [1,2,3,4,5]}},
+          {'id': 'OTU_5', 'metadata': {'numbers': [6,7,8,9]}},
+          {'id': 'OTU_6', 'metadata': {'numbers': [1,2,3,44]}},
+          {'id': 'OTU_7', 'metadata': {'numbers': [1,2,3,12]}},
+          {'id': 'OTU_8', 'metadata': {'number_array': [1,2,3,4]}},
+          {'id': 'OTU_9', 'metadata': {}},
+          {'id': 'OTU_10', 'metadata': {'numbers': {a: 1, b: 2, c: 3, d: 4}}}
+      ];
+      biom.rows = rows;
+      let expectedNumbers = [4, null, null, 4, 9, 44, 12, null, null, null];
+      assert.equal(biom.getMetadata({dimension: 'rows', attribute: ['numbers', 3]}), expectedNumbers);
+    });
   });
 
   describe('addMetadata should add metadata to rows or columns', () => {
