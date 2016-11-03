@@ -587,6 +587,39 @@ describe('biojs-io-biom module', () => {
       biom.addMetadata({dimension: 'rows', attribute: 'organism_id', values: {'OTU_1': 1, 'OTU_7': 'NA', 'OTU_9': 9}});
       assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: 'organism_id'}), [1, null, 5, null, 7, null, 'NA', null, 9, null]);
     });
+    it('should add nested column metadata (via object)', () => {
+      let biom = new Biom(exampleBiom);
+      let columns = [
+        {'id': 'Sample_1', 'metadata': {}},
+        {'id': 'Sample_2', 'metadata': {}},
+        {'id': 'Sample_3', 'metadata': {}},
+        {'id': 'Sample_4', 'metadata': {}},
+        {'id': 'Sample_5', 'metadata': {}}
+      ];
+      biom.columns = columns;
+      biom.addMetadata({dimension: 'columns', attribute: ['firstLevel','secondLevel','thirdLevel'], values: {'Sample_1': 'a', 'Sample_2': 'b', 'Sample_4': 'c'}});
+      let expected = ['a', 'b', null, 'c', null];
+      assert.deepEqual(biom.getMetadata({dimension: 'columns', attribute: ['firstLevel','secondLevel','thirdLevel']}), expected);
+    });
+    it('should set nested row metadata (via array)', () => {
+      let biom = new Biom(exampleBiom);
+      let rows = [
+        {'id': 'OTU_1', 'metadata': {'numbers': []}},
+        {'id': 'OTU_2', 'metadata': {'numbers': [1,2,3,4]}},
+        {'id': 'OTU_3', 'metadata': {'numbers': [1,2,3,null]}},
+        {'id': 'OTU_4', 'metadata': {}},
+        {'id': 'OTU_5', 'metadata': {}},
+        {'id': 'OTU_6', 'metadata': {}},
+        {'id': 'OTU_7', 'metadata': {}},
+        {'id': 'OTU_8', 'metadata': {}},
+        {'id': 'OTU_9', 'metadata': {}},
+        {'id': 'OTU_10', 'metadata': {}}
+      ];
+      biom.rows = rows;
+      let expectedNumbers = [4, null, 42, 4, 9, 44, 12, null, null, null];
+      biom.addMetadata({dimension: 'rows', attribute: ['numbers', 3], values: expectedNumbers});
+      assert.deepEqual(biom.getMetadata({dimension: 'rows', attribute: ['numbers', 3]}), expectedNumbers);
+    });
   });
 
   describe('parse should create a new object from a string (in json or raw hdf5 format)', () => {
