@@ -6,6 +6,8 @@
  * Licensed under the MIT license.
  */
 
+const _ = require('lodash');
+
 /**
  * Version
  * @type {string} version of this module
