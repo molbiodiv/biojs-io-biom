@@ -1012,21 +1012,7 @@ export class Biom {
      *                              or rejected if an error occurs on the way.
      */
     write({conversionServer: _conversionServer = null, asHdf5: _asHdf5 = false} = {}){
-        let biomJson = JSON.stringify({
-            id: this.id,
-            format: this.format,
-            format_url: this.format_url,
-            type: this.type,
-            generated_by: this.generated_by,
-            date: this.date,
-            rows: this.rows,
-            columns: this.columns,
-            matrix_type: this.matrix_type,
-            matrix_element_type: this.matrix_element_type,
-            shape: this.shape,
-            data: this.data,
-            comment: this.comment
-        });
+        let biomJson = this.toString();
         return new Promise((resolve, reject) => {
            if(_asHdf5){
                if(_conversionServer === null){
