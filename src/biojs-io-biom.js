@@ -633,7 +633,7 @@ export class Biom {
      * @return {string} biomJson
      */
     toString(){
-        let biomJson = JSON.stringify({
+        let biomCopy = _.cloneDeep({
             id: this.id,
             format: this.format,
             format_url: this.format_url,
@@ -648,6 +648,14 @@ export class Biom {
             data: this.data,
             comment: this.comment
         });
+        for(let row of biomCopy.rows){
+            for(let metaKey of Object.keys(row.metadata)){
+                //if(typeof row.metadata[metaKey] === 'Object'){
+                    row.metadata[metaKey] = JSON.stringify(row.metadata[metaKey]);
+                //}
+            }
+        }
+        let biomJson = JSON.stringify(biomCopy);
         return biomJson;
     }
 
