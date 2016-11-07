@@ -804,6 +804,16 @@ describe('biojs-io-biom module', () => {
       });
       assert.match(biom.toString(), /"level1":"\{\\"level2/);
     });
+    it('should leave metadata arrays as arrays', () => {
+      let biom = new Biom({
+        rows: [
+          {id: 'row1', metadata: {'level1': ['level2', 'value1']}},
+          {id: 'row2', metadata: {'level1': ['level2', 'value2']}},
+          {id: 'row3', metadata: {'level1': ['level2', 'value3']}}
+        ]
+      });
+      assert.match(biom.toString(), /"level1":\["level2/);
+    });
   });
 
   describe('getDataAt should return data for a given row and column', () => {
