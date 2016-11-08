@@ -42,7 +42,7 @@ export const DEFAULT_BIOM = {
     columns: [],
     matrix_type: 'sparse',
     matrix_element_type: 'float',
-    shape: [0,0],
+    shape: [0, 0],
     data: [],
     comment: null
 };
@@ -119,7 +119,7 @@ export class Biom {
         shape: _shape = null,
         data: _data = DEFAULT_BIOM.data,
         comment: _comment = DEFAULT_BIOM.comment
-    } = {}){
+    } = {}) {
         this.rows = _rows;
         this.columns = _columns;
         this.matrix_type = _matrix_type;
@@ -128,12 +128,12 @@ export class Biom {
         this.format_url = _format_url;
         this.type = _type;
         this.generated_by = _generated_by;
-        if(_date === null){
+        if (_date === null) {
             _date = new Date().toISOString();
         }
         this.date = _date;
         this.matrix_element_type = _matrix_element_type;
-        if(_shape !== null){
+        if (_shape !== null) {
             // @throws Error if _shape is not concordant with rows and columns
             this.checkShape(_shape);
         }
@@ -145,7 +145,7 @@ export class Biom {
      * Getter for id
      * @returns {string|null} - A field that can be used to id a table (or null)
      */
-    get id(){
+    get id() {
         return this._id;
     }
 
@@ -154,8 +154,8 @@ export class Biom {
      * @param id {string|null} - A field that can be used to id a table
      * @throws {TypeError} if id is not a string (or null)
      */
-    set id(id){
-        if(id !== null && typeof id !== 'string'){
+    set id(id) {
+        if (id !== null && typeof id !== 'string') {
             throw new TypeError('id must be string or null');
         }
         this._id = id;
@@ -165,7 +165,7 @@ export class Biom {
      * Getter for format
      * @returns {string} - The name and version of the current biom format
      */
-    get format(){
+    get format() {
         return this._format;
     }
 
@@ -174,8 +174,8 @@ export class Biom {
      * @param format {string} - The name and version of the current biom format
      * @throws {TypeError} if format is not a string
      */
-    set format(format){
-        if(typeof format !== 'string'){
+    set format(format) {
+        if (typeof format !== 'string') {
             throw new TypeError('format must be string');
         }
         this._format = format;
@@ -185,7 +185,7 @@ export class Biom {
      * Getter for format_url
      * @returns {string} - A string with a static URL providing format details
      */
-    get format_url(){
+    get format_url() {
         return this._format_url;
     }
 
@@ -196,8 +196,8 @@ export class Biom {
      *                              (not checked whether the string is an url)
      * @throws {TypeError} if format_url is not a string
      */
-    set format_url(format_url){
-        if(typeof format_url !== 'string'){
+    set format_url(format_url) {
+        if (typeof format_url !== 'string') {
             throw new TypeError('format_url must be string' +
                 ' (representing a static URL)');
         }
@@ -216,7 +216,7 @@ export class Biom {
      *                       'Metabolite table'
      *                       'Taxon table'
      */
-    get type(){
+    get type() {
         return this._type;
     }
 
@@ -234,12 +234,12 @@ export class Biom {
      * @throws {TypeError} if type is not a string
      * @throws {Error} if type is not in the controlled vocabulary
      */
-    set type(type){
-        if(typeof type !== 'string'){
+    set type(type) {
+        if (typeof type !== 'string') {
             throw new TypeError('type must be string' +
                 ' (part of the controlled vocabulary)');
         }
-        if(TYPE_CV.indexOf(type) === -1){
+        if (TYPE_CV.indexOf(type) === -1) {
             throw new Error('type must be part of the controlled vocabulary');
         }
         this._type = type;
@@ -249,7 +249,7 @@ export class Biom {
      * Getter for generated_by
      * @returns {string} - Package and revision that built the table
      */
-    get generated_by(){
+    get generated_by() {
         return this._generated_by;
     }
 
@@ -258,8 +258,8 @@ export class Biom {
      * @param generated_by {string} - Package and revision that built the table
      * @throws {TypeError} if generated_by is not a string
      */
-    set generated_by(generated_by){
-        if(typeof generated_by !== 'string'){
+    set generated_by(generated_by) {
+        if (typeof generated_by !== 'string') {
             throw new TypeError('generated_by must be string');
         }
         this._generated_by = generated_by;
@@ -269,7 +269,7 @@ export class Biom {
      * Getter for date
      * @returns {string} - Date the table was built (ISO 8601 format)
      */
-    get date(){
+    get date() {
         return this._date;
     }
 
@@ -279,8 +279,8 @@ export class Biom {
      *                       (not checked whether the string is a date)
      * @throws {TypeError} if date is not a string
      */
-    set date(date){
-        if(typeof date !== 'string'){
+    set date(date) {
+        if (typeof date !== 'string') {
             throw new TypeError('date must be string (ISO 8601 format)');
         }
         this._date = date;
@@ -290,7 +290,7 @@ export class Biom {
      * Getter for rows
      * @returns {Array} - An ORDERED list of obj describing the rows
      */
-    get rows(){
+    get rows() {
         return this._rows;
     }
 
@@ -299,46 +299,46 @@ export class Biom {
      * @param rows {Array} - An ORDERED list of obj describing the rows
      * @throws {TypeError} if date is not an Array
      */
-    set rows(rows){
-        if(Object.prototype.toString.call(rows) !== '[object Array]'){
+    set rows(rows) {
+        if (Object.prototype.toString.call(rows) !== '[object Array]') {
             throw new TypeError('rows must be an Array');
         }
         let new_id_dict = {};
-        for(let i=0; i<rows.length; i++){
+        for (let i = 0; i < rows.length; i++) {
             let row = rows[i];
-            if(typeof row.id === 'undefined'){
+            if (typeof row.id === 'undefined') {
                 throw new TypeError('every row has to have an id');
             }
-            if(typeof row.metadata === 'undefined' || row.metadata === null){
+            if (typeof row.metadata === 'undefined' || row.metadata === null) {
                 row.metadata = {};
             }
-            if(typeof new_id_dict[row.id] !== 'undefined'){
-                throw new Error('duplicate row id: '+row.id);
+            if (typeof new_id_dict[row.id] !== 'undefined') {
+                throw new Error('duplicate row id: ' + row.id);
             }
             new_id_dict[row.id] = i;
         }
         // update old data according to new rows (unless in constructor)
-        if(typeof this.data !== 'undefined'){
+        if (typeof this.data !== 'undefined') {
             let new_data = Array();
             let old_rows = this.rows;
             let old_id_dict = {};
-            for(let i=0; i<old_rows.length; i++){
+            for (let i = 0; i < old_rows.length; i++) {
                 old_id_dict[old_rows[i].id] = i;
             }
-            if(this.matrix_type === 'dense'){
-                for(let row of rows){
+            if (this.matrix_type === 'dense') {
+                for (let row of rows) {
                     let new_row = Array(this.shape[1]).fill(0);
-                    if(typeof old_id_dict[row.id] !== 'undefined'){
+                    if (typeof old_id_dict[row.id] !== 'undefined') {
                         new_row = this.data[old_id_dict[row.id]];
                     }
                     new_data.push(new_row);
                 }
                 this._rows = rows;
                 this.data = new_data;
-            } else if(this.matrix_type === 'sparse'){
-                for(let entry of this.data){
+            } else if (this.matrix_type === 'sparse') {
+                for (let entry of this.data) {
                     let newPos = new_id_dict[old_rows[entry[0]].id];
-                    if(typeof newPos !== 'undefined'){
+                    if (typeof newPos !== 'undefined') {
                         new_data.push(new Array(newPos, entry[1], entry[2]));
                     }
                 }
@@ -362,38 +362,38 @@ export class Biom {
      * @param columns {Array} - An ORDERED list of obj describing the columns
      * @throws {TypeError} if date is not an Array
      */
-    set columns(columns){
-        if(Object.prototype.toString.call(columns) !== '[object Array]'){
+    set columns(columns) {
+        if (Object.prototype.toString.call(columns) !== '[object Array]') {
             throw new TypeError('columns must be an Array');
         }
         let new_id_dict = {};
-        for(let i=0; i<columns.length; i++){
+        for (let i = 0; i < columns.length; i++) {
             let col = columns[i];
-            if(typeof col.id === 'undefined'){
+            if (typeof col.id === 'undefined') {
                 throw new TypeError('every column has to have an id');
             }
-            if(typeof col.metadata === 'undefined' || col.metadata === null){
+            if (typeof col.metadata === 'undefined' || col.metadata === null) {
                 col.metadata = {};
             }
-            if(typeof new_id_dict[col.id] !== 'undefined'){
-                throw new Error('duplicate column id: '+col.id);
+            if (typeof new_id_dict[col.id] !== 'undefined') {
+                throw new Error('duplicate column id: ' + col.id);
             }
             new_id_dict[col.id] = i;
         }
         // update old data according to new columns (unless in constructor)
-        if(typeof this.data !== 'undefined'){
+        if (typeof this.data !== 'undefined') {
             let new_data = Array();
             let old_cols = this.columns;
             let old_id_dict = {};
-            for(let i=0; i<old_cols.length; i++){
+            for (let i = 0; i < old_cols.length; i++) {
                 old_id_dict[old_cols[i].id] = i;
             }
-            if(this.matrix_type === 'dense'){
-                for(let row of this.data){
+            if (this.matrix_type === 'dense') {
+                for (let row of this.data) {
                     let new_row = Array();
-                    for(let i=0; i<columns.length; i++){
+                    for (let i = 0; i < columns.length; i++) {
                         let oldPos = old_id_dict[columns[i].id];
-                        if(typeof oldPos === 'undefined'){
+                        if (typeof oldPos === 'undefined') {
                             new_row.push(0);
                         } else {
                             new_row.push(row[oldPos]);
@@ -403,10 +403,10 @@ export class Biom {
                 }
                 this._columns = columns;
                 this.data = new_data;
-            } else if(this.matrix_type === 'sparse'){
-                for(let entry of this.data){
+            } else if (this.matrix_type === 'sparse') {
+                for (let entry of this.data) {
                     let newPos = new_id_dict[old_cols[entry[1]].id];
-                    if(typeof newPos !== 'undefined'){
+                    if (typeof newPos !== 'undefined') {
                         new_data.push(new Array(entry[0], newPos, entry[2]));
                     }
                 }
@@ -424,7 +424,7 @@ export class Biom {
      *                       'sparse' : only non-zero values are specified
      *                       'dense' : every element must be specified
      */
-    get matrix_type(){
+    get matrix_type() {
         return this._matrix_type;
     }
 
@@ -439,21 +439,21 @@ export class Biom {
      * @throws {TypeError} if matrix_type is not a string
      * @throws {Error} if matrix_type is not in the controlled vocabulary
      */
-    set matrix_type(matrix_type){
-        if(typeof matrix_type !== 'string'){
+    set matrix_type(matrix_type) {
+        if (typeof matrix_type !== 'string') {
             throw new TypeError('matrix_type must be string' +
                 ' (part of the controlled vocabulary: "dense" or "sparse")');
         }
-        if(MATRIX_TYPE_CV.indexOf(matrix_type) === -1){
+        if (MATRIX_TYPE_CV.indexOf(matrix_type) === -1) {
             throw new Error('matrix_type must be part of the' +
                 ' controlled vocabulary: "dense" or "sparse"');
         }
         // transform data if required
-        if(typeof this.matrix_type !== 'undefined' && this.matrix_type !== matrix_type){
-            if(matrix_type === 'dense'){
+        if (typeof this.matrix_type !== 'undefined' && this.matrix_type !== matrix_type) {
+            if (matrix_type === 'dense') {
                 this._matrix_type = matrix_type;
                 this.data = this.constructor.sparse2dense(this.data, this.shape);
-            } else if(matrix_type === 'sparse') {
+            } else if (matrix_type === 'sparse') {
                 this._matrix_type = matrix_type;
                 this.data = this.constructor.dense2sparse(this.data);
             }
@@ -469,7 +469,7 @@ export class Biom {
      *                       'float' : floating point
      *                       'unicode' : unicode string
      */
-    get matrix_element_type(){
+    get matrix_element_type() {
         return this._matrix_element_type;
     }
 
@@ -484,13 +484,13 @@ export class Biom {
      * @throws {TypeError} if matrix_element_type is not a string
      * @throws {Error} if matrix_element_type is not in controlled vocabulary
      */
-    set matrix_element_type(matrix_element_type){
-        if(typeof matrix_element_type !== 'string'){
+    set matrix_element_type(matrix_element_type) {
+        if (typeof matrix_element_type !== 'string') {
             throw new TypeError('matrix_element_type must be string' +
                 ' (part of the controlled vocabulary:' +
                 ' "int", "float" or "unicode")');
         }
-        if(MATRIX_ELEMENT_TYPE_CV.indexOf(matrix_element_type) === -1){
+        if (MATRIX_ELEMENT_TYPE_CV.indexOf(matrix_element_type) === -1) {
             throw new Error('matrix_element_type must be part of the' +
                 ' controlled vocabulary: "int", "float" or "unicode"');
         }
@@ -502,7 +502,7 @@ export class Biom {
      * read-only trying to set shape will fail. If shape is set in the constructor it is checked for validity.
      * @returns {Array} - the number of rows and number of columns in data
      */
-    get shape(){
+    get shape() {
         return [this.rows.length, this.columns.length];
     }
 
@@ -514,22 +514,22 @@ export class Biom {
      *                 two non-negative integers
      * @throws {Error} if shape is not concordant with rows and columns
      */
-    checkShape(shape){
-        if(Object.prototype.toString.call(shape) !== '[object Array]'){
+    checkShape(shape) {
+        if (Object.prototype.toString.call(shape) !== '[object Array]') {
             throw new TypeError('shape must be an Array containing' +
                 ' exactly two non-negative integers');
         }
-        if(shape.length !== 2){
+        if (shape.length !== 2) {
             throw new Error('shape does not contain exactly two elements');
         }
-        if(!Number.isInteger(shape[0]) ||
-            shape[0] < 0 || !Number.isInteger(shape[1]) || shape[1] < 0){
+        if (!Number.isInteger(shape[0]) ||
+            shape[0] < 0 || !Number.isInteger(shape[1]) || shape[1] < 0) {
             throw new Error('shape does not contain non-negative integers');
         }
-        if(shape[0] !== this.rows.length){
+        if (shape[0] !== this.rows.length) {
             throw new Error('First dimension of shape does not match number of rows');
         }
-        if(shape[1] !== this.columns.length){
+        if (shape[1] !== this.columns.length) {
             throw new Error('Second dimension of shape does not match number of columns');
         }
     }
@@ -544,7 +544,7 @@ export class Biom {
      *                                               [value, value, value, ...],
      *                                                                      ...]
      */
-    get data(){
+    get data() {
         return this._data;
     }
 
@@ -559,25 +559,25 @@ export class Biom {
      *                                                                      ...]
      * @throws {TypeError} if date is not an Array
      */
-    set data(data){
-        if(Object.prototype.toString.call(data) !== '[object Array]'){
+    set data(data) {
+        if (Object.prototype.toString.call(data) !== '[object Array]') {
             throw new TypeError('data must be an Array');
         }
-        if(this.matrix_type === 'dense'){
-            if(data.length !== this.shape[0]){
+        if (this.matrix_type === 'dense') {
+            if (data.length !== this.shape[0]) {
                 throw new Error('This data matrix has wrong number of rows (dense).');
             }
-            for(let row of data){
+            for (let row of data) {
                 let cols = this.shape[1];
-                if(row.length !== cols){
+                if (row.length !== cols) {
                     throw new Error('This data matrix has wrong number of cols in at least one row (dense).');
                 }
             }
-        } else if(this.matrix_type === 'sparse'){
+        } else if (this.matrix_type === 'sparse') {
             let shape = this.shape;
-            for(let entry of data){
-                if(entry[0] >= shape[0] || entry[1] >= shape[1]){
-                    throw new Error('This data matrix has out of bounds value (sparse): '+entry[0]+','+entry[0]);
+            for (let entry of data) {
+                if (entry[0] >= shape[0] || entry[1] >= shape[1]) {
+                    throw new Error('This data matrix has out of bounds value (sparse): ' + entry[0] + ',' + entry[0]);
                 }
             }
         }
@@ -589,7 +589,7 @@ export class Biom {
      * @returns {string|null} - A free text field containing any information that
      *                     you feel is relevant (or just feel like sharing)
      */
-    get comment(){
+    get comment() {
         return this._comment;
     }
 
@@ -599,8 +599,8 @@ export class Biom {
      *                        that you feel is relevant (or just feel like sharing)
      * @throws {TypeError} if comment is not a string (or null)
      */
-    set comment(comment){
-        if(comment !== null && typeof comment !== 'string'){
+    set comment(comment) {
+        if (comment !== null && typeof comment !== 'string') {
             throw new TypeError('comment must be string or null');
         }
         this._comment = comment;
@@ -611,14 +611,14 @@ export class Biom {
      * This property is read-only, attempts to set it will result in a TypeError
      * @returns {number} - Number of non-zero elements in data
      */
-    get nnz(){
+    get nnz() {
         let nnz = 0;
-        if(this.matrix_type === 'sparse'){
+        if (this.matrix_type === 'sparse') {
             return this.data.length;
-        } else if(this.matrix_type === 'dense') {
-            for(let row of this.data){
-                for(let elem of row){
-                    if(elem !== 0){
+        } else if (this.matrix_type === 'dense') {
+            for (let row of this.data) {
+                for (let elem of row) {
+                    if (elem !== 0) {
                         nnz++;
                     }
                 }
@@ -632,7 +632,7 @@ export class Biom {
      * This can be used as a synchronous alternative to write if JSON is desired.
      * @return {string} biomJson
      */
-    toString(){
+    toString() {
         let biomCopy = _.cloneDeep({
             id: this.id,
             format: this.format,
@@ -676,19 +676,19 @@ export class Biom {
     getMetadata({
         dimension: _dimension = 'rows',
         attribute: _attribute = null
-    } = {}){
+    } = {}) {
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
         let extractAttribute = function (element) {
             return _.get(element.metadata, _attribute, null);
         };
         let result;
-        if(_attribute === null){
+        if (_attribute === null) {
             throw new Error('Missing argument: attribute');
         }
-        if(dim_rows.indexOf(_dimension) !== -1){
+        if (dim_rows.indexOf(_dimension) !== -1) {
             result = this.rows.map(extractAttribute);
-        } else if (dim_cols.indexOf(_dimension) !== -1){
+        } else if (dim_cols.indexOf(_dimension) !== -1) {
             result = this.columns.map(extractAttribute);
         } else {
             throw new Error('dimension has to be one of "rows", "observation", "columns" or "sample"');
@@ -715,49 +715,49 @@ export class Biom {
         attribute: _attribute = null,
         defaultValue: _defaultValue = null,
         values: _values = null
-    } = {}){
+    } = {}) {
         let dim_rows = ['rows', 'observation'];
         let dim_cols = ['columns', 'sample'];
-        let setMetadatum = function(element, value){
+        let setMetadatum = function (element, value) {
             _.set(element.metadata, _attribute, value);
         };
-        if(_attribute === null){
+        if (_attribute === null) {
             throw new Error('Missing argument: attribute');
         }
         let dim;
-        if(dim_rows.indexOf(_dimension) !== -1){
+        if (dim_rows.indexOf(_dimension) !== -1) {
             dim = this.rows;
-        } else if(dim_cols.indexOf(_dimension) !== -1) {
+        } else if (dim_cols.indexOf(_dimension) !== -1) {
             dim = this.columns;
         } else {
             throw new Error('dimension has to be one of "rows", "observation", "columns" or "sample"');
         }
-        if(_defaultValue !== null && _values !== null){
+        if (_defaultValue !== null && _values !== null) {
             throw new Error('please set only one of "defaultValue" and "values", not both');
         }
-        if(_defaultValue === null && _values === null){
+        if (_defaultValue === null && _values === null) {
             throw new Error('Missing argument: please set one of "defaultValue" or "values"');
         }
-        if(_values !== null){
-            if(typeof _values !== 'object'){
+        if (_values !== null) {
+            if (typeof _values !== 'object') {
                 throw new Error('"values" has to be an array or object');
             }
-            if(Object.prototype.toString.call(_values) === '[object Array]'){
-                if(_values.length !== dim.length){
+            if (Object.prototype.toString.call(_values) === '[object Array]') {
+                if (_values.length !== dim.length) {
                     throw new Error('values is an array but has wrong number of elements');
                 }
-                for(let i=0; i<_values.length; i++){
+                for (let i = 0; i < _values.length; i++) {
                     setMetadatum(dim[i], _values[i]);
                 }
             } else {
-                for(let element of dim){
-                    if(element.id in _values){
+                for (let element of dim) {
+                    if (element.id in _values) {
                         setMetadatum(element, _values[element.id]);
                     }
                 }
             }
-        } else if(_defaultValue !== null){
-            for(let element of dim){
+        } else if (_defaultValue !== null) {
+            for (let element of dim) {
                 setMetadatum(element, _defaultValue);
             }
         }
@@ -771,20 +771,20 @@ export class Biom {
      * @throws Error - if colID is unknown
      * @return number - entry in the data matrix at the given position
      */
-    getDataAt(rowID, colID){
+    getDataAt(rowID, colID) {
         let rowIndex = this._indexByID(rowID, true);
-        if(rowIndex === null){
-            throw new Error('unknown rowID: '+rowID);
+        if (rowIndex === null) {
+            throw new Error('unknown rowID: ' + rowID);
         }
         let colIndex = this._indexByID(colID, false);
-        if(colIndex === null){
-            throw new Error('unknown colID: '+colID);
+        if (colIndex === null) {
+            throw new Error('unknown colID: ' + colID);
         }
-        if(this.matrix_type === 'dense'){
+        if (this.matrix_type === 'dense') {
             return this.data[rowIndex][colIndex];
-        } else if(this.matrix_type === 'sparse'){
-            for(let entry of this.data){
-                if(entry[0] === rowIndex && entry[1] === colIndex){
+        } else if (this.matrix_type === 'sparse') {
+            for (let entry of this.data) {
+                if (entry[0] === rowIndex && entry[1] === colIndex) {
                     return entry[2];
                 }
             }
@@ -800,24 +800,24 @@ export class Biom {
      * @throws Error - if rowID is unknown
      * @throws Error - if colID is unknown
      */
-    setDataAt(rowID, colID, value){
+    setDataAt(rowID, colID, value) {
         let rowIndex = this._indexByID(rowID, true);
-        if(rowIndex === null){
-            throw new Error('unknown rowID: '+rowID);
+        if (rowIndex === null) {
+            throw new Error('unknown rowID: ' + rowID);
         }
         let colIndex = this._indexByID(colID, false);
-        if(colIndex === null){
-            throw new Error('unknown colID: '+colID);
+        if (colIndex === null) {
+            throw new Error('unknown colID: ' + colID);
         }
-        if(this.matrix_type === 'dense'){
+        if (this.matrix_type === 'dense') {
             this.data[rowIndex][colIndex] = value;
-        } else if(this.matrix_type === 'sparse'){
+        } else if (this.matrix_type === 'sparse') {
             let update = false;
             let toRemove = -1;
-            for(let i=0; i<this.data.length; i++){
+            for (let i = 0; i < this.data.length; i++) {
                 let entry = this.data[i];
-                if(entry[0] === rowIndex && entry[1] === colIndex){
-                    if(value === 0){
+                if (entry[0] === rowIndex && entry[1] === colIndex) {
+                    if (value === 0) {
                         toRemove = i;
                     } else {
                         entry[2] = value;
@@ -825,10 +825,10 @@ export class Biom {
                     update = true;
                 }
             }
-            if(!update){
+            if (!update) {
                 this.data.push([rowIndex, colIndex, value]);
             }
-            if(toRemove !== -1){
+            if (toRemove !== -1) {
                 this.data.splice(toRemove, 1);
             }
         }
@@ -840,17 +840,17 @@ export class Biom {
      * @throws Error - if rowID is unknown
      * @return Array - array of entries in the given row of the data matrix
      */
-    getDataRow(rowID){
+    getDataRow(rowID) {
         let rowIndex = this._indexByID(rowID, true);
-        if(rowIndex === null){
-            throw new Error('unknown rowID: '+rowID);
+        if (rowIndex === null) {
+            throw new Error('unknown rowID: ' + rowID);
         }
-        if(this.matrix_type === 'dense'){
+        if (this.matrix_type === 'dense') {
             return this.data[rowIndex];
-        } else if(this.matrix_type === 'sparse'){
+        } else if (this.matrix_type === 'sparse') {
             let row = Array(this.shape[1]).fill(0);
-            for(let entry of this.data){
-                if(entry[0] === rowIndex){
+            for (let entry of this.data) {
+                if (entry[0] === rowIndex) {
                     row[entry[1]] = entry[2];
                 }
             }
@@ -865,23 +865,23 @@ export class Biom {
      * @throws Error - if rowID is unknown
      * @throws Error - if values length does not equal the number of columns
      */
-    setDataRow(rowID, values){
+    setDataRow(rowID, values) {
         let rowIndex = this._indexByID(rowID, true);
-        if(rowIndex === null){
-            throw new Error('unknown rowID: '+rowID);
+        if (rowIndex === null) {
+            throw new Error('unknown rowID: ' + rowID);
         }
-        if(values.length !== this.shape[1]){
+        if (values.length !== this.shape[1]) {
             throw new Error('length of values does not equal the number of columns');
         }
-        if(this.matrix_type === 'dense'){
+        if (this.matrix_type === 'dense') {
             this.data[rowIndex] = values;
-        } else if(this.matrix_type === 'sparse'){
+        } else if (this.matrix_type === 'sparse') {
             let update = Array(this.shape[1]).fill(false);
             let toRemove = Array();
-            for(let i=0; i<this.data.length; i++){
+            for (let i = 0; i < this.data.length; i++) {
                 let entry = this.data[i];
-                if(entry[0] === rowIndex){
-                    if(values[entry[1]] === 0){
+                if (entry[0] === rowIndex) {
+                    if (values[entry[1]] === 0) {
                         toRemove.push(i);
                     } else {
                         entry[2] = values[entry[1]];
@@ -890,11 +890,13 @@ export class Biom {
                 }
             }
             // remove positions with big index first - otherwise indices change
-            for(let i of toRemove.sort((a,b)=>{return b-a;})){
-                this.data.splice(i,1);
+            for (let i of toRemove.sort((a, b)=> {
+                return b - a;
+            })) {
+                this.data.splice(i, 1);
             }
-            for(let i=0; i<values.length; i++){
-                if(!update[i]){
+            for (let i = 0; i < values.length; i++) {
+                if (!update[i]) {
                     this.data.push(Array(rowIndex, i, values[i]));
                 }
             }
@@ -907,21 +909,21 @@ export class Biom {
      * @throws Error - if colID is unknown
      * @return Array - array of entries in the given column of the data matrix
      */
-    getDataColumn(colID){
+    getDataColumn(colID) {
         let colIndex = this._indexByID(colID, false);
-        if(colIndex === null){
-            throw new Error('unknown colID: '+colID);
+        if (colIndex === null) {
+            throw new Error('unknown colID: ' + colID);
         }
-        if(this.matrix_type === 'dense'){
+        if (this.matrix_type === 'dense') {
             let col = Array();
-            for(let row of this.data){
+            for (let row of this.data) {
                 col.push(row[colIndex]);
             }
             return col;
-        } else if(this.matrix_type === 'sparse'){
+        } else if (this.matrix_type === 'sparse') {
             let col = Array(this.shape[0]).fill(0);
-            for(let entry of this.data){
-                if(entry[1] === colIndex){
+            for (let entry of this.data) {
+                if (entry[1] === colIndex) {
                     col[entry[0]] = entry[2];
                 }
             }
@@ -936,26 +938,26 @@ export class Biom {
      * @throws Error - if colID is unknown
      * @throws Error - if values length does not equal the number of rows
      */
-    setDataColumn(colID, values){
+    setDataColumn(colID, values) {
         let colIndex = this._indexByID(colID, false);
-        if(colIndex === null){
-            throw new Error('unknown colID: '+colID);
+        if (colIndex === null) {
+            throw new Error('unknown colID: ' + colID);
         }
-        if(values.length !== this.shape[0]){
+        if (values.length !== this.shape[0]) {
             throw new Error('length of values does not equal the number of rows');
         }
-        if(this.matrix_type === 'dense'){
-            for(let i=0; i<this.data.length; i++){
+        if (this.matrix_type === 'dense') {
+            for (let i = 0; i < this.data.length; i++) {
                 let row = this.data[i];
                 row[colIndex] = values[i];
             }
-        } else if(this.matrix_type === 'sparse'){
+        } else if (this.matrix_type === 'sparse') {
             let update = Array(this.shape[0]).fill(false);
             let toRemove = Array();
-            for(let i=0; i<this.data.length; i++){
+            for (let i = 0; i < this.data.length; i++) {
                 let entry = this.data[i];
-                if(entry[1] === colIndex){
-                    if(values[entry[0]] === 0){
+                if (entry[1] === colIndex) {
+                    if (values[entry[0]] === 0) {
                         toRemove.push(i);
                     } else {
                         entry[2] = values[entry[0]];
@@ -964,11 +966,13 @@ export class Biom {
                 }
             }
             // remove positions with big index first - otherwise indices change
-            for(let i of toRemove.sort((a,b)=>{return b-a;})){
-                this.data.splice(i,1);
+            for (let i of toRemove.sort((a, b)=> {
+                return b - a;
+            })) {
+                this.data.splice(i, 1);
             }
-            for(let i=0; i<values.length; i++){
-                if(!update[i]){
+            for (let i = 0; i < values.length; i++) {
+                if (!update[i]) {
                     this.data.push(Array(i, colIndex, values[i]));
                 }
             }
@@ -979,10 +983,10 @@ export class Biom {
      * Get full data in dense format (independent of matrix_type)
      * @return Array - array of arrays containing the full data matrix in dense format
      */
-    getDataMatrix(){
-        if(this.matrix_type === 'dense'){
+    getDataMatrix() {
+        if (this.matrix_type === 'dense') {
             return this.data;
-        } else if(this.matrix_type === 'sparse'){
+        } else if (this.matrix_type === 'sparse') {
             return this.constructor.sparse2dense(this.data, this.shape);
         }
     }
@@ -991,10 +995,10 @@ export class Biom {
      * Set full data in dense format (independent of matrix_type)
      * @param data {Array} - array of arrays containing the full data matrix in dense format
      */
-    setDataMatrix(data){
-        if(this.matrix_type === 'dense'){
+    setDataMatrix(data) {
+        if (this.matrix_type === 'dense') {
             this.data = data;
-        } else if(this.matrix_type === 'sparse'){
+        } else if (this.matrix_type === 'sparse') {
             this.data = this.constructor.dense2sparse(data);
         }
     }
@@ -1006,13 +1010,13 @@ export class Biom {
      * @param inRow {boolean} - search in rows (true) or columns (false)
      * @return {int|null} - the index of the row/column with given id or null if unknown
      */
-    _indexByID(id, inRow = true){
+    _indexByID(id, inRow = true) {
         let a = this.columns;
-        if(inRow){
+        if (inRow) {
             a = this.rows;
         }
-        for(let i=0; i<a.length; i++){
-            if(a[i].id === id){
+        for (let i = 0; i < a.length; i++) {
+            if (a[i].id === id) {
                 return i;
             }
         }
@@ -1032,37 +1036,37 @@ export class Biom {
      * @returns Promise - a promise that is fulfilled when the string or ArrayBuffer has been created
      *                              or rejected if an error occurs on the way.
      */
-    write({conversionServer: _conversionServer = null, asHdf5: _asHdf5 = false} = {}){
+    write({conversionServer: _conversionServer = null, asHdf5: _asHdf5 = false} = {}) {
         let biomJson = this.toString();
         return new Promise((resolve, reject) => {
-           if(_asHdf5){
-               if(_conversionServer === null){
-                   reject(new Error('asHdf5 is set but no conversionServer is given'));
-               }
-               let b64content = base64.fromByteArray(new Uint8Array(new textEncoding.TextEncoder().encode(biomJson)));
-               nets({
-                   body: '{"to": "hdf5", "content": "'+b64content+'"}',
-                   url: _conversionServer,
-                   encoding: undefined,
-                   method: 'POST',
-                   headers:{
-                       'Content-Type': 'application/json'
-                   }
-               }, function done (err, resp, body) {
-                   if(err !== null){
-                       return reject(new Error('There was an error with the conversion:\n'+err));
-                   }
-                   let response = body.replace(/\r?\n|\r/g, '');
-                   response = JSON.parse(response);
-                   if(response.error !== null){
-                       return reject(new Error('There was an error with the conversion:\n'+response.error));
-                   }
-                   let arrayBuffer = base64.toByteArray(response.content).buffer;
-                   return resolve(arrayBuffer);
-               });
-           } else {
-               resolve(biomJson);
-           }
+            if (_asHdf5) {
+                if (_conversionServer === null) {
+                    reject(new Error('asHdf5 is set but no conversionServer is given'));
+                }
+                let b64content = base64.fromByteArray(new Uint8Array(new textEncoding.TextEncoder().encode(biomJson)));
+                nets({
+                    body: '{"to": "hdf5", "content": "' + b64content + '"}',
+                    url: _conversionServer,
+                    encoding: undefined,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }, function done(err, resp, body) {
+                    if (err !== null) {
+                        return reject(new Error('There was an error with the conversion:\n' + err));
+                    }
+                    let response = body.replace(/\r?\n|\r/g, '');
+                    response = JSON.parse(response);
+                    if (response.error !== null) {
+                        return reject(new Error('There was an error with the conversion:\n' + response.error));
+                    }
+                    let arrayBuffer = base64.toByteArray(response.content).buffer;
+                    return resolve(arrayBuffer);
+                });
+            } else {
+                resolve(biomJson);
+            }
         });
     }
 
@@ -1083,18 +1087,18 @@ export class Biom {
      * @returns promise {Promise} - a promise that is fulfilled when the new Biom object has been created
      *                              or rejected if an error occurs on the way.
      */
-    static parse(biomString = '', {conversionServer: _conversionServer = null, arrayBuffer: _arrayBuffer = null} = {}){
+    static parse(biomString = '', {conversionServer: _conversionServer = null, arrayBuffer: _arrayBuffer = null} = {}) {
         return new Promise((resolve, reject) => {
             // can only handle json if no conversion server is given
-            if(_arrayBuffer !== null){
+            if (_arrayBuffer !== null) {
                 biomString = new textEncoding.TextDecoder().decode(_arrayBuffer);
             }
             let json_obj;
-            try{
+            try {
                 json_obj = JSON.parse(biomString);
                 return resolve(new Biom(json_obj));
-            } catch (e){
-                if(_conversionServer === null) {
+            } catch (e) {
+                if (_conversionServer === null) {
                     return reject(
                         new Error(
                             'The given biomString is not in json format and no conversion server is specified.\n' +
@@ -1105,25 +1109,25 @@ export class Biom {
                 let b64content = base64.fromByteArray(
                     new Uint8Array(new textEncoding.TextEncoder().encode(biomString))
                 );
-                if(_arrayBuffer !== null){
+                if (_arrayBuffer !== null) {
                     b64content = base64.fromByteArray(new Uint8Array(_arrayBuffer));
                 }
                 nets({
-                    body: '{"to": "json", "content": "'+b64content+'"}',
+                    body: '{"to": "json", "content": "' + b64content + '"}',
                     url: _conversionServer,
-                    encoding:undefined,
-                    method:'POST',
-                    headers:{
+                    encoding: undefined,
+                    method: 'POST',
+                    headers: {
                         'Content-Type': 'application/json'
                     }
-                }, function done (err, resp, body) {
-                    if(err !== null){
-                        return reject(new Error('There was an error with the conversion:\n'+err));
+                }, function done(err, resp, body) {
+                    if (err !== null) {
+                        return reject(new Error('There was an error with the conversion:\n' + err));
                     }
                     let response = body.replace(/\r?\n|\r/g, '');
                     response = JSON.parse(response);
-                    if(response.error !== null){
-                        return reject(new Error('There was an error with the conversion:\n'+response.error));
+                    if (response.error !== null) {
+                        return reject(new Error('There was an error with the conversion:\n' + response.error));
                     }
                     json_obj = JSON.parse(new textEncoding.TextDecoder().decode(base64.toByteArray(response.content)));
                     return resolve(new Biom(json_obj));
@@ -1138,11 +1142,11 @@ export class Biom {
      * @param shape - the desired shape of the dense matrix
      * @return {Array} - array of arrays containing data in dense format
      */
-    static sparse2dense(data, shape){
+    static sparse2dense(data, shape) {
         // create data array of given shape with only 0
         let denseData = Array(shape[0]).fill().map(() => Array(shape[1]).fill(0));
         // fill in the non-zero values
-        for(let d of data){
+        for (let d of data) {
             denseData[d[0]][d[1]] = d[2];
         }
         return denseData;
@@ -1153,11 +1157,11 @@ export class Biom {
      * @param data - the dense data matrix
      * @return {Array} - array of arrays containing data in sparse format
      */
-    static dense2sparse(data){
+    static dense2sparse(data) {
         let sparseData = Array();
-        for(let i=0; i<data.length; i++){
-            for(let j=0; j<data[i].length; j++){
-                if(data[i][j] !== 0){
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < data[i].length; j++) {
+                if (data[i][j] !== 0) {
                     sparseData.push([i, j, data[i][j]]);
                 }
             }
