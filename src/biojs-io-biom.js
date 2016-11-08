@@ -12,7 +12,7 @@ const _ = require('lodash');
  * Version
  * @type {string} version of this module
  */
-export const VERSION = '1.0.3';
+export const VERSION = '1.0.4';
 
 /**
  * Default Biom Object for empty initialization
