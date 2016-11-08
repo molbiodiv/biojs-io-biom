@@ -145,6 +145,26 @@ describe('biojs-io-biom module', () => {
             });
             assert.deepEqual(biom.shape, [1, 1]);
         });
+        it('JSON strings in metadata should be unpacked by default', () => {
+            let biom = new Biom({
+                rows: [
+                    {id: 'row1', metadata: {rowJson: '{"nextLevel": {"lastLevel": [1,2,3]}}'}},
+                    {id: 'row2', metadata: {rowJson: '{"nextLevel": {"lastLevel": [2,3,1]}}'}},
+                    {id: 'row3', metadata: {rowJson: '{"nextLevel": {"lastLevel": [3,1,2]}}'}}
+                ],
+                columns: [
+                    {id: 'column1', metadata: {colJson: '{"firstLevel": {"secondLevel": "test1"}}'}},
+                    {id: 'column2', metadata: {colJson: '{"firstLevel": {"secondLevel": "test2"}}'}},
+                    {id: 'column3', metadata: {colJson: '{"firstLevel": {"secondLevel": "test3"}}'}}
+                ],
+            });
+            assert.equal(biom.columns[0].metadata.colJson.firstLevel.secondLevel, "test1");
+            assert.equal(biom.columns[1].metadata.colJson.firstLevel.secondLevel, "test2");
+            assert.equal(biom.columns[2].metadata.colJson.firstLevel.secondLevel, "test3");
+            assert.deepEqual(biom.rows[0].metadata.rowJson.nextLevel.lastLevel, [1,2,3]);
+            assert.deepEqual(biom.rows[1].metadata.rowJson.nextLevel.lastLevel, [2,3,1]);
+            assert.deepEqual(biom.rows[2].metadata.rowJson.nextLevel.lastLevel, [3,1,2]);
+        });
     });
 
     describe('getter and setter for id should work', () => {
