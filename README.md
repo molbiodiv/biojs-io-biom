@@ -442,7 +442,8 @@ However BIOM 1.0 files that contain nested metadata (values are themselves objec
 can not be converted to BIOM format version 2.1 with the official python command line tool.
 This is a design decision rather than a bug (see [biocore/biom-format#513](https://github.com/biocore/biom-format/issues/513)).
 As it might be useful to have nested metadata and it is easy to handle in javascript it is automatically converted to and from JSON strings.
-See the following examples.
+The same applies for numeric metadata (it is automatically converted from and to string).
+See the following examples:
 
 #### Automatic unpacking of metadata JSON strings
 Strings as values in metadata are automatically parsed as JSON and unpacked if possible.
