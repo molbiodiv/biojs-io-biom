@@ -476,6 +476,9 @@ var biomString = biom.toString();
 
 ## Changes
 
+### v1.0.4 <small>(2016-11-08)</small>
+ - Handle nested metadata (import/export)
+
 ### v1.0.3 <small>(2016-11-03)</small>
  - Override toString function to get JSON
  - Add capability of deep attributes in getMetadata
