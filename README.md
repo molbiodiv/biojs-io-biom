@@ -477,6 +477,9 @@ var biomString = biom.toString();
 
 ## Changes
 
+### v1.0.5 <small>(2016-11-08)</small>
+ - Export numeric metadata as string (compatibility with BIOM v2.1)
+
 ### v1.0.4 <small>(2016-11-08)</small>
  - Handle nested metadata (import/export)
 
