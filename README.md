@@ -433,6 +433,47 @@ var sparseData = Biom.dense2sparse([[0,1],[2,0]]);
 // sparseData = [[0,1,1],[1,0,2]]
 ```
 
+### A note about nested metadata
+
+In general it is possible to assign arbitrary metadata (key/value pairs) to each column and row.
+BIOM format version 1.0 does not restrict the type of the value so strings, numbers, arrays and objects are all possible.
+Strings, numbers and arrays (e.g. taxonomy) are commonly used.
+However BIOM 1.0 files that contain nested metadata (values are themselves objects)
+can not be converted to BIOM format version 2.1 with the official python command line tool.
+This is a design decision rather than a bug (see [biocore/biom-format#513](https://github.com/biocore/biom-format/issues/513)).
+As it might be useful to have nested metadata and it is easy to handle in javascript it is automatically converted to and from JSON strings.
+See the following examples.
+
+#### Automatic unpacking of metadata JSON strings
+Strings as values in metadata are automatically parsed as JSON and unpacked if possible.
+```{javascript}
+var biom = new Biom({
+    rows: [
+        {id: 'row1', metadata: {'jsonExample': '{"a": {"b": [1,2,3]}}'}},
+        {id: 'row2', metadata: {'jsonExample': '{"a": {"b": [2,3,1]}}'}},
+        {id: 'row3', metadata: {'jsonExample': '{"a": {"b": [3,1,2]}}'}}
+    ]
+});
+// The string value of jsonExample is automatically unpacked as object
+var row1ab = biom.rows[0].metadata.jsonExample.a.b;
+// row1ab is the array [1,2,3]
+```
+
+#### Automatic packing of metadata objects as JSON
+Accordingly metadata objects are converted to JSON when writing the object as string (toString or write)
+```{javascript}
+var biom = new Biom({
+    columns: [
+        {id: 'col1', metadata: {'object': {a: {b: [1,2,3]}}}},
+        {id: 'col2', metadata: {'object': {a: {b: [2,3,1]}}}}
+    ]
+});
+// The string value of jsonExample is automatically unpacked as object
+var biomString = biom.toString();
+// biomString contains ... {id: "col1", metadata: {"object": "{\"a\": {\"b\": [1,2,3]}}"}} ...
+```
+
+
 ## Changes
 
 ### v1.0.3 <small>(2016-11-03)</small>
