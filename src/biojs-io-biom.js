@@ -648,13 +648,17 @@ export class Biom {
             data: this.data,
             comment: this.comment
         });
-        for(let row of biomCopy.rows){
-            for(let metaKey of Object.keys(row.metadata)){
-                //if(typeof row.metadata[metaKey] === 'Object'){
-                    row.metadata[metaKey] = JSON.stringify(row.metadata[metaKey]);
-                //}
+        let convertMetadataObjectsToString = function (biom, dimension) {
+            for (let element of biomCopy[dimension]) {
+                for (let metaKey of Object.keys(element.metadata)) {
+                    if (typeof element.metadata[metaKey] === 'object' && Object.prototype.toString.call(element.metadata[metaKey]) !== '[object Array]'){
+                        element.metadata[metaKey] = JSON.stringify(element.metadata[metaKey]);
+                    }
+                }
             }
-        }
+        };
+        convertMetadataObjectsToString(biomCopy, 'rows');
+        convertMetadataObjectsToString(biomCopy, 'columns');
         let biomJson = JSON.stringify(biomCopy);
         return biomJson;
     }
