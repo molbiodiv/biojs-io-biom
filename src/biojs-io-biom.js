@@ -121,7 +121,9 @@ export class Biom {
         comment: _comment = DEFAULT_BIOM.comment
     } = {}) {
         this.rows = _rows;
+        this._unpackMetadataJSON('rows');
         this.columns = _columns;
+        this._unpackMetadataJSON('columns');
         this.matrix_type = _matrix_type;
         this.id = _id;
         this.format = _format;
@@ -625,6 +627,23 @@ export class Biom {
             }
         }
         return nnz;
+    }
+
+    /**
+     * Replace JSON strings in metadata with object representations
+     * @param {string} dimension columns|rows
+     * @private
+     */
+    _unpackMetadataJSON(dimension) {
+        for (let element of this[dimension]) {
+            for (let metaKey of Object.keys(element.metadata)) {
+                if (typeof element.metadata[metaKey] === 'string'){
+                    try{
+                        element.metadata[metaKey] = JSON.parse(element.metadata[metaKey]);
+                    } catch(e) {}
+                }
+            }
+        }
     }
 
     /**
