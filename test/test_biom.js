@@ -1129,6 +1129,16 @@ describe('biojs-io-biom module', () => {
             });
             assert.match(biom.toString(), /"level1":\["level2/);
         });
+        it('should convert numbers to strings for compatibility with BIOM version 2.1', () => {
+            let biom = new Biom({
+                columns: [
+                    {id: 'col1', metadata: {'number': 1}},
+                    {id: 'col2', metadata: {'number': 2}},
+                    {id: 'col3', metadata: {'number': 3}}
+                ]
+            });
+            assert.match(biom.toString(), /"number":"2"/);
+        });
     });
 
     describe('getDataAt should return data for a given row and column', () => {
