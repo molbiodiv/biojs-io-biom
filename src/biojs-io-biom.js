@@ -672,6 +672,8 @@ export class Biom {
                 for (let metaKey of Object.keys(element.metadata)) {
                     if (typeof element.metadata[metaKey] === 'object' && Object.prototype.toString.call(element.metadata[metaKey]) !== '[object Array]'){
                         element.metadata[metaKey] = JSON.stringify(element.metadata[metaKey]);
+                    } else if(typeof element.metadata[metaKey] === 'number'){
+                        element.metadata[metaKey] = element.metadata[metaKey].toString();
                     }
                 }
             }
