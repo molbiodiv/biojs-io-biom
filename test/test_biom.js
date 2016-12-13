@@ -1454,6 +1454,35 @@ describe('biojs-io-biom module', () => {
         });
     });
 
+    describe('pa should convert the data to presence/absence', () => {
+        let rows = [{id: 'r1'}, {id: 'r2'}, {id: 'r3'}, {id: 'r4'}, {id: 'r5'}];
+        let cols = [{id: 'c1'}, {id: 'c2'}, {id: 'c3'}, {id: 'c4'}, {id: 'c5'}];
+        it('should return correct matrix (but not modify original data)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'sparse',
+                data: [[0, 1, 11], [1, 2, 13], [4, 4, 9]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 9]]);
+            let matrix = biom.pa(false);
+            assert.deepEqual(matrix, [[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 1]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 9]]);
+        });
+        it('should return correct matrix (and replace original data in-place)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'sparse',
+                data: [[0, 1, 11], [1, 2, 13], [4, 4, 9]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 9]]);
+            biom.pa(true);
+            assert.deepEqual(matrix, [[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 1]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 1]]);
+        });
+    });
+
     describe('_indexByID should return the index by given id in rows or columns', () => {
         let rows = [{id: 'r1'}, {id: 'r2'}, {id: 'r3'}, {id: 'r4'}, {id: 'r5'}];
         let cols = [{id: 'c1'}, {id: 'c2'}, {id: 'c3'}, {id: 'c4'}, {id: 'c5'}];
