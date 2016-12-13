@@ -1025,6 +1025,20 @@ export class Biom {
     }
 
     /**
+     * Convert data to presence/absence
+     * @param inPlace {boolean} - if true the data of the biom object is replaced with the presence/absence data
+     * @return data {Array} - array of arrays containing the full absence/presence matrix in dense format
+     */
+    pa(inPlace){
+        let data = _.cloneDeep(this.getDataMatrix());
+        data = data.map(row => row.map(element => element == 0 ? 0 : 1));
+        if(inPlace){
+            this.setDataMatrix(data);
+        }
+        return data;
+    }
+
+    /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
      * @param id {string} - the id of the desired row/column
