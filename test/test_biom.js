@@ -1477,7 +1477,7 @@ describe('biojs-io-biom module', () => {
                 data: [[0, 1, 11], [1, 2, 13], [4, 4, 9]]
             });
             assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 9]]);
-            biom.pa(true);
+            let matrix = biom.pa(true);
             assert.deepEqual(matrix, [[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 1]]);
             assert.deepEqual(biom.getDataMatrix(), [[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 1]]);
         });
