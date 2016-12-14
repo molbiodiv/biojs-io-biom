@@ -1038,6 +1038,19 @@ export class Biom {
         return data;
     }
 
+    /**
+     * Transform data with a custom function (either by row or column)
+     * @param _f {function} - A function that takes three values:
+     *                        1) array of nonzero values corresponding to each observation or sample,
+     *                        2) observation or sample id,
+     *                        3) observation or sample metadata entry.
+     *                        It must return an array of transformed values that replace the original values.
+     *                        Example: (data, id, metadata) => data.map(x => x*2)
+     *                        (default: identity function - data will be unchanged)
+     * @param _dimension {string} rows|columns (default: rows)
+     * @param _inPlace {boolean} - if true the data of the biom object is replaced with the transformed data (default: false)
+     * @return {Array} - array of arrays containing the full transformed matrix in dense format
+     */
     transform({
         f: _f = (data, id, metadata) => data,
         dimension: _dimension = 'rows',
