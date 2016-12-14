@@ -335,6 +335,29 @@ biom.getDataMatrix();
 // [[0, 0, 1], [1, 1, 1]]
 ```
 
+#### transform({f: function, dimension: 'rows', inPlace: false})
+
+**Parameter**: `options`
+**Type**: `Object`
+**Example**: `{f: function(data, id, metadata){return data.map(x => x*2)}, dimension: 'columns', inPlace: true}`
+**Returns** `Array`
+
+This function returns the transformed matrix as an array of arrays using the provided function.
+If `inPlace` is `true` the internal data matrix is replaced.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 1], [1, 3, 42]]
+});
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 3, 42]]
+biom.transform({f: function(data, id, metadata){return data.map(x => x*2)}, dimension: 'columns', inPlace: true});
+// [[0, 0, 2], [2, 6, 84]]
+```
+
 #### static parse(biomString, options)
 
 **Parameter**: `biomString`
@@ -505,6 +528,7 @@ var biomString = biom.toString();
 ## Changes
 
 ### Next release <small>(TBD)</small>
+ - Add transform function
  - Add pa function to convert data to absence/presence
 
 ### v1.0.5 <small>(2016-11-08)</small>
