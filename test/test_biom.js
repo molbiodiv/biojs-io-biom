@@ -1548,8 +1548,8 @@ describe('biojs-io-biom module', () => {
             });
             assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8], [3, 5, 42]]);
             let matrix = biom.norm({dimension: 'rows', inPlace: true});
-            assert.deepEqual(matrix, [[0.0, 0.0, 1.0], [0.04, 0.12, 0.84]]);
-            assert.deepEqual(biom.getDataMatrix(), [[0.0, 0.0, 1.0], [0.04, 0.12, 0.84]]);
+            assert.deepEqual(matrix, [[0.0, 0.0, 1.0], [0.06, 0.1, 0.84]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0.0, 0.0, 1.0], [0.06, 0.1, 0.84]]);
         });
     });
 
