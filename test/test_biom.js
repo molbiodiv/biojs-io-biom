@@ -1530,14 +1530,14 @@ describe('biojs-io-biom module', () => {
         it('should return correct matrix (but not modify original data)', () => {
             let biom = new Biom({
                 rows: rows,
-                columns: cols,
+                columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}, {id: 's4'}],
                 matrix_type: 'dense',
-                data: [[0, 0, 8], [3, 5, 42]]
+                data: [[0, 0, 8, 0], [3, 5, 42, 0]]
             });
-            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8], [3, 5, 42]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8, 0], [3, 5, 42, 0]]);
             let matrix = biom.norm({dimension: 'columns', inPlace: false});
-            assert.deepEqual(matrix, [[0.0, 0.0, 0.16], [1.0, 1.0, 0.84]]);
-            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8], [3, 5, 42]]);
+            assert.deepEqual(matrix, [[0.0, 0.0, 0.16, 0.0], [1.0, 1.0, 0.84, 0.0]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8, 0], [3, 5, 42, 0]]);
         });
         it('should return correct matrix (and replace original data in-place)', () => {
             let biom = new Biom({
@@ -1546,7 +1546,7 @@ describe('biojs-io-biom module', () => {
                 matrix_type: 'dense',
                 data: [[0, 0, 8], [3, 5, 42]]
             });
-            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 1], [1, 3, 42]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8], [3, 5, 42]]);
             let matrix = biom.norm({dimension: 'rows', inPlace: true});
             assert.deepEqual(matrix, [[0.0, 0.0, 1.0], [0.04, 0.12, 0.84]]);
             assert.deepEqual(biom.getDataMatrix(), [[0.0, 0.0, 1.0], [0.04, 0.12, 0.84]]);
