@@ -1483,6 +1483,35 @@ describe('biojs-io-biom module', () => {
         });
     });
 
+    describe('transform should convert the data using the provided callback (not modifying data)', () => {
+        let rows = [{id: 'o1'}, {id: 'o2'}];
+        let cols = [{id: 's1'}, {id: 's2'}, {id: 's3'}];
+        it('should return correct matrix (but not modify original data)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'dense',
+                data: [[0, 0, 1], [1, 3, 42]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 1], [1, 3, 42]]);
+            let matrix = biom.transform({f: (data, id, metadata)=>{return data.map(x => x/2)}, dimension: 'rows', inPlace: false});
+            assert.deepEqual(matrix, [[0.0, 0.0, 0.5], [0.5, 1.5, 21.0]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 1], [1, 3, 42]]);
+        });
+        it('should return correct matrix (and replace original data in-place)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'dense',
+                data: [[0, 0, 1], [1, 3, 42]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 1], [1, 3, 42]]);
+            let matrix = biom.transform({f: (data, id, metadata)=>{return data.map(x => x*2)}, dimension: 'columns', inPlace: true});
+            assert.deepEqual(matrix, [[0, 0, 2], [2, 6, 84]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 2], [2, 6, 84]]);
+        });
+    });
+
     describe('_indexByID should return the index by given id in rows or columns', () => {
         let rows = [{id: 'r1'}, {id: 'r2'}, {id: 'r3'}, {id: 'r4'}, {id: 'r5'}];
         let cols = [{id: 'c1'}, {id: 'c2'}, {id: 'c3'}, {id: 'c4'}, {id: 'c5'}];
