@@ -1027,15 +1027,10 @@ export class Biom {
     /**
      * Convert data to presence/absence
      * @param inPlace {boolean} - if true the data of the biom object is replaced with the presence/absence data
-     * @return data {Array} - array of arrays containing the full absence/presence matrix in dense format
+     * @return {Array} - array of arrays containing the full absence/presence matrix in dense format
      */
     pa(inPlace){
-        let data = _.cloneDeep(this.getDataMatrix());
-        data = data.map(row => row.map(element => element == 0 ? 0 : 1));
-        if(inPlace){
-            this.setDataMatrix(data);
-        }
-        return data;
+        return this.transform({f: (data, id, metadata) => data.map(x => x === 0 ? 0 : 1), inPlace: inPlace});
     }
 
     /**
