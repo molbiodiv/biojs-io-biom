@@ -1075,6 +1075,12 @@ export class Biom {
         return data;
     }
 
+    /**
+     * Normalize data by using relativation (either by row or column)
+     * @param _dimension {string} rows|columns (default: rows)
+     * @param _inPlace {boolean} - if true the data of the biom object is replaced with the normalized data (default: false)
+     * @return {Array} - array of arrays containing the full normalized matrix in dense format
+     */
     norm({
         dimension: _dimension = 'rows',
         inPlace: _inPlace = false
