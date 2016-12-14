@@ -358,6 +358,31 @@ biom.transform({f: function(data, id, metadata){return data.map(x => x*2)}, dime
 // [[0, 0, 2], [2, 6, 84]]
 ```
 
+#### norm({dimension: 'rows', inPlace: false})
+
+**Parameter**: `options`
+**Type**: `Object`
+**Example**: `{dimension: 'rows', inPlace: false}`
+**Returns** `Array`
+
+This function returns the normalized matrix as an array of arrays using relativation (either by row or by column).
+If `inPlace` is `true` the internal data matrix is replaced.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 8], [3, 5, 42]]
+});
+biom.getDataMatrix();
+// [[0, 0, 8], [3, 5, 42]]
+biom.norm({dimension: 'columns', inPlace: false});
+// [[0.0, 0.0, 0.16], [1.0, 1.0, 0.84]]
+biom.norm({dimension: 'rows', inPlace: false});
+// [[0.0, 0.0, 1.0], [0.06, 0.1, 0.84]]
+```
+
 #### static parse(biomString, options)
 
 **Parameter**: `biomString`
@@ -528,6 +553,7 @@ var biomString = biom.toString();
 ## Changes
 
 ### Next release <small>(TBD)</small>
+ - Add norm function
  - Add transform function
  - Add pa function to convert data to absence/presence
 
