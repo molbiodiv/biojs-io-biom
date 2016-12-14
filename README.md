@@ -308,6 +308,33 @@ biom.data
 // [[0,0,10],[0,1,11],[1,0,9],[1,2,13],[2,0,8],[2,3,99],[3,0,7],[3,1,2],[3,2,3],[3,3,4],[3,4,5],[4,1,6],[4,4,9]]
 ```
 
+#### pa(inPlace)
+
+**Parameter**: `inPlace`
+**Type**: `boolean`
+**Returns** `Array`
+
+This function returns the presence/absence matrix as an array of arrays. If `inPlace` is `true` the internal data matrix is replaced.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 1], [1, 3, 42]]
+});
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 3, 42]]
+biom.pa(false);
+// [[0, 0, 1], [1, 1, 1]]
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 3, 42]]
+biom.pa(true);
+// [[0, 0, 1], [1, 1, 1]]
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 1, 1]]
+```
+
 #### static parse(biomString, options)
 
 **Parameter**: `biomString`
@@ -476,6 +503,9 @@ var biomString = biom.toString();
 
 
 ## Changes
+
+### Next release <small>(TBD)</small>
+ - Add pa function to convert data to absence/presence
 
 ### v1.0.5 <small>(2016-11-08)</small>
  - Export numeric metadata as string (compatibility with BIOM v2.1)
