@@ -1486,6 +1486,12 @@ describe('biojs-io-biom module', () => {
     describe('transform should convert the data using the provided callback (not modifying data)', () => {
         let rows = [{id: 'o1'}, {id: 'o2'}];
         let cols = [{id: 's1'}, {id: 's2'}, {id: 's3'}];
+        it('should throw an error if dimension is unknown', () => {
+            let biom = new Biom({});
+            assert.throws(() => {
+                biom.transform({f: (data, id, metadata) => data, dimension: 'nonExistentDimension', inPlace: false});
+            }, Error);
+        });
         it('should return correct matrix (but not modify original data)', () => {
             let biom = new Biom({
                 rows: rows,
