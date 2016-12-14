@@ -1038,6 +1038,30 @@ export class Biom {
         return data;
     }
 
+    transform({
+        f: _f = (data, id, metadata) => data,
+        dimension: _dimension = 'rows',
+        inPlace: _inPlace = false
+    } = {}){
+        let data = [];
+        if (_dimension === 'rows') {
+            for(let row of this.rows){
+                data.push(_f(this.getDataRow(row.id), row.id, row.metadata));
+            }
+        } else if (_dimension === 'columns') {
+            for(let col of this.columns){
+                data.push(_f(this.getDataColumn(col.id), col.id, col.metadata));
+            }
+            data = _.unzip(data);
+        } else {
+            throw new Error('dimension has to be one of "rows" or "columns"');
+        }
+        if(_inPlace){
+            this.setDataMatrix(data);
+        }
+        return data;
+    }
+
     /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
