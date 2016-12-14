@@ -1075,6 +1075,23 @@ export class Biom {
         return data;
     }
 
+    norm({
+        dimension: _dimension = 'rows',
+        inPlace: _inPlace = false
+    } = {}){
+        return this.transform({
+            f: (data, id, metadata) => {
+                let s = _.sum(data);
+                if(s === 0){
+                    return data.map(x => 0);
+                }
+                return data.map(x => x/s);
+            },
+            dimension: _dimension,
+            inPlace: _inPlace
+        })
+    }
+
     /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
