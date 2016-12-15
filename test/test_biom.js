@@ -1570,9 +1570,9 @@ describe('biojs-io-biom module', () => {
                 data: [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]
             });
             assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]);
-            let matrix = biom.filter({f: (data, id, metadata)=>{return _.sum(data) >= 10}, dimension: 'rows', inPlace: false});
-            assert.deepEqual(matrix, [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]);
-            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0]]);
+            let matrix = biom.filter({f: (data, id, metadata)=>{return data.reduce((a,b)=>a+b, 0) >= 10}, dimension: 'rows', inPlace: false});
+            assert.deepEqual(matrix, [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]);
         });
         it('should return correct matrix (and replace original data in-place)', () => {
             let biom = new Biom({
@@ -1582,7 +1582,7 @@ describe('biojs-io-biom module', () => {
                 data: [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]
             });
             assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]);
-            let matrix = biom.filter({f: (data, id, metadata)=>{return _.sum(data) < 10}, dimension: 'columns', inPlace: true});
+            let matrix = biom.filter({f: (data, id, metadata)=>{return data.reduce((a,b)=>a+b, 0) < 10}, dimension: 'columns', inPlace: true});
             assert.deepEqual(matrix, [[0, 0, 0], [0, 0, 0], [0, 4, 0], [0, 0, 9]]);
             assert.deepEqual(biom.getDataMatrix(), [[0, 0, 0], [0, 0, 0], [0, 4, 0], [0, 0, 9]]);
         });
