@@ -1036,7 +1036,7 @@ export class Biom {
     /**
      * Transform data with a custom function (either by row or column)
      * @param _f {function} - A function that takes three values:
-     *                        1) array of nonzero values corresponding to each observation or sample,
+     *                        1) array of values corresponding to each observation or sample,
      *                        2) observation or sample id,
      *                        3) observation or sample metadata entry.
      *                        It must return an array of transformed values that replace the original values.
@@ -1093,6 +1093,19 @@ export class Biom {
         })
     }
 
+    /**
+     * Filter data with a custom function (either by row or column)
+     * @param _f {function} - A function that takes three values:
+     *                        1) array of values corresponding to each observation or sample,
+     *                        2) observation or sample id,
+     *                        3) observation or sample metadata entry.
+     *                        It must return a boolean indicating whether this column/row should be retained.
+     *                        Example: (data, id, metadata) => metadata.isImportant
+     *                        (default: always true - data will be unchanged)
+     * @param _dimension {string} rows|columns (default: rows)
+     * @param _inPlace {boolean} - if true the data of the biom object is replaced with the filtered data (default: false)
+     * @return {Array} - array of arrays containing the filtered matrix in dense format
+     */
     filter({
         f: _f = (data, id, metadata) => true,
         dimension: _dimension = 'rows',
