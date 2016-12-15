@@ -576,6 +576,7 @@ var biomString = biom.toString();
 ## Changes
 
 ### Next release <small>(TBD)</small>
+ - Add filter function
  - Add norm function
  - Add transform function
  - Add pa function to convert data to absence/presence
