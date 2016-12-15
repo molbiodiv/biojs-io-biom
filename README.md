@@ -383,6 +383,29 @@ biom.norm({dimension: 'rows', inPlace: false});
 // [[0.0, 0.0, 1.0], [0.06, 0.1, 0.84]]
 ```
 
+#### filter({f: function, dimension: 'rows', inPlace: false})
+
+**Parameter**: `options`
+**Type**: `Object`
+**Example**: `{f: function(data, id, metadata){return metadata.priority > 1}, dimension: 'columns', inPlace: true}`
+**Returns** `Array`
+
+This function returns the filtered matrix as an array of arrays using the provided function.
+If `inPlace` is `true` the internal data matrix is replaced.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 1], [1, 3, 42]]
+});
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 3, 42]]
+biom.filter({f: function(data, id, metadata){return id !== 's2'}, dimension: 'columns', inPlace: false});
+// [[0, 1], [1, 42]]
+```
+
 #### static parse(biomString, options)
 
 **Parameter**: `biomString`
