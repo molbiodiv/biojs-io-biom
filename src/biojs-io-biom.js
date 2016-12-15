@@ -1093,6 +1093,45 @@ export class Biom {
         })
     }
 
+    filter({
+        f: _f = (data, id, metadata) => true,
+        dimension: _dimension = 'rows',
+        inPlace: _inPlace = false
+    } = {}){
+        let data = [];
+        if (_dimension === 'rows') {
+            let newRows = [];
+            for(let row of this.rows){
+                let rowData = this.getDataRow(row.id);
+                if(_f(rowData, row.id, row.metadata)){
+                    data.push(rowData);
+                    newRows.push(row);
+                }
+            }
+            if(_inPlace){
+                // it is enough to set rows, data is updated automatically
+                this.rows = newRows;
+            }
+        } else if (_dimension === 'columns') {
+            let newCols = [];
+            for(let col of this.columns){
+                let colData = this.getDataColumn(col.id);
+                if(_f(colData, col.id, col.metadata)){
+                    data.push(colData);
+                    newCols.push(col);
+                }
+            }
+            if(_inPlace){
+                // it is enough to set columns, data is updated automatically
+                this.columns = newCols;
+            }
+            data = _.unzip(data);
+        } else {
+            throw new Error('dimension has to be one of "rows" or "columns"');
+        }
+        return data;
+    }
+
     /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
