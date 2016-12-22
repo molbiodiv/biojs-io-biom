@@ -12,7 +12,7 @@ const _ = require('lodash');
  * Version
  * @type {string} version of this module
  */
-export const VERSION = '1.0.5';
+export const VERSION = '1.0.6';
 
 /**
  * Default Biom Object for empty initialization
@@ -1022,6 +1022,127 @@ export class Biom {
         } else if (this.matrix_type === 'sparse') {
             this.data = this.constructor.dense2sparse(data);
         }
+    }
+
+    /**
+     * Convert data to presence/absence
+     * @param inPlace {boolean} - if true the data of the biom object is replaced with the presence/absence data
+     * @return {Array} - array of arrays containing the full absence/presence matrix in dense format
+     */
+    pa(inPlace){
+        return this.transform({f: (data, id, metadata) => data.map(x => x === 0 ? 0 : 1), inPlace: inPlace});
+    }
+
+    /**
+     * Transform data with a custom function (either by row or column)
+     * @param _f {function} - A function that takes three values:
+     *                        1) array of values corresponding to each observation or sample,
+     *                        2) observation or sample id,
+     *                        3) observation or sample metadata entry.
+     *                        It must return an array of transformed values that replace the original values.
+     *                        Example: (data, id, metadata) => data.map(x => x*2)
+     *                        (default: identity function - data will be unchanged)
+     * @param _dimension {string} rows|columns (default: rows)
+     * @param _inPlace {boolean} - if true the data of the biom object is replaced with the transformed data (default: false)
+     * @return {Array} - array of arrays containing the full transformed matrix in dense format
+     */
+    transform({
+        f: _f = (data, id, metadata) => data,
+        dimension: _dimension = 'rows',
+        inPlace: _inPlace = false
+    } = {}){
+        let data = [];
+        if (_dimension === 'rows') {
+            for(let row of this.rows){
+                data.push(_f(this.getDataRow(row.id), row.id, row.metadata));
+            }
+        } else if (_dimension === 'columns') {
+            for(let col of this.columns){
+                data.push(_f(this.getDataColumn(col.id), col.id, col.metadata));
+            }
+            data = _.unzip(data);
+        } else {
+            throw new Error('dimension has to be one of "rows" or "columns"');
+        }
+        if(_inPlace){
+            this.setDataMatrix(data);
+        }
+        return data;
+    }
+
+    /**
+     * Normalize data by using relativation (either by row or column)
+     * @param _dimension {string} rows|columns (default: rows)
+     * @param _inPlace {boolean} - if true the data of the biom object is replaced with the normalized data (default: false)
+     * @return {Array} - array of arrays containing the full normalized matrix in dense format
+     */
+    norm({
+        dimension: _dimension = 'rows',
+        inPlace: _inPlace = false
+    } = {}){
+        return this.transform({
+            f: (data, id, metadata) => {
+                let s = _.sum(data);
+                if(s === 0){
+                    return data.map(x => 0);
+                }
+                return data.map(x => x/s);
+            },
+            dimension: _dimension,
+            inPlace: _inPlace
+        })
+    }
+
+    /**
+     * Filter data with a custom function (either by row or column)
+     * @param _f {function} - A function that takes three values:
+     *                        1) array of values corresponding to each observation or sample,
+     *                        2) observation or sample id,
+     *                        3) observation or sample metadata entry.
+     *                        It must return a boolean indicating whether this column/row should be retained.
+     *                        Example: (data, id, metadata) => metadata.isImportant
+     *                        (default: always true - data will be unchanged)
+     * @param _dimension {string} rows|columns (default: rows)
+     * @param _inPlace {boolean} - if true the data of the biom object is replaced with the filtered data (default: false)
+     * @return {Array} - array of arrays containing the filtered matrix in dense format
+     */
+    filter({
+        f: _f = (data, id, metadata) => true,
+        dimension: _dimension = 'rows',
+        inPlace: _inPlace = false
+    } = {}){
+        let data = [];
+        if (_dimension === 'rows') {
+            let newRows = [];
+            for(let row of this.rows){
+                let rowData = this.getDataRow(row.id);
+                if(_f(rowData, row.id, row.metadata)){
+                    data.push(rowData);
+                    newRows.push(row);
+                }
+            }
+            if(_inPlace){
+                // it is enough to set rows, data is updated automatically
+                this.rows = newRows;
+            }
+        } else if (_dimension === 'columns') {
+            let newCols = [];
+            for(let col of this.columns){
+                let colData = this.getDataColumn(col.id);
+                if(_f(colData, col.id, col.metadata)){
+                    data.push(colData);
+                    newCols.push(col);
+                }
+            }
+            if(_inPlace){
+                // it is enough to set columns, data is updated automatically
+                this.columns = newCols;
+            }
+            data = _.unzip(data);
+        } else {
+            throw new Error('dimension has to be one of "rows" or "columns"');
+        }
+        return data;
     }
 
     /**

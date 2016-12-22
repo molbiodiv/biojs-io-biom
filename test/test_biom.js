@@ -1454,6 +1454,140 @@ describe('biojs-io-biom module', () => {
         });
     });
 
+    describe('pa should convert the data to presence/absence', () => {
+        let rows = [{id: 'r1'}, {id: 'r2'}, {id: 'r3'}, {id: 'r4'}, {id: 'r5'}];
+        let cols = [{id: 'c1'}, {id: 'c2'}, {id: 'c3'}, {id: 'c4'}, {id: 'c5'}];
+        it('should return correct matrix (but not modify original data)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'sparse',
+                data: [[0, 1, 11], [1, 2, 13], [4, 4, 9]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 9]]);
+            let matrix = biom.pa(false);
+            assert.deepEqual(matrix, [[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 1]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 9]]);
+        });
+        it('should return correct matrix (and replace original data in-place)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'sparse',
+                data: [[0, 1, 11], [1, 2, 13], [4, 4, 9]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 9]]);
+            let matrix = biom.pa(true);
+            assert.deepEqual(matrix, [[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 1]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 1]]);
+        });
+    });
+
+    describe('transform should convert the data using the provided callback (not modifying data)', () => {
+        let rows = [{id: 'o1'}, {id: 'o2'}];
+        let cols = [{id: 's1'}, {id: 's2'}, {id: 's3'}];
+        it('should throw an error if dimension is unknown', () => {
+            let biom = new Biom({});
+            assert.throws(() => {
+                biom.transform({f: (data, id, metadata) => data, dimension: 'nonExistentDimension', inPlace: false});
+            }, Error);
+        });
+        it('should return correct matrix (but not modify original data)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'dense',
+                data: [[0, 0, 1], [1, 3, 42]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 1], [1, 3, 42]]);
+            let matrix = biom.transform({f: (data, id, metadata)=>{return data.map(x => x/2)}, dimension: 'rows', inPlace: false});
+            assert.deepEqual(matrix, [[0.0, 0.0, 0.5], [0.5, 1.5, 21.0]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 1], [1, 3, 42]]);
+        });
+        it('should return correct matrix (and replace original data in-place)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'dense',
+                data: [[0, 0, 1], [1, 3, 42]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 1], [1, 3, 42]]);
+            let matrix = biom.transform({f: (data, id, metadata)=>{return data.map(x => x*2)}, dimension: 'columns', inPlace: true});
+            assert.deepEqual(matrix, [[0, 0, 2], [2, 6, 84]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 2], [2, 6, 84]]);
+        });
+    });
+
+    describe('normalize should convert the data using the provided callback (not modifying data)', () => {
+        let rows = [{id: 'o1'}, {id: 'o2'}];
+        let cols = [{id: 's1'}, {id: 's2'}, {id: 's3'}];
+        it('should throw an error if dimension is unknown', () => {
+            let biom = new Biom({});
+            assert.throws(() => {
+                biom.norm({dimension: 'nonExistentDimension', inPlace: false});
+            }, Error);
+        });
+        it('should return correct matrix (but not modify original data)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}, {id: 's4'}],
+                matrix_type: 'dense',
+                data: [[0, 0, 8, 0], [3, 5, 42, 0]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8, 0], [3, 5, 42, 0]]);
+            let matrix = biom.norm({dimension: 'columns', inPlace: false});
+            assert.deepEqual(matrix, [[0.0, 0.0, 0.16, 0.0], [1.0, 1.0, 0.84, 0.0]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8, 0], [3, 5, 42, 0]]);
+        });
+        it('should return correct matrix (and replace original data in-place)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'dense',
+                data: [[0, 0, 8], [3, 5, 42]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 8], [3, 5, 42]]);
+            let matrix = biom.norm({dimension: 'rows', inPlace: true});
+            assert.deepEqual(matrix, [[0.0, 0.0, 1.0], [0.06, 0.1, 0.84]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0.0, 0.0, 1.0], [0.06, 0.1, 0.84]]);
+        });
+    });
+
+    describe('filter should filter the data matrix using the provided callback (not modifying data)', () => {
+        let rows = [{id: 'o1'}, {id: 'o2'}, {id: 'o3'}, {id: 'o4'}];
+        let cols = [{id: 's1'}, {id: 's2'}, {id: 's3'}, {id: 's4'}, {id: 's5'}];
+        it('should throw an error if dimension is unknown', () => {
+            let biom = new Biom({});
+            assert.throws(() => {
+                biom.filter({f: (data, id, metadata) => true, dimension: 'nonExistentDimension', inPlace: false});
+            }, Error);
+        });
+        it('should return correct matrix (but not modify original data)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'dense',
+                data: [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]);
+            let matrix = biom.filter({f: (data, id, metadata)=>{return data.reduce((a,b)=>a+b, 0) >= 10}, dimension: 'rows', inPlace: false});
+            assert.deepEqual(matrix, [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]);
+        });
+        it('should return correct matrix (and replace original data in-place)', () => {
+            let biom = new Biom({
+                rows: rows,
+                columns: cols,
+                matrix_type: 'dense',
+                data: [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]
+            });
+            assert.deepEqual(biom.getDataMatrix(), [[0, 11, 0, 0, 0], [0, 0, 13, 0, 0], [0, 2, 3, 4, 0], [0, 0, 0, 0, 9]]);
+            let matrix = biom.filter({f: (data, id, metadata)=>{return data.reduce((a,b)=>a+b, 0) < 10}, dimension: 'columns', inPlace: true});
+            assert.deepEqual(matrix, [[0, 0, 0], [0, 0, 0], [0, 4, 0], [0, 0, 9]]);
+            assert.deepEqual(biom.getDataMatrix(), [[0, 0, 0], [0, 0, 0], [0, 4, 0], [0, 0, 9]]);
+        });
+    });
+
     describe('_indexByID should return the index by given id in rows or columns', () => {
         let rows = [{id: 'r1'}, {id: 'r2'}, {id: 'r3'}, {id: 'r4'}, {id: 'r5'}];
         let cols = [{id: 'c1'}, {id: 'c2'}, {id: 'c3'}, {id: 'c4'}, {id: 'c5'}];

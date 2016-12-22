@@ -308,6 +308,104 @@ biom.data
 // [[0,0,10],[0,1,11],[1,0,9],[1,2,13],[2,0,8],[2,3,99],[3,0,7],[3,1,2],[3,2,3],[3,3,4],[3,4,5],[4,1,6],[4,4,9]]
 ```
 
+#### pa(inPlace)
+
+**Parameter**: `inPlace`
+**Type**: `boolean`
+**Returns** `Array`
+
+This function returns the presence/absence matrix as an array of arrays. If `inPlace` is `true` the internal data matrix is replaced.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 1], [1, 3, 42]]
+});
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 3, 42]]
+biom.pa(false);
+// [[0, 0, 1], [1, 1, 1]]
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 3, 42]]
+biom.pa(true);
+// [[0, 0, 1], [1, 1, 1]]
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 1, 1]]
+```
+
+#### transform({f: function, dimension: 'rows', inPlace: false})
+
+**Parameter**: `options`
+**Type**: `Object`
+**Example**: `{f: function(data, id, metadata){return data.map(x => x*2)}, dimension: 'columns', inPlace: true}`
+**Returns** `Array`
+
+This function returns the transformed matrix as an array of arrays using the provided function.
+If `inPlace` is `true` the internal data matrix is replaced.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 1], [1, 3, 42]]
+});
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 3, 42]]
+biom.transform({f: function(data, id, metadata){return data.map(x => x*2)}, dimension: 'columns', inPlace: true});
+// [[0, 0, 2], [2, 6, 84]]
+```
+
+#### norm({dimension: 'rows', inPlace: false})
+
+**Parameter**: `options`
+**Type**: `Object`
+**Example**: `{dimension: 'rows', inPlace: false}`
+**Returns** `Array`
+
+This function returns the normalized matrix as an array of arrays using relativation (either by row or by column).
+If `inPlace` is `true` the internal data matrix is replaced.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 8], [3, 5, 42]]
+});
+biom.getDataMatrix();
+// [[0, 0, 8], [3, 5, 42]]
+biom.norm({dimension: 'columns', inPlace: false});
+// [[0.0, 0.0, 0.16], [1.0, 1.0, 0.84]]
+biom.norm({dimension: 'rows', inPlace: false});
+// [[0.0, 0.0, 1.0], [0.06, 0.1, 0.84]]
+```
+
+#### filter({f: function, dimension: 'rows', inPlace: false})
+
+**Parameter**: `options`
+**Type**: `Object`
+**Example**: `{f: function(data, id, metadata){return metadata.priority > 1}, dimension: 'columns', inPlace: true}`
+**Returns** `Array`
+
+This function returns the filtered matrix as an array of arrays using the provided function.
+If `inPlace` is `true` the internal data matrix is replaced.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 1], [1, 3, 42]]
+});
+biom.getDataMatrix();
+// [[0, 0, 1], [1, 3, 42]]
+biom.filter({f: function(data, id, metadata){return id !== 's2'}, dimension: 'columns', inPlace: false});
+// [[0, 1], [1, 42]]
+```
+
 #### static parse(biomString, options)
 
 **Parameter**: `biomString`
@@ -476,6 +574,12 @@ var biomString = biom.toString();
 
 
 ## Changes
+
+### v1.0.6 <small>(2016-12-22)</small>
+ - Add filter function
+ - Add norm function
+ - Add transform function
+ - Add pa function to convert data to absence/presence
 
 ### v1.0.5 <small>(2016-11-08)</small>
  - Export numeric metadata as string (compatibility with BIOM v2.1)
