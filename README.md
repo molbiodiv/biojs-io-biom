@@ -575,7 +575,7 @@ var biomString = biom.toString();
 
 ## Changes
 
-### Next release <small>(TBD)</small>
+### v1.0.6 <small>(2016-12-22)</small>
  - Add filter function
  - Add norm function
  - Add transform function
