@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/molbiodiv/biojs-io-biom/badge.svg?branch=master)](https://coveralls.io/github/molbiodiv/biojs-io-biom?branch=master)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![DOI](https://zenodo.org/badge/12731/molbiodiv/biojs-io-biom.svg)](https://zenodo.org/badge/latestdoi/12731/molbiodiv/biojs-io-biom)
+[![DOI](https://img.shields.io/badge/DOI-10.12688%2Ff1000research.9618.2-blue.svg)](https://dx.doi.org/10.12688/f1000research.9618.2)
 
 > Parses biom files
 
@@ -54,6 +55,17 @@ The file you need will be under `bower_components/biojs-io-biom/build/biom.js` i
 ## Documentation
 
 See the [biom format specification (version 1.0)](http://biom-format.org/documentation/format_versions/biom-1.0.html) for more details on the file format.
+
+### How to cite
+
+Please cite our article at f1000 Research that describes this module:
+```
+Markus J. Ankenbrand, Niklas Terhoeven, Sonja Hohlfeld, Frank Förster, and Alexander Keller.
+biojs-io-biom, a BioJS component for handling data in Biological Observation Matrix (BIOM) format[version 2; referees: 1 approved, 2 approved with reservations].
+F1000Research 2017, 5:2348. doi: 10.12688/f1000research.9618.2
+```
+You can cite the current version of this software repository using the Zenodo [![DOI](https://zenodo.org/badge/12731/molbiodiv/biojs-io-biom.svg)](https://zenodo.org/badge/latestdoi/12731/molbiodiv/biojs-io-biom)
+
 Please cite the biom-format project (in addition to this module) as:
 ```
 The Biological Observation Matrix (BIOM) format or: how I learned to stop worrying and love the ome-ome.
