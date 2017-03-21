@@ -58,7 +58,8 @@ export const TYPE_CV = [
     'Ortholog table',
     'Gene table',
     'Metabolite table',
-    'Taxon table'
+    'Taxon table',
+    'Table'
 ];
 
 /**
