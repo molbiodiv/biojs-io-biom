@@ -12,7 +12,7 @@ const _ = require('lodash');
  * Version
  * @type {string} version of this module
  */
-export const VERSION = '1.0.6';
+export const VERSION = '1.0.7';
 
 /**
  * Default Biom Object for empty initialization
@@ -58,7 +58,8 @@ export const TYPE_CV = [
     'Ortholog table',
     'Gene table',
     'Metabolite table',
-    'Taxon table'
+    'Taxon table',
+    'Table'
 ];
 
 /**

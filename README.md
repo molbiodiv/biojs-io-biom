@@ -587,6 +587,9 @@ var biomString = biom.toString();
 
 ## Changes
 
+### v1.0.7 <small>(2017-03-21)</small>
+ - Add 'Table' to cv for type. Improves interoperability with python tool.
+
 ### v1.0.6 <small>(2016-12-22)</small>
  - Add filter function
  - Add norm function
