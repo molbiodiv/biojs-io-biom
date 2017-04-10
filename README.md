@@ -587,6 +587,9 @@ var biomString = biom.toString();
 
 ## Changes
 
+### v1.0.8 <small>(2017-04-10)</small>
+ - Add proper handling of arrays as metadata (replace with empty object, fixes PHPs json decode/encode problem with empty objects)
+
 ### v1.0.7 <small>(2017-03-21)</small>
  - Add 'Table' to cv for type. Improves interoperability with python tool.
 
