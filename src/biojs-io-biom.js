@@ -312,7 +312,7 @@ export class Biom {
             if (typeof row.id === 'undefined') {
                 throw new TypeError('every row has to have an id');
             }
-            if (typeof row.metadata === 'undefined' || row.metadata === null) {
+            if (typeof row.metadata === 'undefined' || row.metadata === null || Array.isArray(row.metadata)) {
                 row.metadata = {};
             }
             if (typeof new_id_dict[row.id] !== 'undefined') {
@@ -375,7 +375,7 @@ export class Biom {
             if (typeof col.id === 'undefined') {
                 throw new TypeError('every column has to have an id');
             }
-            if (typeof col.metadata === 'undefined' || col.metadata === null) {
+            if (typeof col.metadata === 'undefined' || col.metadata === null || Array.isArray(col.metadata)) {
                 col.metadata = {};
             }
             if (typeof new_id_dict[col.id] !== 'undefined') {
