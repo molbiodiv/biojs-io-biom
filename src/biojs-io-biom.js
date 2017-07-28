@@ -1151,7 +1151,12 @@ export class Biom {
      * This function alters the object in place and does not return anything
      */
     transpose() {
-        let transposedData = _.zip.apply(_, this.data);
+        let transposedData;
+        if (this.matrix_type === 'dense') {
+            transposedData = _.zip.apply(_, this.data);
+        } else {
+            transposedData = this.data.map(x => [x[1], x[0], x[2]]);
+        }
         let oldRows = this.rows;
         this.rows = this.columns;
         this.columns = oldRows;
