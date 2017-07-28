@@ -1638,14 +1638,14 @@ describe('biojs-io-biom module', () => {
         it('should transpose in sparse format', () => {
             let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse', data: sparseData});
             biom.transpose();
-            assert.deepEqual(biom.data, transposedMatrix);
+            assert.deepEqual(biom.getDataMatrix(), transposedMatrix);
             assert.equal(biom.rows[2].id === 'c3');
             assert.equal(biom.columns[0].id === 'r1');
         });
         it('should transpose in dense format', () => {
             let biom = new Biom({rows: rows, columns: cols, matrix_type: 'dense', data: denseData});
             biom.transpose();
-            assert.deepEqual(biom.data, transposedMatrix);
+            assert.deepEqual(biom.getDataMatrix(), transposedMatrix);
             assert.equal(biom.rows[2].id === 'c3');
             assert.equal(biom.columns[0].id === 'r1');
         });
