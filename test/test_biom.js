@@ -1628,4 +1628,26 @@ describe('biojs-io-biom module', () => {
             assert.deepEqual(Biom.dense2sparse(denseData).sort(sortByCoord), sparseData.sort(sortByCoord));
         });
     });
+
+    describe('transpose transposes the object in place', () => {
+        let denseData = [[9, 0, 0, 0, 0], [0, 5, 0, 0, 0], [0, 13, 0, 0, 0], [0, 0, 0, 1, 0]];
+        let sparseData = [[1, 1, 5], [2, 1, 13], [3, 3, 1], [0, 0, 9]];
+        let rows = [{id: 'r1'}, {id: 'r2'}, {id: 'r3'}, {id: 'r4'}];
+        let cols = [{id: 'c1'}, {id: 'c2'}, {id: 'c3'}, {id: 'c4'}, {id: 'c5'}];
+        let transposedMatrix = [[9, 0, 0, 0], [0, 5, 13, 0], [0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 0]];
+        it('should transpose in sparse format', () => {
+            let biom = new Biom({rows: rows, columns: cols, matrix_type: 'sparse', data: sparseData});
+            biom.transpose();
+            assert.deepEqual(biom.data, transposedMatrix);
+            assert.equal(biom.rows[2].id === 'c3');
+            assert.equal(biom.columns[0].id === 'r1');
+        });
+        it('should transpose in dense format', () => {
+            let biom = new Biom({rows: rows, columns: cols, matrix_type: 'dense', data: denseData});
+            biom.transpose();
+            assert.deepEqual(biom.data, transposedMatrix);
+            assert.equal(biom.rows[2].id === 'c3');
+            assert.equal(biom.columns[0].id === 'r1');
+        });
+    });
 });
