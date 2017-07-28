@@ -605,6 +605,11 @@ var biomString = biom.toString();
 
 ## Changes
 
+### v1.0.9 <small>(2017-07-28)</small>
+ - Add `transpose` function
+ - Update dependencies
+ - Add yarn as dependency manager
+
 ### v1.0.8 <small>(2017-04-10)</small>
  - Add proper handling of arrays as metadata (replace with empty object, fixes PHPs json decode/encode problem with empty objects)
 
