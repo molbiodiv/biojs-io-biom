@@ -32,8 +32,8 @@ var isparta = require('isparta');
 var runSequence = require('run-sequence');
 var coveralls = require('gulp-coveralls');
 
-// code style 
-var jshint = require('gulp-jshint'); 
+// code style
+var jshint = require('gulp-jshint');
 
 // gulp helper
 var source = require('vinyl-source-stream'); // converts node streams into vinyl streams
@@ -80,7 +80,8 @@ gulp.task('test-unit', function () {
 
     return gulp.src('./test/**/*.js', {read: false})
 
-        .pipe(mocha({reporter: 'spec',
+        .pipe(mocha({compilers: 'js:babel-core/register',
+                    reporter: 'spec',
                     useColors: true}))
 });
 
@@ -115,7 +116,7 @@ gulp.task('test-watch', function() {
 
 // will remove everything in build
 gulp.task('clean', function(cb) {
-  del([buildDir], cb);
+  return del([buildDir], cb);
 });
 
 // just makes sure that the build dir exists
@@ -131,7 +132,7 @@ gulp.task('build-browser',['init'], function() {
   exposeBundles(b);
   return b.bundle()
     .pipe(source(outputFile + ".js"))
-    .pipe(chmod(644))
+    .pipe(chmod(0o644))
     .pipe(gulp.dest(buildDir));
 });
 
@@ -141,11 +142,11 @@ gulp.task('build-browser-min',['init'], function() {
   exposeBundles(b);
   return b.bundle()
     .pipe(source(outputFile + ".min.js"))
-    .pipe(chmod(644))
+    .pipe(chmod(0o644))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(buildDir));
 });
- 
+
 gulp.task('build-browser-gzip', ['build-browser-min'], function() {
   return gulp.src(outputFileMin)
     .pipe(gzip({append: false, gzipOptions: { level: 9 }}))
@@ -164,7 +165,7 @@ function exposeBundles(b){
   }
 }
 
-// watch task for browserify 
+// watch task for browserify
 // watchify has an internal cache -> subsequent builds are faster
 gulp.task('watch', function() {
   var util = require('gulp-util')
@@ -180,7 +181,7 @@ gulp.task('watch', function() {
       util.log(util.colors.red("Error: "), error);
      })
     .pipe(source(outputFile + ".js"))
-    .pipe(chmod(644))
+    .pipe(chmod(0o644))
     .pipe(gulp.dest(buildDir));
   }
 
