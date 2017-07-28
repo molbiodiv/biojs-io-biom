@@ -1646,8 +1646,8 @@ describe('biojs-io-biom module', () => {
             let biom = new Biom({rows: rows, columns: cols, matrix_type: 'dense', data: denseData});
             biom.transpose();
             assert.deepEqual(biom.getDataMatrix(), transposedMatrix);
-            assert.equal(biom.rows[2].id === 'c3');
-            assert.equal(biom.columns[0].id === 'r1');
+            assert.equal(biom.rows[2].id, 'c3');
+            assert.equal(biom.columns[0].id, 'r1');
         });
     });
 });
