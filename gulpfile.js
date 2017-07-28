@@ -116,7 +116,7 @@ gulp.task('test-watch', function() {
 
 // will remove everything in build
 gulp.task('clean', function(cb) {
-  del([buildDir], cb);
+  return del([buildDir], cb);
 });
 
 // just makes sure that the build dir exists
@@ -132,7 +132,7 @@ gulp.task('build-browser',['init'], function() {
   exposeBundles(b);
   return b.bundle()
     .pipe(source(outputFile + ".js"))
-    .pipe(chmod(644))
+    .pipe(chmod(0o644))
     .pipe(gulp.dest(buildDir));
 });
 
@@ -142,7 +142,7 @@ gulp.task('build-browser-min',['init'], function() {
   exposeBundles(b);
   return b.bundle()
     .pipe(source(outputFile + ".min.js"))
-    .pipe(chmod(644))
+    .pipe(chmod(0o644))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(buildDir));
 });
@@ -181,7 +181,7 @@ gulp.task('watch', function() {
       util.log(util.colors.red("Error: "), error);
      })
     .pipe(source(outputFile + ".js"))
-    .pipe(chmod(644))
+    .pipe(chmod(0o644))
     .pipe(gulp.dest(buildDir));
   }
 
