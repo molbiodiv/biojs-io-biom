@@ -418,6 +418,24 @@ biom.filter({f: function(data, id, metadata){return id !== 's2'}, dimension: 'co
 // [[0, 1], [1, 42]]
 ```
 
+#### transpose()
+This function transposes the matrix in place.
+In the process `rows` and `columns` are switched as well.
+
+```javascript
+biom = new Biom({
+    rows: [{id: 'o1'}, {id: 'o2'}],
+    columns: [{id: 's1'}, {id: 's2'}, {id: 's3'}],
+    matrix_type: 'dense',
+    data: [[0, 0, 1], [1, 3, 42]]
+});
+biom.transpose()
+biom.getDataMatrix();
+// [[0, 1], [0, 3], [1, 42]]
+biom.rows[0].id
+// s1
+```
+
 #### static parse(biomString, options)
 
 **Parameter**: `biomString`
