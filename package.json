@@ -1,7 +1,7 @@
 {
   "name": "biojs-io-biom",
   "description": "Parses biom files",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "homepage": "https://github.com/molbiodiv/biojs-io-biom",
   "author": {
     "name": "Markus J. Ankenbrand",
