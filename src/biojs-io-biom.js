@@ -1147,6 +1147,18 @@ export class Biom {
     }
 
     /**
+     * Transpose the data matrix and corresponding rows and columns
+     * This function alters the object in place and does not return anything
+     */
+    transpose() {
+        let transposedData = _.zip.apply(_, this.data);
+        let oldRows = this.rows;
+        this.rows = this.columns;
+        this.columns = oldRows;
+        this.data = transposedData;
+    }
+
+    /**
      * Get row/column index of a given id, returns null for unknown id
      * This function is meant for internal use
      * @param id {string} - the id of the desired row/column
